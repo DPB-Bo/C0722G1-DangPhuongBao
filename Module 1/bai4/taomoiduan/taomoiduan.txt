@@ -1,0 +1,9 @@
+git remote add origin : kết local repo với remote repo
+
+git add . : để đưa tất cả file mới ở trên local repo vào mục của git
+
+git commit -m "" : để đặt tên cho thay đổi lần này - ghi nhớ 
+
+git push origin master : để đưa thẳng những thay đổi của local repo lên remote repo
+
+link git đã tạo : https://github.com/DPB-Bo/my-new-project.git
