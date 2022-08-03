@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>bt1_tao_form_co_ban</title>
+</head>
+<body>
+  <form action="bt1_tao_form_co_ban" method="get" style="font-family: 'Lucida Sans Unicode'">
+    <h1>Order Form</h1>
+    <p>What would you like to buy ?</p>
+    <select name="selectABC">
+      <option value="A">A</option>
+      <option value="B">B (+0.5$)</option>
+      <option value="B">C (+1$)</option>
+    </select>
+    <p>How many would you like to order ?</p>
+    <label><input type="radio" name="amount" value="am1">1 - $10</label><br>
+    <label><input type="radio" name="amount" value="am2">2 - $20</label><br>
+    <label><input type="radio" name="amount" value="am3">3 - $25</label><br>
+    <p>Name<span style="color: red">*</span>:</p>
+    <label><input type="text" name="firstname" value="firstname">&ensp;<input type="text" name="lastname" value="lastname"></label>
+    <p>Phone Number:</p>
+    <label><input type="number" name="labelnumber" id="ln1">-<input type="number" name="labelnumber" id="ln2">-<input type="number" name="labelnumber" id="ln3"></label>
+    <br>
+    <br>
+    <input type="submit" name="btnsubmit" value="sumbit">
+  </form>
+</body>
+</html>
