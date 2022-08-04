@@ -1,82 +1,186 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
+  <head>
+    <meta charset="UTF-8" />
     <title>bt2_phan_1</title>
-  <style>
-    #divbox{
-      width: 500px;
-      height: 500px;
-      margin: 50px auto;
-      padding: 10px;
-      border: 1px solid black;
-    }
-    table{
+    <style>
+      #divbox {
+        width: 500px;
+        height: 200px;
+        margin: 50px auto;
+        padding: 10px;
+        border: 1px solid black;
+        background-color: aliceblue;
+      }
+
+      table {
         width: 100%;
         height: 100%;
-    }
-    #thdiv{
+      }
+
+      #thdiv {
         background: orangered;
         color: aliceblue;
-    }
-    #tdtxt{
+      }
 
-    }
-  </style>
-</head>
-<body>
-  <div id="divbox">
-    <form action="" method="get">
-<!--      <p id="divtxt">SỞ THÍCH CỦA BẠN LÀ GÌ ?</p>-->
-<!--      <label id="divtxt2">Họ và tên: <input type="text" name="yourname" placeholder="DANG PHUONG A"></label>-->
-<!--        <br>-->
-<!--      <label id="divtxt3">Email: <input type="email" name="email" placeholder="email@gmail.com"></label>-->
-<!--        <br>-->
-<!--      <label id="divtxt4">Họ và tên: <input type="text" name="name" placeholder="DANG PHUONG A"></label>-->
+      .txtcheckbox {
+        color: orangered;
+      }
+      .txtinput{
+        color: blue;
+      }
+      .backgroundbody{
+        background-color: aqua;
+      }
+    </style>
+  </head>
+
+  <body class="backgroundbody">
+    <div id="divbox">
+      <form action="" method="get">
+        <!--      <p id="divtxt">SỞ THÍCH CỦA BẠN LÀ GÌ ?</p>-->
+        <!--      <label id="divtxt2">Họ và tên: <input type="text" name="yourname" placeholder="DANG PHUONG A"></label>-->
+        <!--        <br>-->
+        <!--      <label id="divtxt3">Email: <input type="email" name="email" placeholder="email@gmail.com"></label>-->
+        <!--        <br>-->
+        <!--      <label id="divtxt4">Họ và tên: <input type="text" name="name" placeholder="DANG PHUONG A"></label>-->
         <table>
-            <tr>
-                <th colspan="4" id="thdiv">SỞ THÍCH CỦA BẠN LÀ GÌ ?</th>
-            </tr>
-            <tr>
-                <td style="text-align: right">Họ và tên: </td>
-                <td colspan="3"><input type="text" name="yourname" placeholder="dangphuongA"></td>
-            </tr>
-            <tr>
-                <td  style="text-align: right">Email: </td>
-                <td colspan="3" ><input type="email" name="email" placeholder="email@gmail.com"></td>
-                <td></td>
-                <td></td>
-            </tr>
-            <tr>
-                <td style="text-align: right">Sở thích: </td>
-                <td><input type="checkbox" name="hobby" value="thethao">Thể thao</td>
-                <td><input type="checkbox" name="hobby" value="amnhac">Âm nhạc</td>
-                <td><input type="checkbox" name="hobby" value="Đọc sách">Đọc sách</td>
-            </tr>
-            <tr>
-                <td></td>
-                <td><input type="checkbox" name="hobby" value="luotweb">Lướt web</td>
-                <td><input type="checkbox" name="hobby" value="choigame">Chơi game</td>
-                <td><input type="checkbox" name="hobby" value="dienanh">Điện ảnh</td>
-            </tr>
-            <tr>
-                <td></td>
-                <td><input type="checkbox" name="hobby" value="dulich">Du lịch</td>
-                <td></td>
-                <td></td>
-            </tr>
+          <tr>
+            <th colspan="4" id="thdiv">SỞ THÍCH CỦA BẠN LÀ GÌ ?</th>
+          </tr>
+          <tr>
+            <td style="text-align: right">
+              <div class="txtinput">
+                <label for="name">Họ và tên:</label>
+              </div>
+            </td>
+            <td colspan="3">
+              <input
+                type="text"
+                id="name"
+                name="yourname"
+                placeholder="dangphuongA"
+              />
+            </td>
+          </tr>
+          <tr>
+            <td style="text-align: right">
+              <div class="txtinput">
+                <label for="email">Email:</label>
+              </div>
+            </td>
+            <td colspan="3">
+              <input
+                type="email"
+                id="email"
+                name="email"
+                placeholder="email@gmail.com"
+              />
+            </td>
+            <td></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td style="text-align: right">
+                <div class="txtinput">
+                    Sở thích:
+                </div>
+            </td>
+            <td>
+              <div class="txtcheckbox">
+                <input
+                  type="checkbox"
+                  name="hobby"
+                  value="thethao"
+                  id="thethao"
+                />
+                <label for="thethao">Thể thao</label>
+              </div>
+            </td>
+            <td>
+              <div class="txtcheckbox">
+                <input
+                  type="checkbox"
+                  name="hobby"
+                  id="amnhac"
+                  value="amnhac"
+                />
+                <label for="amnhac"> Âm nhạc </label>
+              </div>
+            </td>
+            <td>
+              <div class="txtcheckbox">
+                <input
+                  type="checkbox"
+                  name="hobby"
+                  id="docsach"
+                  value="Đọc sách"
+                />
+                <label for="docsach">Đọc sách</label>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td></td>
+            <td>
+              <div class="txtcheckbox">
+                <input
+                  type="checkbox"
+                  name="hobby"
+                  id="luotweb"
+                  value="luotweb"
+                />
+                <label for="luotweb">Lướt Web</label>
+              </div>
+            </td>
+            <td>
+              <div class="txtcheckbox">
+                <input type="checkbox" name="hobby" id="choigame" value="choigame" />
+                <label for="choigame">Chơi game </label>
+              </div>
+            </td>
+            <td>
+              <div class="txtcheckbox">
+                <input type="checkbox" name="hobby" id="dienanh" value="dienanh" />
+                <label for="dienanh">Điện ảnh</label>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td></td>
+            <td>
+              <div class="txtcheckbox">
+                <input type="checkbox" name="hobby" id="dulich" value="dulich" />
+                <label for="dulich">Du lịch</label>
+              </div>
+            </td>
+            <td></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td></td>
+            <td>
+                <label for="submit"></label>
+                <input type="submit" name="submit" id="submit" value="Gửi thông tin">
+            </td>
+            <td>
+                <label for="reset"></label>
+                <input type="reset" name="reset" id="reset" value="Nhập lại">
+            </td>
+            <td></td>
+          </tr>
         </table>
-<!--        <table>-->
-<!--            <tr>-->
-<!--                <td><input type="checkbox" name="hobby" value="luotweb">Lướt web</td>-->
-<!--                <td><input type="checkbox" name="hobby" value="choigame">Chơi game</td>-->
-<!--                <td><input type="checkbox" name="hobby" value="dienanh">Điện ảnh</td>-->
-<!--            </tr>-->
-<!--            <tr>-->
-<!--                <td colspan="3"><input type="checkbox" name="hobby" value="dulich">Du lịch</td>-->
-<!--            </tr>-->
-<!--        </table>-->
-    </form>
-  </div>
-</body>
+        <!--        <table>-->
+        <!--            <tr>-->
+        <!--                <td><input type="checkbox" name="hobby" value="luotweb">Lướt web</td>-->
+        <!--                <td><input type="checkbox" name="hobby" value="choigame">Chơi game</td>-->
+        <!--                <td><input type="checkbox" name="hobby" value="dienanh">Điện ảnh</td>-->
+        <!--            </tr>-->
+        <!--            <tr>-->
+        <!--                <td colspan="3"><input type="checkbox" name="hobby" value="dulich">Du lịch</td>-->
+        <!--            </tr>-->
+        <!--        </table>-->
+      </form>
+    </div>
+  </body>
 </html>

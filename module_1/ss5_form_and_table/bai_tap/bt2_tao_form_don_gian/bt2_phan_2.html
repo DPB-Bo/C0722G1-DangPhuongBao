@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link href="css_bt2_phan_2.css" rel="stylesheet" />
+    <title>bt2_phan_2</title>
+  </head>
+  <body>
+    <div class="formbox">
+      <form>
+        <table class="tablecustom">
+          <tr>
+            <th colspan="3" class="thcustom">ĐĂNG KÝ HỌC VIÊN</th>
+          </tr>
+          <tr>
+            <td style="width: 25%">
+              <div class="labeltxtcustom"><label for="name">Họ và tên:</label></div>
+            </td>
+
+            <td>
+              <input
+                type="text"
+                id="name"
+                name="name"
+                placeholder="dangphuongbao"
+                required
+              />
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <div class="labeltxtcustom"><label for="birth">Ngày sinh:</label></div>
+            </td>
+            <td>
+              <input type="date" name="birth" id="birth" />
+            </td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>
+              <div class="labeltxtcustom"><label for="gender">Giới tính:</label></div>
+            </td>
+            <td>
+              <input type="radio" name="gender" id="male" value="Nam" checked  />
+              <label for="male">Nam</label>
+              <input type="radio" name="gender" id="female" value="Nữ" />
+              <label for="female">Nữ</label>
+            </td>
+          </tr>
+          <tr>
+            <td style="height: 50px; width: 50px">
+              <div class="labeltxtcustom"><label for="address">Địa chỉ:</label></div>
+            </td>
+            <td style="height: 50px; width: 50px">
+              <!-- <input type="text" name="address" id="address" placeholder="duong abcxyz" style="height: 100%;width: 100%;"> -->
+              <textarea
+                name="address"
+                id="address"
+                cols="25"
+                rows="5"
+                
+              ></textarea>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <div class="labeltxtcustom"><label for="class">Lớp:</label></div>
+            </td>
+            <td>
+              <select name="class" id="class"  required >
+                <option value="">-Chọn lớp-</option>
+                <option value="1">C01G122</option>
+                <option value="2">C02G122</option>
+                <option value="3">C03G122</option>
+                <option value="4">C04G122</option>
+                <option value="5">C05G122</option>
+                <option value="6">C06G122</option>
+                <option value="7">C07G122</option>
+              </select>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <div class="labeltxtcustom"><label for="email">Email:</label></div>
+            </td>
+            <td>
+              <input
+                type="email"
+                name="email"
+                id="email"
+                placeholder="email@gmail.com"
+                required
+              />
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <div class="labeltxtcustom"><label for="phonenumber">Số điện thoại:</label></div>
+            </td>
+            <td>
+              <input
+                type="tel"
+                name="phonenumber"
+                id="phonenumber"
+                placeholder="0123456789"
+              />
+            </td>
+          </tr>
+          <tr>
+            <td></td>
+            <td>
+              <label for="submit"></label>
+              <input type="submit" value="Đăng ký" id="submit">
+              <label for="reset"></label>
+              <input type="reset" value="Nhập lại" id="reset">
+            </td>
+          </tr>
+        </table>
+      </form>
+    </div>
+  </body>
+</html>

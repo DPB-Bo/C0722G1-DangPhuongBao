@@ -1,0 +1,14 @@
+.table1{
+    width: 50%;
+    margin: 0 auto;
+    border-collapse: collapse;
+}
+.td1{
+    text-align: center;
+}
+.td2{
+    border: 1px solid black;
+    text-align: center;
+    font-weight: bold;
+    
+}

@@ -1,0 +1,32 @@
+.table1{
+    width: 50%;
+    margin: 0 auto;
+    font-size: 25px;
+    /* border: 1px solid black; */
+}
+.td1{
+    width: 50%;
+    color: blue;
+}
+.td2{
+    width: 50%;
+    text-align: right;
+    color: blue;
+}
+*{
+    margin: 0;
+    padding: 0;
+}
+.table2{
+    width: 50%;
+    margin: 0 auto;
+    border: 1px solid black;
+    border-collapse: collapse;
+    /* font-size: 25px; */
+    /* border: 1px solid black; */
+}
+.td3{
+    border: 1px solid black;
+    height: 30px;
+    padding-left: 10px;
+}

@@ -1,0 +1,21 @@
+.formbox{
+    margin: 10px auto;
+    height: 300px;
+    width: 400px;
+    padding: 10px;
+    border: 1px solid black;
+    text-align: left;
+    background-color: cornsilk;
+}
+.tablecustom{
+    border: 1px solid brown;
+    width: 100%;
+    height: auto;
+}
+.thcustom{
+    color: blue;
+    background-color: aquamarine;
+}
+.labeltxtcustom{
+    color: blue;
+}
