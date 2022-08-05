@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ss7_bt2</title>
+  </head>
+  <body>
+    <form action="">
+        <table>
+          <tr>
+            <th><label for="amount_lb">Amount</label></th>
+            <th></th>
+            <th><label for="fcurrency_lb">Form Currency</label></th>
+            <th></th>
+            <th><label for="tcurrency_lb">To Currency</label></th>
+            <th></th>
+            <th></th>
+          </tr>
+          <tr>
+            <td><input type="number" id="amount_lb" /></td>
+            <td></td>
+            <td>
+              <select id="fcurrency_lb">
+                <option value="VND">VND</option>
+                <option value="USD">USD</option>
+                <option value="EURO">EURO</option>
+              </select>
+            </td>
+            <td></td>
+            <td>
+                <select id="tcurrency_lb">
+                    <option value="VND">VND</option>
+                    <option value="USD">USD</option>
+                    <option value="EURO">EURO</option>
+                  </select>
+            </td>
+            <td></td>
+            <td>
+                <button type="button" onclick="transfer()">Chuyển đổi</button>
+            </td>
+          </tr>
+          <tr>
+            <th style="text-align: center;"><label for="display_value_transfered">Result:</label></th>
+            <td></td>
+            <td><input type="text" id="display_value_transfered" value="" readonly></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td><input type="reset" value="Nhập lại"></td>
+          </tr>
+        </table>
+    </form>
+  </body>
+  <script src="ss7_bt2.js"></script>
+</html>
