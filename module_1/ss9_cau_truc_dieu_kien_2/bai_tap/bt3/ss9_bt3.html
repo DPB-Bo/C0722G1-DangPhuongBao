@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="ss9_bt3.css">
+    <title>ss9_bt3</title>
+</head>
+<body>
+    <form action="">
+        <table >
+            <tr>
+                <td colspan="4"  class="td1" ><input type="text" id="screenBox" readonly ></td> 
+                
+            </tr>
+            <tr>
+                <td><input type="button"  value="(" onclick="addToScreen(this.value)"></td>
+                <td><input type="button"  value=")" onclick="addToScreen(this.value)"></td>
+                <td><input type="button"  value="%" onclick="addToScreen(this.value)"></td>
+                <td><input type="button"  value="/" onclick="addToScreen(this.value)"></td>
+            </tr>
+            <tr>
+                <td><input type="button" value="7" onclick="addToScreen(this.value)"></td>
+                <td><input type="button" value="8" onclick="addToScreen(this.value)"></td>
+                <td><input type="button" value="9" onclick="addToScreen(this.value)"></td>
+                <td><input type="button" value="*" onclick="addToScreen(this.value)"></td>
+            </tr>
+            <tr>
+                <td><input type="button" value="4" onclick="addToScreen(this.value)"></td>
+                <td><input type="button" value="5" onclick="addToScreen(this.value)"></td>
+                <td><input type="button" value="6" onclick="addToScreen(this.value)"></td>
+                <td><input type="button" value="-" onclick="addToScreen(this.value)"></td>
+            </tr>
+            <tr>
+                <td><input type="button" value="1" onclick="addToScreen(this.value)"></td>
+                <td><input type="button" value="2" onclick="addToScreen(this.value)"></td>
+                <td><input type="button" value="3" onclick="addToScreen(this.value)"></td>
+                <td><input type="button" value="+" onclick="addToScreen(this.value)"></td>
+            </tr>
+            <tr>
+                <td><input type="button" value="0" onclick="addToScreen(this.value)"></td>
+                <td><input type="button" value="DEL" onclick="del()"></td>
+                <td><input type="button" value="AC" onclick="allClear()"></td>
+                <td><input type="button" value="=" onclick="getResult()"></td>
+            </tr>
+        </table>
+    </form>
+</body>
+<script src="ss9_bt3.js"></script>
+</html>
