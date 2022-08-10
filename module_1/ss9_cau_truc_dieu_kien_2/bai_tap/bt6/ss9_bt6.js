@@ -56,5 +56,8 @@ let checkedGood = document.getElementById("g").checked;
             }
             break;
         
-    }
+    };
 }
+// function onEvent(pos){
+//     console.log(checkedFast);
+// }
