@@ -114,22 +114,124 @@ function bai3() {
     // sum += 1 / y;
     i++;
   }
+
   sum = sum.toFixed(5);
   document.write(sum);
   inputBtnReloadEx();
 }
 
-// function bai4(n) { Cách tính luỹ thừa nhanh -  cách lấy biến sau khi tính toán ở 1 function khác
-//   let i = 1;
-//   let sum = 1;
-//   while (i <= n) {
-//     sum *= i;
-//     i++;
-//   }
-//   return sum;
-// }
+function tinhgiaithua(n) {
+  // Cách tính luỹ thừa nhanh -  cách lấy biến sau khi tính toán ở 1 function khác
+  let i = 1;
+  let sum = 1;
+  while (i <= n) {
+    sum *= i;
+    i++;
+  }
+  return sum;
+}
 
 // function bai5() {
 //   let a = bai4(5);
 //   console.log(a);
 // }
+
+function bai4() {
+  let n = +prompt('Tính n! chẵn lẽ. Nhập vào số n: ');
+  let i = 1;
+  let isEven = n % 2 == 0;
+  if (isEven) {
+    i = 2;
+  }
+  let mutiple = 1;
+  let j = 1;
+  while (i <= n) {
+    j = tinhgiaithua(i);
+    mutiple *= j;
+    i += 2;
+  }
+  document.write('Đáp án là: ' + mutiple);
+  inputBtnReloadEx();
+  // let i = 1;
+  // while (i <= n) {
+
+  // }
+}
+
+function bai5() {
+  document.write('Bài này áp dụng mãng - Chưa được học');
+  inputBtnReloadEx();
+}
+
+function bai6() {
+  let a = parseInt(prompt("Nhập vào số a: "));
+  let b = parseInt(prompt("Nhập vào số b: "));
+  let x = Math.max(a, b);
+  let y = Math.min(a, b);
+  let z;
+  // let isDivided = x % y == 0; Tại sao khi bỏ !isDivided vào while lại bị vòng lặp vô hạn?
+  while (x % y != 0) {
+    z = x % y;
+    x = y;
+    y = z;
+    // console.log(x);
+    // console.log(y);
+  };
+  let bcnn = (a * b) / y;
+  let down = '<br>';
+  document.write('Ước chung lớn nhất của ' + a + ' và ' + b + ' là: ' + y + down);
+  document.write('Bội chung nhỏ nhất của ' + a + ' và ' + b + ' là: ' + bcnn + down);
+  inputBtnReloadEx();
+}
+
+function bai7() {
+  document.write('Bài này áp dụng mãng - Chưa được học');
+  inputBtnReloadEx();
+}
+
+function bai8() {
+  document.write('Bài này áp dụng mãng - Chưa được học');
+  inputBtnReloadEx();
+}
+
+function bai9() {
+  document.write('Bài này áp dụng mãng - Chưa được học');
+  inputBtnReloadEx();
+}
+
+function bai10() {
+  document.write('Bài này áp dụng mãng - Chưa được học');
+  inputBtnReloadEx();
+}
+
+function test2() { // tính gia thừa nhanh bằng
+  let n = +prompt('n:');
+  let gt = 1;
+  let kq = 0;
+  let j = 0;
+  let mau;
+  for (let i = 1; i <= n; i++) {
+    // mau = 2 * i - 1;
+    // j = tinhgiaithua(mau);
+    gt *= (i * (i + 1));
+    kq += 1 / gt;
+  }
+  kq = kq.toFixed(4);
+  console.log(kq);
+}
+
+// function test() {
+//   let n = +prompt('n:');
+//   let gt = 1;
+//   let kq = 0;
+//   for (let i = 1; i <= n; i++) {
+//     gt *= i;
+//     kq += 1 / gt;
+//   }
+//   kq = kq.toFixed(4);
+//   console.log(kq);
+
+// }
+
+// test();
+// test2();
