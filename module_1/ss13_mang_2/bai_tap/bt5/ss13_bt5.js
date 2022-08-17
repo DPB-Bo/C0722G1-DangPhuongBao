@@ -214,9 +214,12 @@ function bai9() {
     let arrC = [];
     // console.log(arrA.toString());
     // console.log(arrB.toString());
-    for (let i = 0; i < (arrA.length + arrB.length); i += 2) {
-        arrC[i] = arrA[i];
-        arrC[i + 1] = arrB[i];
+    for (let i = 0; i < (arrA.length + arrB.length); i++) {
+        if (i < arrA.length) {
+            arrC[i] = arrA[i];
+        } else {
+            arrC[i] = arrB[i - arrA.length];
+        }
     }
     document.write(arrC);
 }
