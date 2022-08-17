@@ -42,23 +42,41 @@
 
         // let arr=[];
         // arr.toString();
-        let arr = [1,2,2,3,1,3,1,2,3];
-        let count = arr.length;
-    let count2 = arr.length;
-    for(let i=0; i<arr.length;i++){
-        for(let j= i;j<arr.length;j++){
-            if(arr[i]==arr[j]){
-                count--;
-                arr.splice(j,1);
-            }
-        }
-    }
-    console.log(count2);
-    console.log(count);
+
+
+        // Giải thuật 17/08/2022
+
+    //     let arr = [1,2,2,3,1,3,1,2,3];
+    //     let count = arr.length;
+    // let count2 = arr.length;
+    // for(let i=0; i<arr.length;i++){
+    //     for(let j= i;j<arr.length;j++){
+    //         if(arr[i]==arr[j]){
+    //             count--;
+    //             arr.splice(j,1);
+    //         }
+    //     }
+    // }
+    // console.log(count2);
+    // console.log(count);
     // if(count2%count==0){
     //     return true;
     // } else{
     //     return false;
     // }
+    let arr=[1,2,2,1,3,4,4,5,3,1];
+    // function solution(arr) {
+    //     return eval(arr.join('+'))%arr.length?true:false;
+    // }
+    // console.log(arr.length);
+    let arr1 = Array.from(new Set(arr));
+    let arr2 = new Set(arr);
+    console.log(arr2);
+    document.write(arr2);
+    console.log(arr);
+    // console.log(arr2.toString());
+    // console.log(obj1);
+    // console.log(arr1.length);
+    // console.log(arr2.size);
     </script>
 </html>
