@@ -237,7 +237,7 @@ function checkIsSonArr1(arrFather, arrSon, checkDuplicatedSize) { // check k tí
 }
 
 function checkIsSonArr2(arrFather, arrSon, checkDuplicatedSize) {
-    let save = 0;
+    let save = 0; // dùng để lưu lại vị trí đã kiểm tra - để kiểm tra phần tử ở chỉ số tiếp theo chứ không lặp lại
     if (arrFather.length != checkDuplicatedSize) {
         return false;
     }

@@ -13,10 +13,10 @@ class Rectangle {
         return (this.width + this.height) * 2;
     }
     setWidth(width) {
-        return this.width = width;
+        this.width = width;
     }
     setHeight(height) {
-        return this.height = height;
+        this.height = height;
     }
     draw() {
         // return ctx.rect(20, 20, this.width, this.height);

@@ -14,7 +14,7 @@ class Temperature {
         return this.celsius + 273.15;
     }
     setCelsius(celsius) {
-        return this.celsius = celsius;
+        this.celsius = celsius;
     }
 }
 
