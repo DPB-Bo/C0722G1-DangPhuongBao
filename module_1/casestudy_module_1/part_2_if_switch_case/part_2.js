@@ -39,9 +39,9 @@ function getRealWage(wage) {
     let arrTax = [10, 15, 20];
     let arrWage = [7, 15];
     for (let i = 0; i < arrWage.length; i++) {
-        if (wage < arrWage[i]) return 'Thuế thu nhập là ' + arrTax[i] + '% và lương thực nhận được là: ' + (wage * (1 - (arrTax[i] / 100)));
+        if (wage < arrWage[i]) return 'Thuế thu nhập là ' + arrTax[i] + '% và lương thực nhận được là: ' + (wage * (1 - (arrTax[i] / 100)) + ' triệu');
     }
-    return 'Thuế thu nhập là ' + arrTax[arrTax.length - 1] + '% và lương thực nhận được là: ' + (wage * (1 - (arrTax[arrTax.length - 1] / 100)));
+    return 'Thuế thu nhập là ' + arrTax[arrTax.length - 1] + '% và lương thực nhận được là: ' + (wage * (1 - (arrTax[arrTax.length - 1] / 100)) + ' triệu');
 }
 
 function bai2() {
