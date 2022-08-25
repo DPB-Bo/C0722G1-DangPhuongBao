@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>part_6</title>
+    </head>
+    <body>
+        <h2>BÁN VÉ XỐ ĐÂY</h2>
+        <h3>MUA VÉ XỐ ĐÊ</h3>
+        <p>Mại dô ! Mại dô!</p>
+        <button type="button" id="btnBuyTickets0" onclick="buyTickets()">Mua vé
+            số!</button>
+        <button type="button" id="btnBuyTickets1" onclick="buyTickets()">Cũng là
+            mua vé số nhưng ô
+            khác!</button><br><br>
+        <button type="button" id="btnBuyTickets2" onclick="buyTickets()">Mua
+            nhé!</button>
+        <button type="button" id="btnBuyTickets3" onclick="buyTickets()">Mua thì
+            mua ,không mua thì
+            mua!</button><br>
+        <p>Mua mới cho xem kết quả, không thì nhịn !</p><br>
+        <div id="addTickets" hidden>
+            <label for="numberTickets1">Có thể nhập số vào phía dưới hoặc chọn
+                ngẫu nhiên để hệ thống random</label>&ensp;&ensp;
+            <span>
+                <button type="button" onclick="autoTickets(1)">Ngẫu Nhiên</button>&ensp;&ensp;
+                <button type="button" onclick="delInputNumbersTickets()">Xoá</button>
+            </span>
+            <br><br>
+            <table id="inputNumberTickets">
+                <tr>
+                    <td><input style="width: 50px;" type="number"
+                            id="numberTickets0" oninput="checkValidNumber(0)"> -</td>
+                    <td><input style="width: 50px;" type="number"
+                            id="numberTickets1" oninput="checkValidNumber(1)"> -</td>
+                    <td><input style="width: 50px;" type="number"
+                            id="numberTickets2" oninput="checkValidNumber(2)"> -</td>
+                    <td><input style="width: 50px;" type="number"
+                            id="numberTickets3" oninput="checkValidNumber(3)"> -</td>
+                    <td><input style="width: 50px;" type="number"
+                            id="numberTickets4" oninput="checkValidNumber(4)"> -</td>
+                    <td><input style="width: 50px;" type="number"
+                            id="numberTickets5" oninput="checkValidNumber(5)">&ensp;&ensp;</td>
+                    <td><button type="button" onclick="confirmTickets()">Xác
+                            nhận</button></td>
+                </tr>
+            </table>
+        </div>
+        <div>
+            <div id="showTickets"></div><br>
+            <div id="showResults" hidden>
+                <p>
+                    <button type="button" id="btnGetResults"
+                        onclick="autoTickets(2)">Nhận kết quả
+                        số xố</button>
+                </p>
+                <table>
+                    <tr>
+                        <td><input style="width: 50px;" type="number"
+                                id="resultTickets0" readonly> -</td>
+                        <td><input style="width: 50px;" type="number"
+                                id="resultTickets1" readonly> -</td>
+                        <td><input style="width: 50px;" type="number"
+                                id="resultTickets2" readonly> -</td>
+                        <td><input style="width: 50px;" type="number"
+                                id="resultTickets3" readonly> -</td>
+                        <td><input style="width: 50px;" type="number"
+                                id="resultTickets4" readonly> -</td>
+                        <td><input style="width: 50px;" type="number"
+                                id="resultTickets5" readonly></td>
+                    </tr>
+                </table>
+                <p>
+                    <button id="btnGetFinalResult" type="button"
+                        onclick="getFinalResult()"
+                        hidden>Nhận kết
+                        quả chung cuộc</button>
+                </p>
+                <h1 id="txtRewardAlert"></h1>
+            </div>
+        </div>
+    </body>
+    <script src="part_6.js"></script>
+</html>

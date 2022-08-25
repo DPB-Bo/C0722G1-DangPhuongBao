@@ -51,7 +51,6 @@ function bai1() {
     let sum = 0;
     for (const value of arr2D) {
         for (const value1 of value) {
-            // console.log(value1);
             if (!(value1 % 2)) {
                 sum += value1;
             }
@@ -59,4 +58,43 @@ function bai1() {
     }
     document.write('Mảng 2 chiều vừa nhập là: ' + arr2D.join(', ') + br);
     document.write('Tổng các phần tử chẵn trong mảng 2 chiều vừa nhập là: ' + sum);
+}
+
+function bai2() {
+    let arr2D = create2DimensionalArr();
+    let count = 0;
+    for (let i = 0; i < arr2D.length; i++) {
+        for (let j = 0; j < arr2D[i].length; j++) {
+            if (isPrime(arr2D[i][j])) {
+                count++;
+            }
+        }
+    }
+    document.write('Mảng 2 chiều vừa nhập là: ' + arr2D.join(', ') + br);
+    document.write('Số lượng phần tử là số nguyên tố trong mảng đó là: ' + count);
+}
+
+function isPrime(n) {
+    if (n < 2 || isNaN(n)) {
+        return false;
+    } else {
+        for (let i = 2; i < n; i++) {
+            if (n % i == 0) {
+                return false;
+            }
+        }
+        return true;
+    }
+}
+
+function bai3() {
+    let arr2D = create2DimensionalArr();
+    let max = arr2D[0][0];
+    for (let i = 0; i < arr2D.length; i++) {
+        if (max < Math.max(...arr2D[i])) {
+            max = Math.max(...arr2D[i]);
+        }
+    }
+    document.write('Mảng 2 chiều vừa nhập là: ' + arr2D.join(', ') + br);
+    document.write('Số lớn nhất trong mảng 2 chiều vừa nhập là: ' + max + br);
 }
