@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>part_1_task_1</title>
+    </head>
+    <body>
+        <h1 style="text-align: center;">KURAMA_PART_1</h1>
+        <div style="width:40%">
+            <!-- <h2 style="text-align: center;">Đăng kí dịch vụ</h2> -->
+            <form action="">
+                <table style="border: 1px solid black;">
+                    <caption><h2>Đăng kí dịch vụ</h2></caption>
+                    <tr>
+                        <th><label for="inputName">Họ và tên:</label></th>
+                        <td><input type="text" id="inputName"></td>
+                        <td style="width:80px"></td>
+                        <th><label for="inputIdentityCardNumber">Chứng minh nhân
+                                dân:</label></th>
+                        <td><input type="number" id="inputIdentityCardNumber"></td>
+                    </tr>
+                    <tr>
+                        <th><label for="inputEmail">Email:</label></th>
+                        <td><input type="email" id="inputEmail"></td>
+                        <td style="width:80px"></td>
+                        <th><label for="inputAddress">Địa chỉ:</label></th>
+                        <td><input type="text" id="inputAddress"></td>
+                    </tr>
+                    <tr>
+                        <th><label for="slcVipRank">Mức vip:</label></th>
+                        <td>
+                            <select id="slcVipRank">
+                                <option selected disabled></option>
+                                <option value="0">Member</option>
+                                <option value="1">Silver</option>
+                                <option value="2">Gold</option>
+                                <option value="3">Platinum</option>
+                                <option value="4">Diamond</option>
+                            </select>
+                        </td>
+                        <td style="width:80px"></td>
+                        <th><label for="inputDiscount">Giảm giá:</label></th>
+                        <td><input type="number" style="width: 20%;"
+                                id="inputDiscount"> %</td>
+                    </tr>
+                    <tr>
+                        <th><label for="inputAmountPeoples">Số lượng người:</label></th>
+                        <td><input type="number" id="inputAmountPeoples"
+                                style="width:20%"></td>
+                        <td style="width:80px"></td>
+                        <th><label for="inputRentDays">Số ngày thuê:</label></th>
+                        <td><input type="number" id="inputRentDays"
+                                style="width:
+                                20%;"></td>
+                    </tr>
+                    <tr>
+                        <th><label for="slcTypeRoom">Loại phòng:</label></th>
+                        <td><select id="slcTypeRoom">
+                                <option selected disabled></option>
+                                <option value="0">Villa</option>
+                                <option value="1">House</option>
+                                <option value="2">Room</option>
+                            </select></td>
+                        <td style="width:80px"></td>
+                        <th><label for="slcRankRoom">Hạng phòng:</label></th>
+                        <td><select id="slcTypeRoom">
+                                <option selected disabled></option>
+                                <option value="0">Vip</option>
+                                <option value="1">Business</option>
+                                <option value="2">Normal</option>
+                            </select></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td><input type="button" value="Đăng kí"></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                </table><br>
+
+            </form>
+        </div>
+    </body>
+    <script src="part_1_task_1.js"></script>
+</html>

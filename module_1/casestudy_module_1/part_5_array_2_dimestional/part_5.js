@@ -65,9 +65,7 @@ function bai2() {
     let count = 0;
     for (let i = 0; i < arr2D.length; i++) {
         for (let j = 0; j < arr2D[i].length; j++) {
-            if (isPrime(arr2D[i][j])) {
-                count++;
-            }
+            if (isPrime(arr2D[i][j])) count++;
         }
     }
     document.write('Mảng 2 chiều vừa nhập là: ' + arr2D.join(', ') + br);

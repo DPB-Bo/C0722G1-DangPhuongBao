@@ -238,12 +238,12 @@ function checkIsSonArr1(arrFather, arrSon, checkDuplicatedSize) { // check k tí
 
 function checkIsSonArr2(arrFather, arrSon, checkDuplicatedSize) {
     let save = 0; // dùng để lưu lại vị trí đã kiểm tra - để kiểm tra phần tử ở chỉ số tiếp theo chứ không lặp lại
+    let count = 0;
     if (arrFather.length != checkDuplicatedSize) {
         return false;
     }
     for (let i = 0; i < arrSon.length; i++) {
         for (let j = 0; j < arrFather.length; j++) {
-            // save = j;
             if (j < save) {
                 continue;
             }

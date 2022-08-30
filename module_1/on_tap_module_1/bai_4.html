@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>bai_4</title>
+    </head>
+    <body>
+        <label for="displayTable"><h1 style="text-align: center;">QUẢN LÝ LAPTOP
+                TRONG KHO</h1></label>
+        <br>
+        <form action="" style="margin:auto; width: 50%;padding: 10px;">
+            <label for="inputCode">Nhập mã máy:</label>
+            <input type="text" id="inputCode">
+            <br><br>
+            <label for="inputName">Nhập tên máy:</label>
+            <input type="text" id="inputName">
+            <br><br>
+            <label for="inputProducers">Nhập hãng sản xuất:</label>
+            <input type="text" id="inputProducers">
+            <br><br>
+            <label for="inputPrice">Nhập giá bán(triệu):</label>
+            <input type="number" id="inputPrice">
+            <br><br>
+            <button onclick="addNewLaptop()" id="btnAdd" type="button">Thêm</button>
+            <button onclick="editLaptop()" hidden id="btnEdit" type="button">Sửa</button>
+            <button type="button" hidden id="btnBackBtnAddNewLaptop"
+                onclick="backBtnAddNewLaptop()">Quay lại</button>
+            <br>
+        </form>
+        <div id="displayTable"></div>
+    </body>
+    <script src="bai_4.js"></script>
+</html>
