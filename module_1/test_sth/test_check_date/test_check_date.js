@@ -32,16 +32,32 @@
 
 //Test trực tiếp
 
-// let strDate = prompt('Nhập vào')
-// function isValidDate(strDate) {
-//     if (strDate.length != 10) { return false };
-//     let dateParts = strDate.split("/");
-//     let date = new Date(dateParts[2], (dateParts[1] - 1), dateParts[0]);
-//     return date.getDate() == dateParts[0]
-//         && date.getMonth() == (dateParts[1] - 1)
-//         && date.getFullYear() == dateParts[2]
-//         ? true : false;
-// }
+
+function isValidDate(strDate) {
+    if (strDate.length != 10) { return false };
+    let dateParts = strDate.split("/");
+    let date = new Date(dateParts[2], (dateParts[1] - 1), dateParts[0]);
+    return date.getDate() == dateParts[0]
+        && date.getMonth() == (dateParts[1] - 1)
+        && date.getFullYear() == dateParts[2]
+        ? true : false;
+}
+
+function checkYear(strDate) {
+    let yearOfstrDate = +strDate.slice(6);
+    if (!(yearOfstrDate % 4) && yearOfstrDate % 100) return true;
+    if (!(yearOfstrDate % 400)) return true;
+    return false;
+}
+
+function getResult() {
+    let strDate;
+    do {
+        strDate = prompt('Nhập vào chuỗi ngày');
+    } while (!(isValidDate(strDate)));
+    return checkYear(strDate) ? 'Là năm nhuận' : 'Không là năm nhuận';
+}
+document.write(getResult());
 // console.log(isValidDate(strDate));
-let date = new Date('22/08/2022 ' + '07:05:45 PM');
-console.log(date);
+// let date = new Date('22/08/2022 ' + '07:05:45 PM');
+// console.log(date);
