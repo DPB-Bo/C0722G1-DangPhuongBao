@@ -109,4 +109,3 @@ function xepTheoTuoi() {
         xepTuoiTangDan = !xepTuoiTangDan;
     }
 }
-
