@@ -82,7 +82,11 @@ public class TestMain {
 //        }
 //    }
     public static void main(String[] args) {
-        String a = "0";
-        System.out.println(a.equals("0") ? "true" : "false");
+        int x = 5;
+        do {
+            System.out.println("CodeGym");
+            x--;
+        } while (x == 5);
+        System.out.println(x);
     }
 }

@@ -1,6 +1,5 @@
 package ss1_introduction_to_java.exercises;
 
-
 import java.util.Scanner;
 
 public class ConvertNumberToString {
