@@ -15,7 +15,7 @@ public class TransferVNDAndUSD {
         } while (typeTransfer != 1 && typeTransfer != 0);
         do {
             System.out.println("Nhập số tiền hợp lệ cần chuyển đổi: ");
-            moneyAmount = scanner.nextFloat();
+            moneyAmount = Float.parseFloat(scanner.nextLine());
         } while (moneyAmount <= 0);
         result = typeTransfer == 1 ? moneyAmount / 23000 + "USD" : moneyAmount * 23000 + "VND";
         System.out.println("Kết quả là : " + result);

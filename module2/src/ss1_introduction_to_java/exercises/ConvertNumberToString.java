@@ -21,25 +21,55 @@ public class ConvertNumberToString {
         return result;
     }
 
-    public String twoNumber(String randomNumber) {
+    public String finalNumber(String randomNumber, Integer lengthRandomNumber) {
+        String result = "";
+        String lastNumber = Character.toString(randomNumber.charAt(lengthRandomNumber - 1));
+        String secondNumber = Character.toString(randomNumber.charAt(lengthRandomNumber - 2));
+        boolean secondNumberIsOne = secondNumber.equals("1");
+        boolean lastNumberIsZero = lastNumber.equals("0");
+        boolean lastNumberIsOne = lastNumber.equals("1");
+        boolean lastNumberIsFive = lastNumber.equals("5");
         for (int j = 0; j < numberToString[0].length; j++) {
-            if (Character.toString(randomNumber.charAt(0)).equals(numberToString[0][j])) {
-                if (Character.toString(randomNumber.charAt(0)).equals("1")) {
-                    result = "MƯỜI ";
+            if (lastNumber.equals(numberToString[0][j])) {
+                if (lastNumberIsZero) {
+                    return result;
+                } else if (lastNumberIsOne && secondNumberIsOne) {
+                    return result = "MỘT ";
+                } else if (lastNumberIsOne) {
+                    return result = "MỐT ";
+                } else if (lastNumberIsFive) {
+                    return result = "LĂM ";
+                } else {
+                    return result = numberToString[1][j];
+                }
+            }
+        }
+        return result;
+    }
+
+    public String secondNumber(String randomNumber, Integer lengthRandomNumber) {
+        String result = "";
+        String secondNumber = Character.toString(randomNumber.charAt(lengthRandomNumber - 2));
+        for (int j = 0; j < numberToString[0].length; j++) {
+            if (secondNumber.equals(numberToString[0][j])) {
+                if (secondNumber.equals("1")) {
+                    if (secondNumber.equals("0")) {
+                        return result = "MƯỜI ";
+                    } else {
+                        result = "MƯỜI ";
+                    }
                 } else {
                     result = numberToString[1][j] + "MƯƠI ";
                 }
             }
         }
-        for (int j = 0; j < numberToString[0].length; j++) {
-            if (Character.toString(randomNumber.charAt(1)).equals(numberToString[0][j])) {
-                if (Character.toString(randomNumber.charAt(1)).equals("0")) {
-                    return result;
-                } else {
-                    result += numberToString[1][j]; // sao ở đây dấu += lại gạch dưới
-                }
-            }
-        }
+        return result;
+    }
+
+    public String twoNumber(String randomNumber) {
+        result += secondNumber(randomNumber, 2);
+        result += finalNumber(randomNumber, 2);
+
         return result;
     }
 
@@ -54,26 +84,8 @@ public class ConvertNumberToString {
         if (secondIsZero && thirdIsZero) {
             return result;
         }
-        for (int j = 0; j < numberToString[0].length; j++) {
-            if (Character.toString(randomNumber.charAt(1)).equals(numberToString[0][j])) {
-                if (secondIsZero) {
-                    result += "LINH ";
-                } else if (Character.toString(randomNumber.charAt(1)).equals("1")) {
-                    result = "MƯỜI ";
-                } else {
-                    result += numberToString[1][j] + "MƯƠI ";
-                }
-            }
-        }
-        for (int j = 0; j < numberToString[0].length; j++) {
-            if (Character.toString(randomNumber.charAt(2)).equals(numberToString[0][j])) {
-                if (thirdIsZero) {
-                    return result;
-                } else {
-                    result += numberToString[1][j];
-                }
-            }
-        }
+        result += secondNumber(randomNumber, 3);
+        result += finalNumber(randomNumber, 3);
         return result;
     }
 
