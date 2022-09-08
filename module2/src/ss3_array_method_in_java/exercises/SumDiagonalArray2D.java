@@ -47,18 +47,11 @@ public class SumDiagonalArray2D {
         Integer[][] arr2D = createTwoDimensionalArray();
         displayTwoDimensionalArray(arr2D);
         Integer sumDiagonalLeft = 0;
-        Integer sumDiagonalRight = 0;
 
         for (int i = 0; i < arr2D.length; i++) {
             if (i < arr2D[i].length) sumDiagonalLeft += arr2D[i][i];
         }
-        for (int i = 0; i < arr2D.length; i++) {
-            if ((arr2D[i].length - 1 - i) >= 0)
-                sumDiagonalRight += arr2D[i][arr2D[i].length - 1 - i];
-        }
-        Integer sum2Diagonal = sumDiagonalLeft + sumDiagonalRight;
-        System.out.printf("Tổng đường chéo phải là %d: " +
-                "\nTổng đường chéo trái là %d: " +
-                "\nTổng 2 đường chéo là: %d", sumDiagonalLeft, sumDiagonalRight, sum2Diagonal);
+
+        System.out.printf("Tổng đường chéo trái là %d: ", sumDiagonalLeft);
     }
 }

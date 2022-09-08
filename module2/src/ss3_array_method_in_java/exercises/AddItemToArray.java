@@ -48,6 +48,29 @@ public class AddItemToArray {
         return array;
     }
 
+    public static void doWhenOverLength(Integer[] arrNumbers) {
+        System.out.print("*****Số lượng phần tử còn trống đã hết!*****\n" +
+                "1.Chèn thêm sẽ xoá phần tử cuối của mảng\n" +
+                "2.Huỷ và xem lại mảng\n" +
+                "3.Thoát\n" +
+                "Nhập lựa chọn của bạn vào đây: ");
+        int choice1 = Integer.parseInt(scanner.nextLine());
+        switch (choice1) {
+            case 1:
+                System.out.println("Mảng sau khi đã thêm: " + Arrays.toString(addItemToArray(arrNumbers)));
+                break;
+            case 2:
+                System.out.println(Arrays.toString(arrNumbers));
+                break;
+            case 3:
+                System.out.println("Chương trình kết thúc!");
+                System.exit(0);
+            default:
+                System.out.println("Không có lựa chọn này! ");
+                break;
+        }
+    }
+
     public static void main(String[] args) {
         Integer sizeArray = sizeArray();
         System.out.print("Số lượng phần tử muốn nhập vào: ");
@@ -74,26 +97,7 @@ public class AddItemToArray {
                         System.out.println("Mảng sau khi đã thêm: " + Arrays.toString(addItemToArray(arrNumbers)));
                         inputIndexTo++;
                     } else {
-                        System.out.print("*****Số lượng phần tử còn trống đã hết!*****\n" +
-                                "1.Chèn thêm sẽ xoá phần tử cuối của mảng\n" +
-                                "2.Huỷ và xem lại mảng\n" +
-                                "3.Thoát\n" +
-                                "Nhập lựa chọn của bạn vào đây: ");
-                        int choice1 = Integer.parseInt(scanner.nextLine());
-                        switch (choice1) {
-                            case 1:
-                                System.out.println("Mảng sau khi đã thêm: " + Arrays.toString(addItemToArray(arrNumbers)));
-                                break;
-                            case 2:
-                                System.out.println(Arrays.toString(arrNumbers));
-                                break;
-                            case 3:
-                                System.out.println("Chương trình kết thúc!");
-                                System.exit(0);
-                            default:
-                                System.out.println("Không có lựa chọn này! ");
-                                break;
-                        }
+                        doWhenOverLength(arrNumbers);
                     }
                     break;
             }
