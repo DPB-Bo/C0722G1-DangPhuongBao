@@ -1,1 +1,4 @@
 dùng next int thì bị nuốt mất các khai báo sau nên dùng là kiểu dữ liệu của biến -> parse kdl -> next line
+protected thì cùng package và class con có thể truy cập
+default thì cùng package nhung class con không thể truy cập
+private thi truy cập bằng niềm tin
