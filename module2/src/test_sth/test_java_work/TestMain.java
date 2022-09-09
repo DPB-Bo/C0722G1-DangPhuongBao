@@ -82,11 +82,17 @@ public class TestMain {
 //        }
 //    }
     public static void main(String[] args) {
-        int x = 5;
-        do {
-            System.out.println("CodeGym");
-            x--;
-        } while (x == 5);
-        System.out.println(x);
+//        int x = 5;
+//        do {
+//            System.out.println("CodeGym");
+//            x--;
+//        } while (x == 5);
+//        System.out.println(x);
+//        public class MyClass {
+//            MyClass() {…}
+//            void MyClass(int x) {…}
+//            MyClass(float x) {…}
+////            MyClass1(int x, double y) {…}
     }
+
 }

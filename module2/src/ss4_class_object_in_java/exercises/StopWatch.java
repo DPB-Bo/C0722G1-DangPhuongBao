@@ -5,6 +5,9 @@ import java.util.Scanner;
 public class StopWatch {
     static Scanner scanner = new Scanner(System.in);
 
+    private double startTime;
+    private double endTime;
+
     public double getStartTime() {
         return startTime;
     }
@@ -20,9 +23,6 @@ public class StopWatch {
     public void setEndTime(double endTime) {
         this.endTime = endTime;
     }
-
-    private double startTime;
-    private double endTime;
 
     private Boolean status = false;
 
@@ -107,7 +107,7 @@ public class StopWatch {
                     System.out.println("Dừng chương trình!");
                     System.exit(0);
                 default:
-                    System.out.println("Không có lựa chọn này! ");
+                    System.out.println("\nKhông có lựa chọn này! ");
                     break;
             }
         }
