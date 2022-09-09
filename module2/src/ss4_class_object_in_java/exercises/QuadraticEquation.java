@@ -44,8 +44,8 @@ public class QuadraticEquation {
     public QuadraticEquation() {
     }
 
-    public double getDiscriminant() {
-        return Math.pow(b, 0.5) - (4 * a * c);
+    private double getDiscriminant() {
+        return Math.pow(b, 2) - (4 * a * c);
     }
 
     public String getResult() {
@@ -59,19 +59,19 @@ public class QuadraticEquation {
 
     }
 
-    public double getRootWhenAIsZero() {
+    private double getRootWhenAIsZero() {
         return -c / b;
     }
 
-    public double getRoot1() {
+    private double getRoot1() {
         return (-b + Math.sqrt(getDiscriminant())) / (2 * a);
     }
 
-    public double getRoot2() {
+    private double getRoot2() {
         return (-b - Math.sqrt(getDiscriminant())) / (2 * a);
     }
 
-    public double getDoubleRoot() {
+    private double getDoubleRoot() {
         return -b / (2 * a);
     }
 
