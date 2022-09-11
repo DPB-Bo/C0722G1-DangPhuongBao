@@ -49,10 +49,16 @@ public class QuadraticEquation {
     }
 
     public String getResult() {
-        if (a == 0) return "Giải: a bằng 0 nên phương trình bậc 2 trở thành phương trình bậc 1 " +
-                "\nvới nghiệm là: " + getRootWhenAIsZero();
-        if (getDiscriminant() < 0) return "Giải: phương trình vô nghiệm vì delta < 0";
-        if (getDiscriminant() == 0) return "Giải: phương trình có nghiệm kép là: " + getDoubleRoot();
+        if (a == 0) {
+            return "Giải: a bằng 0 nên phương trình bậc 2 trở thành phương trình bậc 1 " +
+                    "\nvới nghiệm là: " + getRootWhenAIsZero();
+        }
+        if (getDiscriminant() < 0) {
+            return "Giải: phương trình vô nghiệm vì delta < 0";
+        }
+        if (getDiscriminant() == 0) {
+            return "Giải: phương trình có nghiệm kép là: " + getDoubleRoot();
+        }
         return "Giải: phương trình có 2 nghiệm :" +
                 "\nNghiệm thứ nhất: " + getRoot1() +
                 "\nNghiệm thứ hai: " + getRoot2();
