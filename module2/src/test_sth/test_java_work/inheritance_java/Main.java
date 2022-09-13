@@ -9,7 +9,11 @@ public class Main {
 //        People student1 = new Student("CO822G1", 2);
 //        People teacher1 = new Teacher();
 //        People people3 = new People("Bao", 22);
-//        People people3 = new Student("Bao", 22, "C0722G1", 7); // Kiểu dữ liệu là People.
+        People people3 = new Student("Bao", 22, "C0722G1", 7); // Kiểu dữ liệu là People.
+//        System.out.println(people3.toString());
+        people3.saySth();
+//        System.out.println(people3 instanceof Student);
+//        System.out.println(people3 instanceof People);
 //        + Bên trái:
 //        Lưu ở vùng nhớ stack
 //        là biến của đối tượng (instance) lưu:
@@ -46,7 +50,7 @@ public class Main {
 //
 //        System.out.println(Arrays.toString(list1));
 
-        Bike a = new Splender();
-        a.run();
+//        Bike a = new Splender();
+//        a.run();
     }
 }

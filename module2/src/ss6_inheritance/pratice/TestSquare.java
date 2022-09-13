@@ -10,5 +10,8 @@ public class TestSquare {
 
         square = new Square(5.8, "yellow", true);
         System.out.println(square);
+
+        square.setLength(10.0);
+        System.out.println(square);
     }
 }

@@ -16,6 +16,14 @@ public class People {
         return name;
     }
 
+    public void saySth() {
+        System.out.println("people");
+    }
+
+//    public void printX(int x) {
+//        System.out.println(x);
+//    }
+
     public void setName(String name) {
         this.name = name;
     }
@@ -27,4 +35,5 @@ public class People {
     public void setAge(Integer age) {
         this.age = age;
     }
+
 }

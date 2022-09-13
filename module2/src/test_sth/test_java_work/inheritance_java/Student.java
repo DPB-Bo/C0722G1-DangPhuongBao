@@ -22,6 +22,15 @@ public class Student extends People {
         return classes;
     }
 
+    @Override
+    public void saySth() {
+        System.out.println("student");
+    }
+
+//    public void printX(double x) {
+//        System.out.println(x);
+//    }
+
     public void setClasses(String classes) {
         this.classes = classes;
     }
