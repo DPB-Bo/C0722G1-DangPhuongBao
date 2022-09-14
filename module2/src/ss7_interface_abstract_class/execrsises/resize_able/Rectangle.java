@@ -40,6 +40,12 @@ public class Rectangle extends Geometric {
     }
 
     @Override
+    public void resize(double percentage) {
+        setWidth(getWidth() * (1 - (percentage / 100)));
+        setHeight(getHeight() * (1 - (percentage / 100)));
+    }
+
+    @Override
     public double getArea() {
         return this.getWidth() * this.getHeight();
     }

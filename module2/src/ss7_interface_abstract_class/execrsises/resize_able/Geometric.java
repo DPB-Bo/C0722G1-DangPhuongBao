@@ -15,9 +15,7 @@ public abstract class Geometric implements Resizeable {
         return name;
     }
 
-    public double resize(double percentage) {
-        return getArea() * (1 - (percentage / 100));
-    }
+    public abstract void resize(double percentage);
 
     public abstract double getArea();
 }

@@ -15,7 +15,8 @@ public class Main {
         for (Geometric geometrics : geometricsList) {
             double randomPercent = Math.round(Math.random() * 100);
             System.out.println("Tỉ lệ giảm: " + randomPercent + "%");
-            System.out.printf("Diện tích hình %s sau khi giảm %.2f%s là: %.2f\n", geometrics.getName(), randomPercent, "%", geometrics.resize(randomPercent));
+            geometrics.resize(randomPercent);
+            System.out.printf("Diện tích hình %s sau khi giảm %.2f%s là: %.2f\n", geometrics.getName(), randomPercent, "%", geometrics.getArea());
         }
     }
 }

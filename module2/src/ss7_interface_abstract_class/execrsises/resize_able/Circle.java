@@ -24,4 +24,9 @@ public class Circle extends Geometric {
     public double getArea() {
         return this.radius * this.radius * Math.PI;
     }
+
+    @Override
+    public void resize(double percentage) {
+        setRadius(getRadius() * (1 - (percentage / 100)));
+    }
 }
