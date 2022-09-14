@@ -12,6 +12,7 @@ public class Main {
         People people3 = new Student("Bao", 22, "C0722G1", 7); // Kiểu dữ liệu là People.
 //        System.out.println(people3.toString());
         people3.saySth();
+//        ((Student) people3).saySth("a");
 //        System.out.println(people3 instanceof Student);
 //        System.out.println(people3 instanceof People);
 //        + Bên trái:
