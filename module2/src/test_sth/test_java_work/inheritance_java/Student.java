@@ -22,9 +22,9 @@ public class Student extends People {
         return classes;
     }
 
-    //    @Override
-    public void saySth(String n) {
-        System.out.println("student" + n);
+    @Override
+    public void saySth() {
+        System.out.println("student");
     }
 
 //    public void printX(double x) {
