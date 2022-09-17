@@ -3,6 +3,7 @@ package ss10_arraylist_linkedlist.exercise.build_arraylist_library;
 import java.util.Arrays;
 
 public class MyList<E> {
+    private int size = 0;
     private static final int DEFAULT_CAPACITY = 10;
     private Object[] elements;
 
@@ -31,14 +32,14 @@ public class MyList<E> {
                 countNotNullObjects++;
             }
         }
-        return countNotNullObjects;
+        return size = countNotNullObjects;
     }
 
     public boolean add(E element) {
         if (size() == elements.length) {
             ensureCapacity();
         }
-        elements[size()] = element;
+        elements[size++] = element;
         return true;
     }
 
@@ -79,7 +80,7 @@ public class MyList<E> {
 
     public boolean contains(E o) {
         for (Object element : elements) {
-            if (element == o) {
+            if (element.equals(o)) {
                 return true;
             }
         }

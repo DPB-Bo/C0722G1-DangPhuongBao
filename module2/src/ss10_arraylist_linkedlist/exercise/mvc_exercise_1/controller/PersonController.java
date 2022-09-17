@@ -1,5 +1,6 @@
 package ss10_arraylist_linkedlist.exercise.mvc_exercise_1.controller;
 
+import ss10_arraylist_linkedlist.exercise.mvc_exercise_1.model.Student;
 import ss10_arraylist_linkedlist.exercise.mvc_exercise_1.service.IStudentService;
 import ss10_arraylist_linkedlist.exercise.mvc_exercise_1.service.ITeacherService;
 import ss10_arraylist_linkedlist.exercise.mvc_exercise_1.service.impl.StudentService;
@@ -55,10 +56,10 @@ public class PersonController {
 
             switch (choice) {
                 case optionOne:
-                    studentService.display();
+//                    studentService.display();
                     break;
                 case optionTwo:
-                    teacherService.display();
+//                    teacherService.display();
                     break;
                 case optionThree:
                     return;
@@ -77,10 +78,10 @@ public class PersonController {
 
             switch (choice) {
                 case optionOne:
-                    studentService.remove();
+//                    ((StudentService) studentService).remove();
                     break;
                 case optionTwo:
-                    teacherService.remove();
+//                    ((TeacherService) teacherService).remove();
                     break;
                 case optionThree:
                     return;
@@ -99,10 +100,10 @@ public class PersonController {
 
             switch (choice) {
                 case optionOne:
-                    studentService.add();
+//                    studentService.add();
                     break;
                 case optionTwo:
-                    teacherService.add();
+//                    teacherService.add();
                     break;
                 case optionThree:
                     return;
