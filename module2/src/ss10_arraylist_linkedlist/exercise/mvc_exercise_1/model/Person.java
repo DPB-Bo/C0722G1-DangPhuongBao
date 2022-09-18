@@ -56,10 +56,10 @@ public abstract class Person {
         } else {
             genderToString = isMale ? "Trai" : "Gái";
         }
-        
-        return "Mã=" + code +
-                ", Họ và tên= '" + name + '\'' +
-                ", Ngày sinh= " + birthday + '\'' +
-                ", Giới tính= " + genderToString;
+
+        return "Mã: " + code +
+                ", Họ và tên: " + name +
+                ", Ngày sinh: " + birthday +
+                ", Giới tính: " + genderToString;
     }
 }

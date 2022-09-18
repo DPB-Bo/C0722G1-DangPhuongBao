@@ -7,31 +7,37 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class TeacherService implements ITeacherService {
-//    private static List<Teacher> teacherList = new ArrayList<>();
-//
-//    public Teacher inputInformation() {
-//        Teacher teacher = ITeacherService.inputInformation();
-//
-//        System.out.println("\nNhập vào chuyên môn của sinh viên: ");
-//        String specialize = scanner.nextLine();
-//        teacher.setSpecialize(specialize);
-//
-//        return teacher;
-//    }
-//
-//    public void add() {
-//        teacherList.add(inputInformation());
-//        System.out.println("Thêm mới thành công");
-//    }
-//
-//    @Override
-//    public void display() {
-//        for (Teacher teacher : teacherList) {
-//            System.out.println(teacher);
-//        }
-//    }
-//
-//    public void remove() {
-//        ITeacherService.remove(teacherList, "giáo viên");
-//    }
+    private static List<Teacher> teacherList = new ArrayList<>();
+
+    private Teacher inputInformation() {
+        Teacher teacher = ITeacherService.inputInformation();
+
+        System.out.print("\nNhập vào chuyên môn của sinh viên: ");
+        String specialize = scanner.nextLine();
+        teacher.setSpecialize(specialize);
+
+        return teacher;
+    }
+
+    @Override
+    public void add() {
+        teacherList.add(inputInformation());
+        System.out.println("\nThêm mới thành công!");
+    }
+
+    @Override
+    public void display() {
+        if (teacherList.size() == 0) {
+            System.out.println("\nKhông có giáo viên nào trong danh sách. Hãy thêm mới!");
+        } else {
+            for (Teacher teacher : teacherList) {
+                System.out.println(teacher);
+            }
+        }
+    }
+
+    public static List<Teacher> getTeacherList() {
+        return teacherList;
+    }
+
 }

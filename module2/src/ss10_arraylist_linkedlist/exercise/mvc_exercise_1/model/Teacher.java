@@ -8,6 +8,10 @@ public class Teacher extends Person {
         this.specialize = specialize;
     }
 
+    public Teacher(String code, String name, String birthday, Boolean isMale) {
+        super(code, name, birthday, isMale);
+    }
+
     public Teacher() {
     }
 
@@ -21,9 +25,9 @@ public class Teacher extends Person {
 
     @Override
     public String toString() {
-        return "Giáo viên{" +
+        return "\n" + getName() + "{" +
                 super.toString() +
-                ", Chuyên môn='" + specialize + '\'' +
+                ", Chuyên môn: " + specialize +
                 '}';
     }
 }

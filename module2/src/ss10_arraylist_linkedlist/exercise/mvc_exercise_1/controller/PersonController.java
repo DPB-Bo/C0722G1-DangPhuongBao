@@ -1,6 +1,5 @@
 package ss10_arraylist_linkedlist.exercise.mvc_exercise_1.controller;
 
-import ss10_arraylist_linkedlist.exercise.mvc_exercise_1.model.Student;
 import ss10_arraylist_linkedlist.exercise.mvc_exercise_1.service.IStudentService;
 import ss10_arraylist_linkedlist.exercise.mvc_exercise_1.service.ITeacherService;
 import ss10_arraylist_linkedlist.exercise.mvc_exercise_1.service.impl.StudentService;
@@ -20,8 +19,8 @@ public class PersonController {
 
     public static void displayMenu() {
         while (true) {
-            System.out.print("-------CHƯƠNG TRÌNH QUẢN LÝ SINH VIÊN –------\n" +
-                    "Chọn chức năng theo số (để tiếp tục):\n" +
+            System.out.print("\n-------CHƯƠNG TRÌNH QUẢN LÝ SINH VIÊN –------\n" +
+                    "Chọn chức năng theo số để tiếp tục:\n" +
                     "1. Thêm mới giảng viên hoặc học sinh\n" +
                     "2. Xóa giảng viên hoặc học sinh\n" +
                     "3. Xem danh sách giảng viên hoặc học sinh\n" +
@@ -41,6 +40,7 @@ public class PersonController {
                     displayOptionThree();
                     break;
                 case optionFour:
+                    System.out.println("\nCảm ơn đã sử dụng ứng dụng !");
                     return;
                 default:
                     System.out.println("\nKhông có lựa chọn này!");
@@ -50,16 +50,16 @@ public class PersonController {
 
     private static void displayOptionThree() {
         while (true) {
-            displayChooseMenu();
+            displayChooseMenu("DANH SÁCH");
 
             int choice = Integer.parseInt(scanner.nextLine());
 
             switch (choice) {
                 case optionOne:
-//                    studentService.display();
+                    studentService.display();
                     break;
                 case optionTwo:
-//                    teacherService.display();
+                    teacherService.display();
                     break;
                 case optionThree:
                     return;
@@ -72,16 +72,16 @@ public class PersonController {
 
     private static void displayOptionTwo() {
         while (true) {
-            displayChooseMenu();
+            displayChooseMenu("XOÁ");
 
             int choice = Integer.parseInt(scanner.nextLine());
 
             switch (choice) {
                 case optionOne:
-//                    ((StudentService) studentService).remove();
+                    IStudentService.remove();
                     break;
                 case optionTwo:
-//                    ((TeacherService) teacherService).remove();
+                    ITeacherService.remove();
                     break;
                 case optionThree:
                     return;
@@ -94,16 +94,16 @@ public class PersonController {
 
     private static void displayOptionOne() {
         while (true) {
-            displayChooseMenu();
+            displayChooseMenu("THÊM MỚI");
 
             int choice = Integer.parseInt(scanner.nextLine());
 
             switch (choice) {
                 case optionOne:
-//                    studentService.add();
+                    studentService.add();
                     break;
                 case optionTwo:
-//                    teacherService.add();
+                    teacherService.add();
                     break;
                 case optionThree:
                     return;
@@ -114,10 +114,11 @@ public class PersonController {
         }
     }
 
-    private static void displayChooseMenu() {
-        System.out.print("-----THÊM MỚI-----\n" +
+    private static void displayChooseMenu(String menuName) {
+        System.out.print("\n-----" + menuName + "-----\n" +
                 "1.Sinh viên\n" +
                 "2.Giáo viên\n" +
-                "3.Thoát");
+                "3.Thoát\n" +
+                "Chọn chức năng: ");
     }
 }

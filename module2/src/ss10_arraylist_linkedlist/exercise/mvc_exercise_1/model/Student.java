@@ -35,10 +35,10 @@ public class Student extends Person {
 
     @Override
     public String toString() {
-        return "Học sinh{" +
+        return "\n" + getName() + "{" +
                 super.toString() +
-                ", Lớp='" + classes + '\'' +
-                ", Điểm=" + score +
-                '}';
+                ", Lớp: " + classes +
+                ", Điểm: " + score +
+                "}\n";
     }
 }
