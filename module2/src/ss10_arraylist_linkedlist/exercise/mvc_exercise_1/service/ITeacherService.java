@@ -4,6 +4,12 @@ import ss10_arraylist_linkedlist.exercise.mvc_exercise_1.model.Teacher;
 import ss10_arraylist_linkedlist.exercise.mvc_exercise_1.service.impl.TeacherService;
 
 public interface ITeacherService extends IPeopleService {
+    @Override
+    void add();
+
+    @Override
+    void display();
+
     static Teacher inputInformation() {
         String[] listAttributes = IPeopleService.inputInformation("giáo viên");
         Boolean gender = IPeopleService.checkGender(listAttributes[3]);

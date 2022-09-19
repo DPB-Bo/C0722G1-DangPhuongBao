@@ -10,7 +10,7 @@ public class StudentService implements IStudentService {
     private static List<Student> studentList = new ArrayList<>();
 
     private Student inputInformation() {
-        Student student = (Student) IStudentService.inputInformation();
+        Student student = IStudentService.inputInformation();
 
         System.out.print("\nNhập vào lớp của sinh viên: ");
         String classesStudent = scanner.nextLine();
@@ -43,5 +43,4 @@ public class StudentService implements IStudentService {
     public static List<Student> getStudentList() {
         return studentList;
     }
-
 }

@@ -39,5 +39,4 @@ public class TeacherService implements ITeacherService {
     public static List<Teacher> getTeacherList() {
         return teacherList;
     }
-
 }
