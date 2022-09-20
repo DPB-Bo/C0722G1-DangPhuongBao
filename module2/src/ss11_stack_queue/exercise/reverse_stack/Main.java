@@ -40,7 +40,7 @@ public class Main {
         }
 
         while (!stack.isEmpty()) {
-            System.out.println(stack.pop());
+            System.out.print(stack.pop());
         }
     }
 

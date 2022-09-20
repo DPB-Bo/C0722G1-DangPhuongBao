@@ -12,23 +12,29 @@ public class Main {
 
         Stack<Character> stack = new Stack<>();
 
-        Character bracketLeft = ')';
-        Character bracketRight = '(';
+        Character bracketLeft = '(';
+        int countBracketLeft = 0;
+        Character bracketRight = ')';
+        int countBracketRight = ')';
         for (int index = 0; index < str.length(); index++) {
-            if (str.charAt(index) == bracketLeft || str.charAt(index) == bracketRight) {
+            if (str.charAt(index) == bracketLeft) {
                 stack.push(str.charAt(index));
+                countBracketLeft++;
+            }
+            if (str.charAt(index) == bracketRight) {
+                stack.push(str.charAt(index));
+                countBracketRight++;
             }
         }
 
         boolean flag = true;
 
-        while (stack.size() > 1) {
-            if (stack.pop() == stack.get(stack.size() - 1)) {
-                flag = false;
-                break;
-            }
+        if (stack.get(0) != bracketLeft) {
+            flag = false;
+        } else if (countBracketLeft != countBracketRight) {
+            flag = false;
         }
-
+        
         System.out.print(flag ? "Biểu thức hợp lệ" : "Biểu thức không hợp lệ");
     }
 }
