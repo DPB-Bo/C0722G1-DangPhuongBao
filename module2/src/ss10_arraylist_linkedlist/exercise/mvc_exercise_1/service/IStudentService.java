@@ -5,6 +5,7 @@ import ss10_arraylist_linkedlist.exercise.mvc_exercise_1.service.impl.StudentSer
 import ss10_arraylist_linkedlist.exercise.mvc_exercise_1.service.impl.TeacherService;
 
 public interface IStudentService extends IPeopleService {
+
     @Override
     void add();
 
