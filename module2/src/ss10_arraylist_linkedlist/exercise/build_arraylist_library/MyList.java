@@ -26,13 +26,7 @@ public class MyList<E> {
     }
 
     public int size() {
-        int countNotNullObjects = 0;
-        for (Object object : elements) {
-            if (object != null) {
-                countNotNullObjects++;
-            }
-        }
-        return size = countNotNullObjects;
+        return size;
     }
 
     public boolean add(E element) {
@@ -51,6 +45,7 @@ public class MyList<E> {
                 Object cacheVariable = elements[i - 1];
                 elements[i - 1] = elements[i];
                 elements[i] = cacheVariable;
+                size++;
             }
         } else {
             System.out.println("Index out of range");
@@ -66,6 +61,7 @@ public class MyList<E> {
                 Object cacheVariable = elements[i + 1];
                 elements[i + 1] = elements[i];
                 elements[i] = cacheVariable;
+                size--;
             }
 
         } else {
@@ -89,7 +85,7 @@ public class MyList<E> {
 
     public int indexOf(E o) {
         for (int i = 0; i < size(); i++) {
-            if (elements[i] == o) {
+            if (elements[i].equals(o)) {
                 return i;
             }
         }
