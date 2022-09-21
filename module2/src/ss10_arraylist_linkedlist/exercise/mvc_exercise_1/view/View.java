@@ -4,6 +4,7 @@ import ss10_arraylist_linkedlist.exercise.mvc_exercise_1.controller.PersonContro
 
 public class View {
     public static void main(String[] args) {
-        PersonController.displayMenu();
+        PersonController personController = new PersonController();
+        personController.displayMenu();
     }
 }

@@ -17,7 +17,7 @@ public class PersonController {
     final static int optionFour = 4;
 
 
-    public static void displayMenu() {
+    public void displayMenu() {
         while (true) {
             System.out.print("\n-------CHƯƠNG TRÌNH QUẢN LÝ SINH VIÊN –------\n" +
                     "Chọn chức năng theo số để tiếp tục:\n" +
@@ -48,7 +48,7 @@ public class PersonController {
         }
     }
 
-    private static void displayOptionThree() {
+    private void displayOptionThree() {
         while (true) {
             displayChooseMenu("DANH SÁCH");
 
@@ -70,7 +70,7 @@ public class PersonController {
         }
     }
 
-    private static void displayOptionTwo() {
+    private void displayOptionTwo() {
         while (true) {
             displayChooseMenu("XOÁ");
 
@@ -78,10 +78,10 @@ public class PersonController {
 
             switch (choice) {
                 case optionOne:
-                    IStudentService.remove();
+                    studentService.remove();
                     break;
                 case optionTwo:
-                    ITeacherService.remove();
+                    teacherService.remove();
                     break;
                 case optionThree:
                     return;
@@ -92,7 +92,7 @@ public class PersonController {
         }
     }
 
-    private static void displayOptionOne() {
+    private void displayOptionOne() {
         while (true) {
             displayChooseMenu("THÊM MỚI");
 
@@ -114,7 +114,7 @@ public class PersonController {
         }
     }
 
-    private static void displayChooseMenu(String menuName) {
+    private void displayChooseMenu(String menuName) {
         System.out.print("\n-----" + menuName + "-----\n" +
                 "1.Sinh viên\n" +
                 "2.Giáo viên\n" +

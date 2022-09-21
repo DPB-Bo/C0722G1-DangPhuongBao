@@ -12,18 +12,7 @@ public interface IStudentService extends IPeopleService {
     @Override
     void display();
 
-    static Student inputInformation() {
-        String[] listAttributes = IPeopleService.inputInformation("sinh viên");
-        Boolean gender = IPeopleService.checkGender(listAttributes[3]);
-        return new Student(listAttributes[0], listAttributes[1], listAttributes[2], gender);
-    }
-
-    static void remove() {
-        if (TeacherService.getTeacherList().size() == 0) {
-            System.out.println("\nKhông có sinh viên nào trong danh sách. Hãy thêm mới!");
-        } else {
-            IPeopleService.remove(StudentService.getStudentList(), "sinh viên");
-        }
-    }
+    @Override
+    void remove();
 
 }
