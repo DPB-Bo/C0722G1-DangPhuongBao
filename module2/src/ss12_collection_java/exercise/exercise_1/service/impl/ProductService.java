@@ -8,22 +8,15 @@ import java.util.*;
 
 public class ProductService implements IProductService {
     private Map<String, Product> productMap = new TreeMap<>();
-    private Set<String> productID;
-
+    private Set<String> productID = productMap.keySet();
     private List<Product> productList;
-
-//    public ProductService() {
-//        productID = productMap.keySet();
-//        productList = new ArrayList<>(productMap.values());
-//    }
 
     @Override
     public void add() {
-        productID = productMap.keySet();
-        String id = generateRandomString();
-        while (productID.contains(id)) {
+        String id;
+        do {
             id = generateRandomString();
-        }
+        } while (productID.contains(id));
 
         Product product = inputInformation();
         product.setId(id);
