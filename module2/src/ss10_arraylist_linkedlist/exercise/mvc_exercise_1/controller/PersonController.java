@@ -68,8 +68,8 @@ public class PersonController {
     private void displayOptionFive() {
         System.out.print("\nNhập vào mã cần tìm: ");
         String code = scanner.nextLine();
-
-        boolean isFoundCode = studentService.search(code) || teacherService.search(code);
+        
+        boolean isFoundCode = studentService.search(code) && teacherService.search(code);
 
         if (!isFoundCode) {
             System.out.println("\nKhông tìm thấy biển kiểm soát xe trong dữ liệu! ");

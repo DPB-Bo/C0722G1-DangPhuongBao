@@ -111,7 +111,7 @@ public class CarController {
         System.out.print("\nNhập vào biển kiểm soát của xe cần xoá: ");
         String code = scanner.nextLine();
 
-        boolean isFoundCode = coachService.remove(code) || truckService.remove(code) || truckService.remove(code);
+        boolean isFoundCode = coachService.remove(code) && truckService.remove(code) && truckService.remove(code);
 
         if (!isFoundCode) {
             System.out.println("\nKhông tìm thấy biển kiểm soát xe cần xoá! ");

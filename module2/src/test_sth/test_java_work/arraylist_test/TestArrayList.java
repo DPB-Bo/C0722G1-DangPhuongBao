@@ -7,5 +7,6 @@ public class TestArrayList {
         ArrayList<Integer> arrayListA = new ArrayList<>();
         System.out.println(arrayListA.toString());
 //        System.out.println(arrayList.clone());
+//        arrayListA.add(5,)
     }
 }
