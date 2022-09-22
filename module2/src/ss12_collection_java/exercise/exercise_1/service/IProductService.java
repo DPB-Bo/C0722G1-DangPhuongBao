@@ -16,4 +16,6 @@ public interface IProductService {
     void search();
 
     void sortByPrice();
+
+    public void addData();
 }

@@ -65,9 +65,13 @@ public class ProductService implements IProductService {
 
     @Override
     public void display() {
-        productList = new ArrayList<>(productMap.values());
-        for (Product product : productList) {
-            System.out.printf("\nID: %s, %s\n", product.getId(), product);
+        if (productID.size() <= 0) {
+            System.out.println("\nKhông có sản phẩm trong list!");
+        } else {
+            productList = new ArrayList<>(productMap.values());
+            for (Product product : productList) {
+                System.out.printf("\nID: %s, %s\n", product.getId(), product);
+            }
         }
     }
 
@@ -92,10 +96,14 @@ public class ProductService implements IProductService {
 
     @Override
     public void sortByPrice() {
-        productList = new ArrayList<>(productMap.values());
-        productList.sort(new PriceComparator());
-        for (Product product : productList) {
-            System.out.printf("\nID: %s, %s\n", product.getId(), product);
+        if (productID.size() <= 0) {
+            System.out.println("\nKhông có sản phẩm!");
+        } else {
+            productList = new ArrayList<>(productMap.values());
+            productList.sort(new PriceComparator());
+            for (Product product : productList) {
+                System.out.printf("\nID: %s, %s\n", product.getId(), product);
+            }
         }
     }
 
@@ -123,8 +131,35 @@ public class ProductService implements IProductService {
         return new Product(productName, productPrice, productType);
     }
 
-    private static String inputId() {
+    private String inputId() {
         System.out.print("\nNhập vào id sản phẩm: ");
         return scanner.nextLine();
+    }
+
+    public void addData() {
+        productMap.put("ID1", new Product("sp1", 10, "A"));
+        productMap.get("ID1").setId("ID1");
+
+        productMap.put("ID2", new Product("sp2", 10, "B"));
+        productMap.get("ID2").setId("ID2");
+
+        productMap.put("ID3", new Product("sp3", 10, "C"));
+        productMap.get("ID3").setId("ID3");
+
+        productMap.put("ID4", new Product("sp4", 10, "D"));
+        productMap.get("ID4").setId("ID4");
+
+        productMap.put("ID5", new Product("sp5", 10, "E"));
+        productMap.get("ID5").setId("ID5");
+
+        productMap.put("ID6", new Product("sp6", 10, "F"));
+        productMap.get("ID6").setId("ID6");
+
+        productMap.put("ID7", new Product("sp7", 10, "G"));
+        productMap.get("ID7").setId("ID7");
+
+        productMap.put("ID8", new Product("sp8", 10, "H"));
+        productMap.get("ID8").setId("ID8");
+
     }
 }

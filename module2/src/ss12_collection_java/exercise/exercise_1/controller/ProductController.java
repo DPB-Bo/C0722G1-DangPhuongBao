@@ -22,6 +22,7 @@ public class ProductController {
                     " 5.Tìm kiếm sản phẩm theo tên\n" +
                     " 6.Sắp xếp sản phẩm tăng dần, giảm dần theo giá\n" +
                     " 7.Thoát\n" +
+                    " 8.Thêm dữ liệu" +
                     "\n" +
                     "Nhập vào lựa chọn của bạn: ");
 
@@ -34,6 +35,7 @@ public class ProductController {
             final int optionFive = 5;
             final int optionSix = 6;
             final int optionSeven = 7;
+            final int optionEight = 8;
 
             switch (choice) {
                 case optionOne:
@@ -57,6 +59,9 @@ public class ProductController {
                 case optionSeven:
                     System.out.println("\n Cảm ơn đã sửa dụng ứng dụng! ");
                     return;
+                case optionEight:
+                    productService.addData();
+                    break;
                 default:
                     System.out.println("\nKhông có lựa chọn này!");
                     break;
