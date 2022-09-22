@@ -1,5 +1,6 @@
 package ss10_arraylist_linkedlist.exercise.mvc_exercise_1.service.impl;
 
+import ss10_arraylist_linkedlist.exercise.mvc_exercise_1.model.Student;
 import ss10_arraylist_linkedlist.exercise.mvc_exercise_1.model.Teacher;
 import ss10_arraylist_linkedlist.exercise.mvc_exercise_1.service.ITeacherService;
 
@@ -85,6 +86,30 @@ public class TeacherService implements ITeacherService {
                 System.out.println("\nKhông tìm thấy đối tượng cần xóa.");
             }
         }
+    }
+
+    @Override
+    public boolean search(String code) {
+        boolean flagFound = false;
+        for (Teacher item : teacherList) {
+            if (item.getCode().contains(code)) {
+                System.out.println("\n" + item);
+                flagFound = true;
+            }
+        }
+        return flagFound;
+    }
+
+    @Override
+    public void addFakeDate() {
+        teacherList.add(new Teacher("8", "Q", "08/01", true, "Toán"));
+        teacherList.add(new Teacher("9", "W", "09/01", true, "Lý"));
+        teacherList.add(new Teacher("10", "R", "10/01", true, "Hoá"));
+        teacherList.add(new Teacher("11", "T", "11/01", true, "Sinh"));
+        teacherList.add(new Teacher("12", "Y", "12/01", true, "Địa"));
+        teacherList.add(new Teacher("13", "U", "13/01", true, "Tin Học"));
+        teacherList.add(new Teacher("14", "I", "14/01", true, "Mỹ Thuật"));
+
     }
 
     public static List<Teacher> getTeacherList() {

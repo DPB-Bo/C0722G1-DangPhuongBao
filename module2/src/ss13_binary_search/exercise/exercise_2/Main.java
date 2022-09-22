@@ -25,6 +25,7 @@ public class Main {
         int[] array = new int[size];
         for (int i = 0; i < array.length; i++) {
             System.out.printf("\nNhập vào phần tử thứ %d: ", (i + 1));
+            array[i] = Integer.parseInt(scanner.nextLine());
         }
 
         System.out.print("\nNhập vào số cần tìm: ");

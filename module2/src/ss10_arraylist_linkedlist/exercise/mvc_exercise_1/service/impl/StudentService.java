@@ -92,6 +92,29 @@ public class StudentService implements IStudentService {
         }
     }
 
+    @Override
+    public boolean search(String code) {
+        boolean flagFound = false;
+        for (Student item : studentList) {
+            if (item.getCode().contains(code)) {
+                System.out.println("\n" + item);
+                flagFound = true;
+            }
+        }
+        return flagFound;
+    }
+
+    @Override
+    public void addFakeDate() {
+        studentList.add(new Student("1", "A", "01/01", true, "C0722G1", 1));
+        studentList.add(new Student("2", "B", "02/01", true, "C0722G1", 2));
+        studentList.add(new Student("3", "C", "03/01", true, "C0722G1", 3));
+        studentList.add(new Student("4", "D", "04/01", true, "C0722G1", 4));
+        studentList.add(new Student("5", "E", "05/01", true, "C0722G1", 5));
+        studentList.add(new Student("6", "F", "06/01", true, "C0722G1", 6));
+        studentList.add(new Student("7", "G", "07/01", true, "C0722G1", 7));
+    }
+    
     public static List<Student> getStudentList() {
         return studentList;
     }

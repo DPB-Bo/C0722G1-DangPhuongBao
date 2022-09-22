@@ -13,4 +13,8 @@ public interface IPeopleService {
     void display();
 
     void remove();
+
+    boolean search(String code);
+
+    void addFakeDate();
 }

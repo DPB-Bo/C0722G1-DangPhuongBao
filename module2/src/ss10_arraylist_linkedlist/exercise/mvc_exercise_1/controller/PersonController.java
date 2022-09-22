@@ -15,6 +15,8 @@ public class PersonController {
     final static int optionTwo = 2;
     final static int optionThree = 3;
     final static int optionFour = 4;
+    final static int optionFive = 5;
+    final static int optionSix = 6;
 
 
     public void displayMenu() {
@@ -25,6 +27,8 @@ public class PersonController {
                     "2. Xóa giảng viên hoặc học sinh\n" +
                     "3. Xem danh sách giảng viên hoặc học sinh\n" +
                     "4. Thoát\n" +
+                    "5. Tìm kiếm\n" +
+                    "6. Thêm data tự tạo\n" +
                     "Chọn chức năng: ");
 
             int choice = Integer.parseInt(scanner.nextLine());
@@ -42,11 +46,36 @@ public class PersonController {
                 case optionFour:
                     System.out.println("\nCảm ơn đã sử dụng ứng dụng !");
                     return;
+                case optionFive:
+                    displayOptionFive();
+                    break;
+                case optionSix:
+                    displayOptionSix();
+                    break;
                 default:
                     System.out.println("\nKhông có lựa chọn này!");
             }
         }
     }
+
+    private void displayOptionSix() {
+        System.out.println("\n*******Hãy cẩn thận vì là data cố định nên thêm quá nhiều sẽ bị duplicated!*******");
+        studentService.addFakeDate();
+        teacherService.addFakeDate();
+        System.out.println("\nThêm dữ liệu thành công! ");
+    }
+
+    private void displayOptionFive() {
+        System.out.print("\nNhập vào mã cần tìm: ");
+        String code = scanner.nextLine();
+
+        boolean isFoundCode = studentService.search(code) || teacherService.search(code);
+
+        if (!isFoundCode) {
+            System.out.println("\nKhông tìm thấy biển kiểm soát xe trong dữ liệu! ");
+        }
+    }
+
 
     private void displayOptionThree() {
         while (true) {

@@ -33,6 +33,7 @@ public class Student extends Person {
         this.score = score;
     }
 
+
     @Override
     public String toString() {
         return "\n" + getName() + "{" +
@@ -41,4 +42,5 @@ public class Student extends Person {
                 ", Điểm: " + score +
                 "}\n";
     }
+
 }
