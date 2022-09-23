@@ -109,10 +109,27 @@ public class TeacherService implements ITeacherService {
         teacherList.add(new Teacher("12", "Y", "12/01", true, "Địa"));
         teacherList.add(new Teacher("13", "U", "13/01", true, "Tin Học"));
         teacherList.add(new Teacher("14", "I", "14/01", true, "Mỹ Thuật"));
-
     }
 
-    public static List<Teacher> getTeacherList() {
-        return teacherList;
+    @Override
+    public void sortByName() {
+        for (int i = 0; i < teacherList.size() - 1; i++) {
+            for (int j = teacherList.size() - 1; j > i; j--) {
+                int compareName = teacherList.get(j).getName().compareTo(teacherList.get(j - 1).getName());
+                if (compareName > 0) {
+                    Teacher temp = teacherList.get(j);
+                    teacherList.set(j, teacherList.get(j - 1));
+                    teacherList.set(j - 1, temp);
+                }
+                if (compareName == 0) {
+                    int compareId = teacherList.get(j).getCode().compareTo(teacherList.get(j - 1).getCode());
+                    if (compareId > 0) {
+                        Teacher temp = teacherList.get(j);
+                        teacherList.set(j, teacherList.get(j - 1));
+                        teacherList.set(j - 1, temp);
+                    }
+                }
+            }
+        }
     }
 }

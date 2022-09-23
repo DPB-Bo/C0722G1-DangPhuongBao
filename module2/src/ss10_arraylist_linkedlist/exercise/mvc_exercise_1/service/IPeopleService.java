@@ -17,4 +17,7 @@ public interface IPeopleService {
     boolean search(String code);
 
     void addFakeDate();
+
+    void sortByName();
+
 }

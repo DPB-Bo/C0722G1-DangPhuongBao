@@ -1,6 +1,7 @@
 package ss10_arraylist_linkedlist.exercise.mvc_exercise_1.service.impl;
 
 import ss10_arraylist_linkedlist.exercise.mvc_exercise_1.model.Student;
+import ss10_arraylist_linkedlist.exercise.mvc_exercise_1.model.Teacher;
 import ss10_arraylist_linkedlist.exercise.mvc_exercise_1.service.IStudentService;
 
 import java.util.ArrayList;
@@ -114,8 +115,26 @@ public class StudentService implements IStudentService {
         studentList.add(new Student("6", "F", "06/01", true, "C0722G1", 6));
         studentList.add(new Student("7", "G", "07/01", true, "C0722G1", 7));
     }
-    
-    public static List<Student> getStudentList() {
-        return studentList;
+
+    @Override
+    public void sortByName() {
+        for (int i = 0; i < studentList.size() - 1; i++) {
+            for (int j = studentList.size() - 1; j > i; j--) {
+                int compareName = studentList.get(j).getName().compareTo(studentList.get(j - 1).getName());
+                if (compareName > 0) {
+                    Student temp = studentList.get(j);
+                    studentList.set(j, studentList.get(j - 1));
+                    studentList.set(j - 1, temp);
+                }
+                if (compareName == 0) {
+                    int compareId = studentList.get(j).getCode().compareTo(studentList.get(j - 1).getCode());
+                    if (compareId > 0) {
+                        Student temp = studentList.get(j);
+                        studentList.set(j, studentList.get(j - 1));
+                        studentList.set(j - 1, temp);
+                    }
+                }
+            }
+        }
     }
 }

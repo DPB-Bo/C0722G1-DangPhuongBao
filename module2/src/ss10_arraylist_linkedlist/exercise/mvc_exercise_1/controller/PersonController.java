@@ -8,15 +8,18 @@ import ss10_arraylist_linkedlist.exercise.mvc_exercise_1.service.impl.TeacherSer
 import java.util.Scanner;
 
 public class PersonController {
-    private static final Scanner scanner = new Scanner(System.in);
-    private static final IStudentService studentService = new StudentService();
-    private static final ITeacherService teacherService = new TeacherService();
-    final static int optionOne = 1;
-    final static int optionTwo = 2;
-    final static int optionThree = 3;
-    final static int optionFour = 4;
-    final static int optionFive = 5;
-    final static int optionSix = 6;
+    private final Scanner scanner = new Scanner(System.in);
+    private final IStudentService studentService = new StudentService();
+    private final ITeacherService teacherService = new TeacherService();
+    private final int optionOne = 1;
+    private final int optionTwo = 2;
+    private final int optionThree = 3;
+    private final int optionFour = 4;
+    private final int optionFive = 5;
+    private final int optionSix = 6;
+    private final int optionSeven = 7;
+
+    private Integer choice;
 
 
     public void displayMenu() {
@@ -29,9 +32,10 @@ public class PersonController {
                     "4. Thoát\n" +
                     "5. Tìm kiếm\n" +
                     "6. Thêm data tự tạo\n" +
+                    "7. Sắp xếp theo tên, nếu tên trùng thì sắp xếp theo id\n" +
                     "Chọn chức năng: ");
 
-            int choice = Integer.parseInt(scanner.nextLine());
+            choice = Integer.parseInt(scanner.nextLine());
 
             switch (choice) {
                 case optionOne:
@@ -52,8 +56,34 @@ public class PersonController {
                 case optionSix:
                     displayOptionSix();
                     break;
+                case optionSeven:
+                    displayOptionSeven();
+                    break;
                 default:
                     System.out.println("\nKhông có lựa chọn này!");
+            }
+        }
+    }
+
+    private void displayOptionSeven() {
+        while (true) {
+            displayChooseMenu("SẮP XẾP");
+            choice = Integer.parseInt(scanner.nextLine());
+
+            switch (choice) {
+                case optionOne:
+                    studentService.sortByName();
+                    studentService.display();
+                    break;
+                case optionTwo:
+                    teacherService.sortByName();
+                    teacherService.display();
+                    break;
+                case optionThree:
+                    return;
+                default:
+                    System.out.println("\nKhông có lựa chọn này!");
+                    break;
             }
         }
     }
@@ -68,7 +98,7 @@ public class PersonController {
     private void displayOptionFive() {
         System.out.print("\nNhập vào mã cần tìm: ");
         String code = scanner.nextLine();
-        
+
         boolean isFoundCode = studentService.search(code) && teacherService.search(code);
 
         if (!isFoundCode) {
@@ -81,7 +111,7 @@ public class PersonController {
         while (true) {
             displayChooseMenu("DANH SÁCH");
 
-            int choice = Integer.parseInt(scanner.nextLine());
+            choice = Integer.parseInt(scanner.nextLine());
 
             switch (choice) {
                 case optionOne:
@@ -103,7 +133,7 @@ public class PersonController {
         while (true) {
             displayChooseMenu("XOÁ");
 
-            int choice = Integer.parseInt(scanner.nextLine());
+            choice = Integer.parseInt(scanner.nextLine());
 
             switch (choice) {
                 case optionOne:
@@ -125,7 +155,7 @@ public class PersonController {
         while (true) {
             displayChooseMenu("THÊM MỚI");
 
-            int choice = Integer.parseInt(scanner.nextLine());
+            choice = Integer.parseInt(scanner.nextLine());
 
             switch (choice) {
                 case optionOne:
