@@ -177,7 +177,7 @@ public class PersonController {
         System.out.print("\n-----" + menuName + "-----\n" +
                 "1.Sinh viên\n" +
                 "2.Giáo viên\n" +
-                "3.Thoát\n" +
+                "3.Trở về menu chính\n" +
                 "Chọn chức năng: ");
     }
 }
