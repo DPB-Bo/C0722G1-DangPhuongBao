@@ -123,19 +123,10 @@ public class StudentService implements IStudentService {
     public void sortByName() {
         for (int i = 0; i < studentList.size() - 1; i++) {
             for (int j = studentList.size() - 1; j > i; j--) {
-                int compareName = studentList.get(j).getName().compareTo(studentList.get(j - 1).getName());
-                if (compareName < 0) {
+                if (studentList.get(j).compareTo(studentList.get(j - 1)) < 0) {
                     Student temp = studentList.get(j);
                     studentList.set(j, studentList.get(j - 1));
                     studentList.set(j - 1, temp);
-                }
-                if (compareName == 0) {
-                    int compareId = Integer.valueOf(studentList.get(j).getCode()).compareTo(Integer.valueOf(studentList.get(j).getCode()));
-                    if (compareId < 0) {
-                        Student temp = studentList.get(j);
-                        studentList.set(j, studentList.get(j - 1));
-                        studentList.set(j - 1, temp);
-                    }
                 }
             }
         }

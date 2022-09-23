@@ -1,6 +1,6 @@
 package ss10_arraylist_linkedlist.exercise.mvc_exercise_1.model;
 
-public class Student extends Person {
+public class Student extends Person implements Comparable<Student> {
     private String classes;
     private Integer score;
 
@@ -43,4 +43,15 @@ public class Student extends Person {
                 "}\n";
     }
 
+    @Override
+    public int compareTo(Student o) {
+        int compareName = this.getName().compareTo(o.getName());
+        if (compareName > 0) {
+            return 1;
+        }
+        if (compareName == 0) {
+            return this.getCode().compareTo(o.getCode());
+        }
+        return -1;
+    }
 }
