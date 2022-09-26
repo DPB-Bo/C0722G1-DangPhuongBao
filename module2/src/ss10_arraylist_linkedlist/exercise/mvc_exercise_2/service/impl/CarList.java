@@ -37,9 +37,9 @@ public class CarList<E extends Car> {
             try {
                 System.out.print("\nNhập vào biển kiểm soát: ");
                 code = scanner.nextLine();
-                boolean isNotValidCode = code.length() != 6;
+                boolean isNotValidCode = code.length() != 6 || checkContainsString(code);
                 if (isNotValidCode) {
-                    throw new CodeException("Biển số xe không hợp lệ (6 số). Vui lòng nhập lại");
+                    throw new CodeException("Biển số xe không hợp lệ (6 số , không có kí tự). Vui lòng nhập lại");
                 }
                 break;
             } catch (CodeException e) {
@@ -147,6 +147,7 @@ public class CarList<E extends Car> {
     }
 
     private void displayMenuProducer() {
+        System.out.println("*****DANH SÁCH HÃNG SẢN XUẤT XE*****");
         for (int i = 0; i < ProducerService.getProducers().size(); i++) {
             System.out.println("\n" + i + ". " + ProducerService.getProducers().get(i).getName());
         }
@@ -169,6 +170,16 @@ public class CarList<E extends Car> {
         char[] chars = s.toCharArray();
         for (char c : chars) {
             if (Character.isDigit(c)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private boolean checkContainsString(String s) {
+        char[] chars = s.toCharArray();
+        for (char c : chars) {
+            if (Character.isAlphabetic(c)) {
                 return true;
             }
         }
