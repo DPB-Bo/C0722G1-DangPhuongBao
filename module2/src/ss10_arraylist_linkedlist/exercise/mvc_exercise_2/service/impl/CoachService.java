@@ -1,7 +1,11 @@
 package ss10_arraylist_linkedlist.exercise.mvc_exercise_2.service.impl;
 
+import ss10_arraylist_linkedlist.exercise.mvc_exercise_2.exception.coach_exception.AmountSeatException;
+import ss10_arraylist_linkedlist.exercise.mvc_exercise_2.exception.coach_exception.TypeCarException;
 import ss10_arraylist_linkedlist.exercise.mvc_exercise_2.model.Coach;
 import ss10_arraylist_linkedlist.exercise.mvc_exercise_2.service.ICoachService;
+
+import static com.sun.org.apache.xml.internal.security.keys.keyresolver.KeyResolver.length;
 
 public class CoachService implements ICoachService {
     private CarList<Coach> coachCarList = new CarList<>();
@@ -11,15 +15,51 @@ public class CoachService implements ICoachService {
         Coach coach = new Coach();
         coachCarList.inputInformation(coach);
 
-        System.out.print("\nNhập vào kiểu xe: ");
-        String typeCar = scanner.nextLine();
-        coach.setTypeCar(typeCar);
+        coach.setTypeCar(checkTypeCarOfCoach());
 
-        System.out.print("\nNhập vào số chỗ ngồi: ");
-        Integer amountSeat = Integer.parseInt(scanner.nextLine());
-        coach.setAmountSeat(amountSeat);
+
+        coach.setAmountSeat(checkAmountSeatOfCoach());
 
         return coach;
+    }
+
+    private String checkTypeCarOfCoach() {
+        String typeCar;
+
+        while (true) {
+            try {
+                System.out.print("\nNhập vào kiểu xe: ");
+                typeCar = scanner.nextLine();
+                boolean isNotValidTypeCar = typeCar.length() < 6;
+                if (isNotValidTypeCar) {
+                    throw new TypeCarException("Kiểu xe không phù hợp lệ(6 kí tự). Vui lòng nhập lại!");
+                }
+                break;
+            } catch (TypeCarException e) {
+                System.out.println(e.getMessage());
+            }
+        }
+
+        return typeCar;
+    }
+
+    private int checkAmountSeatOfCoach() {
+        int amountSeat;
+
+        while (true) {
+            try {
+                System.out.print("\nNhập vào số lượng chỗ ngồi: ");
+                amountSeat = Integer.parseInt(scanner.nextLine());
+                if (amountSeat < 0) {
+                    throw new AmountSeatException("Số lượng chỗ ngồi không hợp lệ.Vui lòng nhập lại!");
+                }
+                break;
+            } catch (AmountSeatException | NumberFormatException e) {
+                System.out.println(e.getMessage());
+            }
+        }
+
+        return amountSeat;
     }
 
     @Override

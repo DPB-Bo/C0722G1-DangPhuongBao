@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ProducerService {
-    private static List<Producer> producers = new ArrayList<Producer>();
+    private static List<Producer> producers = new ArrayList<>();
 
 
     public static void addProducer() {
@@ -24,4 +24,5 @@ public class ProducerService {
     public static List<Producer> getProducers() {
         return producers;
     }
+
 }

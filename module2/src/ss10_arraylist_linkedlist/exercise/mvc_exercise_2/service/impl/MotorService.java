@@ -1,5 +1,7 @@
 package ss10_arraylist_linkedlist.exercise.mvc_exercise_2.service.impl;
 
+import ss10_arraylist_linkedlist.exercise.mvc_exercise_2.exception.coach_exception.AmountSeatException;
+import ss10_arraylist_linkedlist.exercise.mvc_exercise_2.exception.motor_exception.VehicleCapacityException;
 import ss10_arraylist_linkedlist.exercise.mvc_exercise_2.model.Motor;
 import ss10_arraylist_linkedlist.exercise.mvc_exercise_2.service.IMotorService;
 
@@ -11,10 +13,29 @@ public class MotorService implements IMotorService {
         Motor motor = new Motor();
         motorCarList.inputInformation(motor);
 
-        System.out.print("\nNhập vào trọng tải: ");
-        Integer vehicleCapacity = Integer.parseInt(scanner.nextLine());
+        motor.setVehicleCapacity(checkVehicleCapacity());
 
         return motor;
+    }
+
+    private int checkVehicleCapacity() {
+        int vehicleCapacity;
+
+        while (true) {
+            try {
+                System.out.print("\nNhập vào công suất của xe: ");
+                vehicleCapacity = Integer.parseInt(scanner.nextLine());
+                boolean isNotValidVehicleCapacity = vehicleCapacity < 50 || vehicleCapacity > 200;
+                if (isNotValidVehicleCapacity) {
+                    throw new VehicleCapacityException("Công suất xe không hợp lệ(>50 và <200).Vui lòng nhập lại!");
+                }
+                break;
+            } catch (VehicleCapacityException | NumberFormatException e) {
+                System.out.println(e.getMessage());
+            }
+        }
+
+        return vehicleCapacity;
     }
 
     @Override
