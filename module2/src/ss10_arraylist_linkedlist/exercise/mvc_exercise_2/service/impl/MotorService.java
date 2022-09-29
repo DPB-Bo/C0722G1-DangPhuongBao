@@ -14,6 +14,8 @@ public class MotorService implements IMotorService {
 
     @Override
     public Object inputInformation() {
+        readDataFile();
+
         Motor motor = new Motor();
         motorCarList.inputInformation(motor);
 
@@ -44,6 +46,8 @@ public class MotorService implements IMotorService {
 
     @Override
     public void add() {
+        readDataFile();
+
         Motor motor = (Motor) inputInformation();
         motorCarList.add(motor);
         motorCarList.writeFile(motor);
@@ -66,16 +70,22 @@ public class MotorService implements IMotorService {
 
     @Override
     public void display() {
+        readDataFile();
+
         motorCarList.display();
     }
 
     @Override
     public boolean remove(String code) {
+        readDataFile();
+
         return motorCarList.remove(code, motorCarList);
     }
 
     @Override
     public boolean search(String code) {
+        readDataFile();
+
         return motorCarList.search(code);
     }
 }

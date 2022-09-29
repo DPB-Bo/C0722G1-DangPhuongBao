@@ -14,6 +14,8 @@ public class TruckService implements ICarService {
 
     @Override
     public Object inputInformation() {
+        readDataFile();
+
         Truck truck = new Truck();
         truckCarList.inputInformation(truck);
 
@@ -44,6 +46,8 @@ public class TruckService implements ICarService {
 
     @Override
     public void add() {
+        readDataFile();
+
         Truck truck = (Truck) inputInformation();
         truckCarList.add(truck);
         truckCarList.writeFile(truck);
@@ -66,16 +70,22 @@ public class TruckService implements ICarService {
 
     @Override
     public void display() {
+        readDataFile();
+
         truckCarList.display();
     }
 
     @Override
     public boolean remove(String code) {
+        readDataFile();
+
         return truckCarList.remove(code, truckCarList);
     }
 
     @Override
     public boolean search(String code) {
+        readDataFile();
+
         return truckCarList.search(code);
     }
 }

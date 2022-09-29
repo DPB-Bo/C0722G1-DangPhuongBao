@@ -14,7 +14,10 @@ public class CoachService implements ICoachService {
 
     @Override
     public Object inputInformation() {
+        readDataFile();
+
         Coach coach = new Coach();
+        
         coachCarList.inputInformation(coach);
 
         coach.setTypeCar(checkTypeCarOfCoach());
@@ -65,6 +68,7 @@ public class CoachService implements ICoachService {
 
     @Override
     public void add() {
+        readDataFile();
         Coach coach = (Coach) inputInformation();
         coachCarList.add(coach);
         coachCarList.writeFile(coach);
@@ -88,16 +92,19 @@ public class CoachService implements ICoachService {
 
     @Override
     public void display() {
+        readDataFile();
         coachCarList.display();
     }
 
     @Override
     public boolean remove(String code) {
+        readDataFile();
         return coachCarList.remove(code, coachCarList);
     }
 
     @Override
     public boolean search(String code) {
+        readDataFile();
         return coachCarList.search(code);
     }
 }

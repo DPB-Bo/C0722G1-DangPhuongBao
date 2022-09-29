@@ -9,7 +9,6 @@ public class Main {
         File sourceFile = new File("src/ss16_text_file/exercise/exercise1/data/sourcefile.txt");
         File copyFile = new File("src/ss16_text_file/exercise/exercise1/data/copyfile.txt");
 
-        List<String> lines = new ArrayList<>();
         String line;
 
         try {
@@ -20,11 +19,7 @@ public class Main {
             BufferedWriter copyFileWriterBuffer = new BufferedWriter(copyFileWriter);
 
             while ((line = sourceFileReaderBuffer.readLine()) != null) {
-                lines.add(line);
-            }
-
-            for (String strLine : lines) {
-                copyFileWriterBuffer.write(strLine);
+                copyFileWriterBuffer.write(line);
                 copyFileWriterBuffer.newLine();
             }
 
