@@ -5,16 +5,19 @@ public class Coach extends Car {
     private Integer amountSeat;
 
     public Coach() {
+        super.setPath("src/ss10_arraylist_linkedlist/exercise/mvc_exercise_2/data/coach/coach.csv");
     }
 
     public Coach(String code, Producer producer, Integer year, String owner) {
         super(code, producer, year, owner);
+        super.setPath("src/ss10_arraylist_linkedlist/exercise/mvc_exercise_2/data/coach/coach.csv");
     }
 
     public Coach(String code, Producer producer, Integer year, String owner, String typeCar, Integer amountSeat) {
         super(code, producer, year, owner);
         this.typeCar = typeCar;
         this.amountSeat = amountSeat;
+        super.setPath("src/ss10_arraylist_linkedlist/exercise/mvc_exercise_2/data/coach/coach.csv");
     }
 
     public String getTypeCar() {
@@ -35,10 +38,15 @@ public class Coach extends Car {
 
     @Override
     public String toString() {
-        return "\n Ô tô{" +
+        return "\nÔ tô{" +
                 super.toString() +
                 ", Kiểu xe: " + typeCar +
                 ", Số chỗ ngồi: " + amountSeat +
                 "}\n";
+    }
+
+    @Override
+    public String getInformation() {
+        return super.getInformation() + String.format("%s,%s", this.typeCar, this.amountSeat);
     }
 }

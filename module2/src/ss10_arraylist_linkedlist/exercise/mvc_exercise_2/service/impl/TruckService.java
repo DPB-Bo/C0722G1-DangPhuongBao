@@ -1,8 +1,13 @@
 package ss10_arraylist_linkedlist.exercise.mvc_exercise_2.service.impl;
 
-import ss10_arraylist_linkedlist.exercise.mvc_exercise_2.exception.truck_exception.VehicleLoadException;
+import ss10_arraylist_linkedlist.exercise.mvc_exercise_2.model.Motor;
+import ss10_arraylist_linkedlist.exercise.mvc_exercise_2.model.Producer;
+import ss10_arraylist_linkedlist.exercise.mvc_exercise_2.utils.exception.truck_exception.VehicleLoadException;
 import ss10_arraylist_linkedlist.exercise.mvc_exercise_2.model.Truck;
 import ss10_arraylist_linkedlist.exercise.mvc_exercise_2.service.ICarService;
+import ss10_arraylist_linkedlist.exercise.mvc_exercise_2.utils.generic_list.CarList;
+
+import java.util.List;
 
 public class TruckService implements ICarService {
     CarList<Truck> truckCarList = new CarList<>();
@@ -12,6 +17,7 @@ public class TruckService implements ICarService {
         Truck truck = new Truck();
         truckCarList.inputInformation(truck);
 
+        truck.setVehicleLoad(checkVehicleLoad());
 
         return truck;
     }
@@ -40,6 +46,22 @@ public class TruckService implements ICarService {
     public void add() {
         Truck truck = (Truck) inputInformation();
         truckCarList.add(truck);
+        truckCarList.writeFile(truck);
+    }
+
+    @Override
+    public void readDataFile() {
+        Truck truck = new Truck();
+        List<String[]> lists = truckCarList.readFile(truck);
+        for (String[] list : lists) {
+            truck = new Truck();
+            truck.setCode(list[0]);
+            truck.setProducer(new Producer(list[1], list[2], list[3]));
+            truck.setYear(Integer.parseInt(list[4]));
+            truck.setOwner(list[5]);
+            truck.setVehicleLoad(Integer.parseInt(list[6]));
+            truckCarList.add(truck);
+        }
     }
 
     @Override
@@ -49,7 +71,7 @@ public class TruckService implements ICarService {
 
     @Override
     public boolean remove(String code) {
-        return truckCarList.remove(code);
+        return truckCarList.remove(code, truckCarList);
     }
 
     @Override

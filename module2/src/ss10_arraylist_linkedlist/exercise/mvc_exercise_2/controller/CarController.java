@@ -2,6 +2,7 @@ package ss10_arraylist_linkedlist.exercise.mvc_exercise_2.controller;
 
 import ss10_arraylist_linkedlist.exercise.mvc_exercise_2.service.impl.CoachService;
 import ss10_arraylist_linkedlist.exercise.mvc_exercise_2.service.impl.MotorService;
+import ss10_arraylist_linkedlist.exercise.mvc_exercise_2.service.impl.ProducerService;
 import ss10_arraylist_linkedlist.exercise.mvc_exercise_2.service.impl.TruckService;
 
 import java.util.Scanner;
@@ -11,6 +12,7 @@ public class CarController {
     private final CoachService coachService = new CoachService();
     private final MotorService motorService = new MotorService();
     private final TruckService truckService = new TruckService();
+    private final ProducerService producerService = new ProducerService();
     private final int optionOne = 1;
     private final int optionTwo = 2;
     private final int optionThree = 3;
@@ -18,6 +20,10 @@ public class CarController {
     private final int optionFive = 5;
 
     public void displayMainMenu() {
+        producerService.addProducer();
+        coachService.readDataFile();
+        motorService.readDataFile();
+        truckService.readDataFile();
         while (true) {
             System.out.print("\n*******CHƯƠNG TRÌNH QUẢN LÝ PHƯƠNG TIỆN GIAO THÔNG*******\n" +
                     "Chọn chức năng:\n" +
@@ -122,9 +128,10 @@ public class CarController {
         System.out.print("\nNhập vào biển kiểm soát của xe cần tìm: ");
         String code = scanner.nextLine();
 
-        boolean isFoundCode = coachService.search(code) || truckService.search(code) || truckService.search(code);
-
-        if (!isFoundCode) {
+        boolean isFoundCoach = coachService.search(code);
+        boolean isFoundTruck = truckService.search(code);
+        boolean isFoundMotor = motorService.search(code);
+        if (!isFoundCoach && !isFoundTruck && !isFoundMotor) {
             System.out.println("\nKhông tìm thấy biển kiểm soát xe trong dữ liệu! ");
         }
     }

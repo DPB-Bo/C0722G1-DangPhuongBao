@@ -2,7 +2,6 @@ package ss16_text_file.exercise.exercise2;
 
 import java.io.*;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class Main {

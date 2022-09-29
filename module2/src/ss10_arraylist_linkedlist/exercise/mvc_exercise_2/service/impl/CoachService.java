@@ -1,11 +1,13 @@
 package ss10_arraylist_linkedlist.exercise.mvc_exercise_2.service.impl;
 
-import ss10_arraylist_linkedlist.exercise.mvc_exercise_2.exception.coach_exception.AmountSeatException;
-import ss10_arraylist_linkedlist.exercise.mvc_exercise_2.exception.coach_exception.TypeCarException;
+import ss10_arraylist_linkedlist.exercise.mvc_exercise_2.model.Producer;
+import ss10_arraylist_linkedlist.exercise.mvc_exercise_2.utils.exception.coach_exception.AmountSeatException;
+import ss10_arraylist_linkedlist.exercise.mvc_exercise_2.utils.exception.coach_exception.TypeCarException;
 import ss10_arraylist_linkedlist.exercise.mvc_exercise_2.model.Coach;
 import ss10_arraylist_linkedlist.exercise.mvc_exercise_2.service.ICoachService;
+import ss10_arraylist_linkedlist.exercise.mvc_exercise_2.utils.generic_list.CarList;
 
-import static com.sun.org.apache.xml.internal.security.keys.keyresolver.KeyResolver.length;
+import java.util.List;
 
 public class CoachService implements ICoachService {
     private CarList<Coach> coachCarList = new CarList<>();
@@ -16,7 +18,6 @@ public class CoachService implements ICoachService {
         coachCarList.inputInformation(coach);
 
         coach.setTypeCar(checkTypeCarOfCoach());
-
 
         coach.setAmountSeat(checkAmountSeatOfCoach());
 
@@ -30,9 +31,9 @@ public class CoachService implements ICoachService {
             try {
                 System.out.print("\nNhập vào kiểu xe: ");
                 typeCar = scanner.nextLine();
-                boolean isNotValidTypeCar = typeCar.length() < 6;
+                boolean isNotValidTypeCar = typeCar.length() < 3;
                 if (isNotValidTypeCar) {
-                    throw new TypeCarException("Kiểu xe không phù hợp lệ(6 kí tự). Vui lòng nhập lại!");
+                    throw new TypeCarException("Kiểu xe không phù hợp lệ(>3 kí tự). Vui lòng nhập lại!");
                 }
                 break;
             } catch (TypeCarException e) {
@@ -66,6 +67,23 @@ public class CoachService implements ICoachService {
     public void add() {
         Coach coach = (Coach) inputInformation();
         coachCarList.add(coach);
+        coachCarList.writeFile(coach);
+    }
+
+    @Override
+    public void readDataFile() {
+        Coach coach = new Coach();
+        List<String[]> lists = coachCarList.readFile(coach);
+        for (String[] list : lists) {
+            coach = new Coach();
+            coach.setCode(list[0]);
+            coach.setProducer(new Producer(list[1], list[2], list[3]));
+            coach.setYear(Integer.parseInt(list[4]));
+            coach.setOwner(list[5]);
+            coach.setTypeCar(list[6]);
+            coach.setAmountSeat(Integer.parseInt(list[7]));
+            coachCarList.add(coach);
+        }
     }
 
     @Override
@@ -75,7 +93,7 @@ public class CoachService implements ICoachService {
 
     @Override
     public boolean remove(String code) {
-        return coachCarList.remove(code);
+        return coachCarList.remove(code, coachCarList);
     }
 
     @Override

@@ -1,11 +1,13 @@
-package ss10_arraylist_linkedlist.exercise.mvc_exercise_2.service.impl;
+package ss10_arraylist_linkedlist.exercise.mvc_exercise_2.utils.generic_list;
 
-import ss10_arraylist_linkedlist.exercise.mvc_exercise_2.exception.car_exception.ChoiceProducerException;
-import ss10_arraylist_linkedlist.exercise.mvc_exercise_2.exception.car_exception.CodeException;
-import ss10_arraylist_linkedlist.exercise.mvc_exercise_2.exception.car_exception.OwnerException;
-import ss10_arraylist_linkedlist.exercise.mvc_exercise_2.exception.car_exception.YearException;
+import ss10_arraylist_linkedlist.exercise.mvc_exercise_2.service.impl.ProducerService;
+import ss10_arraylist_linkedlist.exercise.mvc_exercise_2.utils.exception.car_exception.ChoiceProducerException;
+import ss10_arraylist_linkedlist.exercise.mvc_exercise_2.utils.exception.car_exception.CodeException;
+import ss10_arraylist_linkedlist.exercise.mvc_exercise_2.utils.exception.car_exception.OwnerException;
+import ss10_arraylist_linkedlist.exercise.mvc_exercise_2.utils.exception.car_exception.YearException;
 import ss10_arraylist_linkedlist.exercise.mvc_exercise_2.model.Car;
 
+import java.io.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -58,9 +60,9 @@ public class CarList<E extends Car> {
                 int yearNow = LocalDate.now().getYear();
                 System.out.print("\nNhập vào năm sản xuất: ");
                 year = Integer.parseInt(scanner.nextLine());
-                boolean isNotValidYear = year > yearNow || year < 2000;
+                boolean isNotValidYear = year > yearNow || year < 1000;
                 if (isNotValidYear) {
-                    throw new YearException("Năm nhập vào không hợp lệ (>2000).Vui lòng nhập lại!");
+                    throw new YearException("Năm nhập vào không hợp lệ (>1000).Vui lòng nhập lại!");
                 }
                 break;
             } catch (YearException e) {
@@ -69,6 +71,40 @@ public class CarList<E extends Car> {
         }
         return year;
     }
+
+    public List<String[]> readFile(E e) {
+        File file = new File(e.getPath());
+        String line;
+        List<String[]> list = new ArrayList<>();
+        try {
+            BufferedReader br = new BufferedReader(new FileReader(file));
+
+            while ((line = br.readLine()) != null) {
+                String[] info = line.split(",");
+                list.add(info);
+            }
+
+            br.close();
+        } catch (Exception exception) {
+            System.out.println(exception.getMessage());
+        }
+        return list;
+    }
+
+    public void writeFile(E e) {
+        File file = new File(e.getPath());
+        try {
+            BufferedWriter bw = new BufferedWriter(new FileWriter(file));
+            for (E item : this.items) {
+                bw.write(item.getInformation());
+                bw.newLine();
+            }
+            bw.close();
+        } catch (Exception exception) {
+            System.out.println(exception.getMessage());
+        }
+    }
+
 
     private String checkOwnerOfCar() {
         String owner;
@@ -112,7 +148,7 @@ public class CarList<E extends Car> {
 
     public void add(E e) {
         items.add(e);
-        System.out.println("Thêm mới thành công!");
+
     }
 
     public void display() {
@@ -125,15 +161,16 @@ public class CarList<E extends Car> {
         }
     }
 
-    public boolean remove(String code) {
+    public boolean remove(String code, CarList<E> CarList) {
         boolean flagDelete = false;
 
         for (E item : items) {
             if (item.getCode().equals(code)) {
-                System.out.printf("\nBạn có chắc muốn xóa xe có mã %d này không? Nhập Y: yes, N: no\n", code);
+                System.out.printf("\nBạn có chắc muốn xóa xe có mã %s này không? Nhập Y: yes, N: no\n", code);
                 String choice = scanner.nextLine();
                 if (choice.equals("Y")) {
                     items.remove(item);
+                    CarList.writeFile(item);
                     System.out.println("\nXóa thành công");
                 } else {
                     System.out.println("\nXoá không thành công");

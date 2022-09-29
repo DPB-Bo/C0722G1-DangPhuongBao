@@ -42,4 +42,8 @@ public class Producer {
                 ", Quốc gia: " + nation +
                 '}';
     }
+
+    public String getInformation() {
+        return String.format("%s,%s,%s", this.code, this.name, this.nation);
+    }
 }

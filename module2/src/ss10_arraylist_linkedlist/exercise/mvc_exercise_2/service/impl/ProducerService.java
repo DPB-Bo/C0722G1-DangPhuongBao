@@ -9,7 +9,7 @@ public class ProducerService {
     private static List<Producer> producers = new ArrayList<>();
 
 
-    public static void addProducer() {
+    public void addProducer() {
         producers.add(new Producer("VF", "VINFAST", "VIETNAM"));
         producers.add(new Producer("MA", "MAZDA", "NHATBAN"));
         producers.add(new Producer("TA", "TOYOTA", "NHATBAN"));

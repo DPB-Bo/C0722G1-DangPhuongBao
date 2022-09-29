@@ -5,7 +5,6 @@ import ss10_arraylist_linkedlist.exercise.mvc_exercise_2.service.impl.ProducerSe
 
 public class View {
     public static void main(String[] args) {
-        ProducerService.addProducer();
         CarController carController = new CarController();
         carController.displayMainMenu();
     }

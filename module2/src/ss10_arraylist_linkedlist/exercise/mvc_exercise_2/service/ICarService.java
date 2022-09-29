@@ -9,6 +9,8 @@ public interface ICarService {
 
     void add();
 
+    void readDataFile();
+
     void display();
 
     boolean remove(String code);

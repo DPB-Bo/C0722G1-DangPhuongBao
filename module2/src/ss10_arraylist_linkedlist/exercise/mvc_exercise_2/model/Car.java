@@ -6,6 +6,8 @@ public abstract class Car {
     private Integer year;
     private String owner;
 
+    private String path;
+
     public Car() {
     }
 
@@ -46,6 +48,18 @@ public abstract class Car {
 
     public void setOwner(String owner) {
         this.owner = owner;
+    }
+
+    public String getInformation() {
+        return String.format("%s,%s,%s,%s,", this.code, this.producer.getInformation(), this.year, this.owner);
+    }
+
+    public String getPath() {
+        return path;
+    }
+
+    public void setPath(String path) {
+        this.path = path;
     }
 
     @Override
