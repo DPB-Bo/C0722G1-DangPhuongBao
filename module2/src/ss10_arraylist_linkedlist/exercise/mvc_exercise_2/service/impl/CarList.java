@@ -185,4 +185,14 @@ public class CarList<E extends Car> {
         }
         return false;
     }
+
+    private boolean checkContainsSpecialLetter(String s) {
+        char[] chars = s.toCharArray();
+        for (char c : chars) {
+            if (!Character.isLetterOrDigit(c)) {
+                return true;
+            }
+        }
+        return false;
+    }
 }
