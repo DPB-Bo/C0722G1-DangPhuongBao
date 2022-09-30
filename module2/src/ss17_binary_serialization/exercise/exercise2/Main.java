@@ -14,6 +14,8 @@ public class Main {
 
             oos.writeObject(ois.readObject());
 
+            ois.close();
+            oos.close();
         } catch (IOException e) {
             System.out.println(e.getMessage());
         } catch (ClassNotFoundException e) {
