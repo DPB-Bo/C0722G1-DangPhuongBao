@@ -4,7 +4,6 @@ import java.io.*;
 
 public class Main {
     public static void main(String[] args) {
-
         try {
             FileInputStream fileInputStream = new FileInputStream("src/ss17_binary_serialization/exercise/exercise2/data/source_file.dat");
             FileOutputStream fileOutputStream = new FileOutputStream("src/ss17_binary_serialization/exercise/exercise2/data/target_file.dat");

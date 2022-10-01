@@ -97,9 +97,9 @@ public class ProductService implements IProductService {
         while (true) {
             try {
                 System.out.print("Nhập vào giá sản phẩm: ");
-                boolean validName = (price = Integer.parseInt(scanner.nextLine())) > 1000;
+                boolean validName = (price = Integer.parseInt(scanner.nextLine())) > 1000 && (price = Integer.parseInt(scanner.nextLine())) < 10000000;
                 if (!validName) {
-                    throw new PriceException("Giá sản phẩm không hợp lệ (>1000)");
+                    throw new PriceException("Giá sản phẩm không hợp lệ (>1000 và < 10 triệu)");
                 }
                 break;
             } catch (PriceException e) {
@@ -163,7 +163,7 @@ public class ProductService implements IProductService {
         try {
             FileInputStream fileInputStream = new FileInputStream("src/ss17_binary_serialization/exercise/exercise1/data/product_data.dat");
             ObjectInputStream ois = new ObjectInputStream(fileInputStream);
-            
+
             productList = (List<Product>) ois.readObject();
             ois.close();
         } catch (IOException e) {

@@ -26,3 +26,5 @@ STT	Biểu thức chính quy	Mô tả
 23	{X,Y}	Xuất hiện trong khoảng X tới Y lần.
 24	*?	* có nghĩa là xuất hiện 0 hoặc nhiều lần, thêm ? phía sau nghĩa là tìm kiếm khớp nhỏ nhất.
 25 các ký tự đặc biệt : \.[{(*+?^$| .Trong Java Regex bạn muốn nó hiểu các ký tự đó theo cách thông thường bạn cần thêm dấu \ ở phía trước.
+
+Email regex: ^\w+\w*@\w+(\.\w*)$

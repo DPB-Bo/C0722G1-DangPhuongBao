@@ -1,5 +1,8 @@
 package ss10_arraylist_linkedlist.exercise.mvc_exercise_2.controller;
 
+import ss10_arraylist_linkedlist.exercise.mvc_exercise_2.service.ICoachService;
+import ss10_arraylist_linkedlist.exercise.mvc_exercise_2.service.IMotorService;
+import ss10_arraylist_linkedlist.exercise.mvc_exercise_2.service.ITruckService;
 import ss10_arraylist_linkedlist.exercise.mvc_exercise_2.service.impl.CoachService;
 import ss10_arraylist_linkedlist.exercise.mvc_exercise_2.service.impl.MotorService;
 import ss10_arraylist_linkedlist.exercise.mvc_exercise_2.service.impl.ProducerService;
@@ -9,9 +12,9 @@ import java.util.Scanner;
 
 public class CarController {
     private static final Scanner scanner = new Scanner(System.in);
-    private final CoachService coachService = new CoachService();
-    private final MotorService motorService = new MotorService();
-    private final TruckService truckService = new TruckService();
+    private final ICoachService coachService = new CoachService();
+    private final IMotorService motorService = new MotorService();
+    private final ITruckService truckService = new TruckService();
     private final ProducerService producerService = new ProducerService();
     private final int optionOne = 1;
     private final int optionTwo = 2;

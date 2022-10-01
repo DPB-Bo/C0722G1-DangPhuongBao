@@ -6,7 +6,7 @@ import java.util.regex.Pattern;
 public class Main {
     public static void main(String[] args) {
         String mydata = "some string with \"the\" data i 'want' inside";
-//        Pattern pattern = Pattern.compile("\"(.*?)\"");
+        Pattern pattern = Pattern.compile("^\\d{1,2}[-|/]\\d{1,2}[-|/]\\d{4}$");
 //        Matcher matcher = pattern.matcher(mydata);
 
 //        System.out.println(matcher.groupCount());
@@ -15,5 +15,7 @@ public class Main {
 //        }
         System.out.println(mydata);
 //        System.out.println(mydata.replaceAll("\"", ""));
+
+
     }
 }

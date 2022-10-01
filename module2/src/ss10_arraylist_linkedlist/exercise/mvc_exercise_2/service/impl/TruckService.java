@@ -1,15 +1,14 @@
 package ss10_arraylist_linkedlist.exercise.mvc_exercise_2.service.impl;
 
-import ss10_arraylist_linkedlist.exercise.mvc_exercise_2.model.Motor;
 import ss10_arraylist_linkedlist.exercise.mvc_exercise_2.model.Producer;
+import ss10_arraylist_linkedlist.exercise.mvc_exercise_2.service.ITruckService;
 import ss10_arraylist_linkedlist.exercise.mvc_exercise_2.utils.exception.truck_exception.VehicleLoadException;
 import ss10_arraylist_linkedlist.exercise.mvc_exercise_2.model.Truck;
-import ss10_arraylist_linkedlist.exercise.mvc_exercise_2.service.ICarService;
 import ss10_arraylist_linkedlist.exercise.mvc_exercise_2.utils.generic_list.CarList;
 
 import java.util.List;
 
-public class TruckService implements ICarService {
+public class TruckService implements ITruckService {
     CarList<Truck> truckCarList = new CarList<>();
 
     @Override

@@ -1,11 +1,12 @@
 package ss17_binary_serialization.exercise.exercise1.controller;
 
+import ss17_binary_serialization.exercise.exercise1.service.IProductService;
 import ss17_binary_serialization.exercise.exercise1.service.impl.ProductService;
 
 import java.util.Scanner;
 
 public class ProductController {
-    private final ProductService PRODUCT_SERVICE = new ProductService();
+    private final IProductService PRODUCT_SERVICE = new ProductService();
     private final Scanner SCANNER = new Scanner(System.in);
 
     public void display() {
