@@ -6,6 +6,7 @@ import ss10_arraylist_linkedlist.exercise.mvc_exercise_2.utils.exception.car_exc
 import ss10_arraylist_linkedlist.exercise.mvc_exercise_2.utils.exception.car_exception.OwnerException;
 import ss10_arraylist_linkedlist.exercise.mvc_exercise_2.utils.exception.car_exception.YearException;
 import ss10_arraylist_linkedlist.exercise.mvc_exercise_2.model.Car;
+import ss10_arraylist_linkedlist.exercise.mvc_exercise_2.utils.validate.CarValidate;
 
 import java.io.*;
 import java.time.LocalDate;
@@ -17,12 +18,14 @@ public class CarList<E extends Car> {
     private final Scanner scanner = new Scanner(System.in);
     private List<E> items;
 
+    private CarValidate carValidate = new CarValidate();
+
     public CarList() {
         items = new ArrayList<>();
     }
 
     public void inputInformation(E e) {
-        e.setCode(checkCodeOfCar());
+        e.setCode(carValidate.checkCodeOfCar());
 
         displayMenuProducer();
         e.setProducer(ProducerService.getProducers().get(checkChoiceOfProducer()));
@@ -30,26 +33,6 @@ public class CarList<E extends Car> {
         e.setYear(checkYearOfCar());
 
         e.setOwner(checkOwnerOfCar());
-    }
-
-    private String checkCodeOfCar() {
-        String code;
-
-        while (true) {
-            try {
-                System.out.print("\nNhập vào biển kiểm soát: ");
-                code = scanner.nextLine();
-                boolean isNotValidCode = code.length() != 6 || checkContainsString(code);
-                if (isNotValidCode) {
-                    throw new CodeException("Biển số xe không hợp lệ (6 số , không có kí tự). Vui lòng nhập lại");
-                }
-                break;
-            } catch (CodeException e) {
-                System.out.println(e.getMessage());
-            }
-        }
-
-        return code;
     }
 
     private Integer checkYearOfCar() {
@@ -148,7 +131,6 @@ public class CarList<E extends Car> {
 
     public void add(E e) {
         items.add(e);
-
     }
 
     public void display() {
