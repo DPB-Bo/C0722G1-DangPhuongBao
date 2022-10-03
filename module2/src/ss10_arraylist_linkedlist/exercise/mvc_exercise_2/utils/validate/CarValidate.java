@@ -8,7 +8,7 @@ import java.util.regex.Pattern;
 
 public class CarValidate {
     private final Scanner SCANNER = new Scanner(System.in);
-    private final String regexCode = "^(COACH|MOTOR|TRUCK)[0-9]{3}";
+    private String regex;
     private Pattern pattern;
     private Matcher matcher;
 
@@ -19,7 +19,8 @@ public class CarValidate {
             try {
                 System.out.print("\nNhập vào biển kiểm soát: ");
                 code = SCANNER.nextLine();
-                pattern = Pattern.compile(regexCode);
+                regex = "^(COACH|MOTOR|TRUCK)[0-9]{3}";
+                pattern = Pattern.compile(regex);
                 matcher = pattern.matcher(code);
                 if (!matcher.matches()) {
                     throw new CodeException("Biển số không hợp lệ (Tên xe in hoa và 3 chữ số )");

@@ -11,7 +11,7 @@ public class Main {
         Scanner scanner = new Scanner(System.in);
         System.out.print("Nhập tên: ");
         String name = scanner.nextLine();
-        Pattern pattern = Pattern.compile("([A-Z][a-z][ ]+)+([A-Z][a-z]+)$");
+        Pattern pattern = Pattern.compile("([A-Z][a-z]+ )+([A-Z][a-z]+)$");
 
         Matcher matcher = pattern.matcher(name);
 //        System.out.println(matcher.group(0));
