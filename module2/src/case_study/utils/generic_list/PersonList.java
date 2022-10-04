@@ -1,7 +1,9 @@
 package case_study.utils.generic_list;
 
+import case_study.model.person.Employee;
 import case_study.model.person.Person;
 import case_study.utils.person_enum.PersonEnum;
+import case_study.utils.validate.EmployeeValidate;
 import case_study.utils.validate.PersonValidate;
 
 import java.util.ArrayList;
@@ -88,14 +90,178 @@ public class PersonList<E extends Person> {
         return false;
     }
 
-    public void edit(PersonList personList, PersonEnum personEnum) {
-        switch (personEnum) {
-            case EMPLOYEE:
-
+    public void edit(String s, PersonEnum personEnum) {
+        System.out.printf("Nhập vào mã %s muốn chỉnh sửa: ", s);
+        String code = SCANNER.nextLine();
+        int indexOfCode = findIndexOfCode(code);
+        if (indexOfCode != -1) {
+            switch (personEnum) {
+                case EMPLOYEE:
+                    editEmployee(code, indexOfCode);
+                    break;
+                case CUSTOMER:
+                    editCustomer(code, indexOfCode);
+                    break;
+            }
+        } else {
+            System.out.println("Không tìm thấy mã %s cần chỉnh sửa!");
         }
     }
 
-    private void editEmployees() {
-//        ArrayList<String>
+    private void editCustomer(String code, int index) {
+        ArrayList<String> customerAttributes = new ArrayList<>(personAttributes);
+        customerAttributes.add("Rank");
+        customerAttributes.add("Address");
+
+        int choice = getChoiceEditAttribute(code, customerAttributes, "khách hàng");
+
+        boolean flag;
+        if (choice < 6) {
+            flag = editAttributePerson(index, choice, "khách hàng");
+        } else {
+            flag = editAttributeCustomer(index, choice);
+        }
+
+        System.out.println(flag ? "Chỉnh sửa thành công!" : "Chỉnh sửa thất bại!");
+        System.out.println("Thoát chỉnh sửa!");
+    }
+
+    ////////////// task 4
+    private boolean editAttributeCustomer(int index, int choice) {
+        return true;
+
+    }
+
+    private int getChoiceEditAttribute(String code, ArrayList<String> customerAttributes, String personName) {
+        System.out.printf("Danh sách các thông tin của %s mã %s có thể chỉnh sửa", personName, code);
+
+        for (int i = 0; i < customerAttributes.size(); i++) {
+            System.out.printf("\n%s. %s", i, customerAttributes.get(i));
+        }
+
+        int choice;
+        while (true) {
+            try {
+                System.out.print("Nhập vào thông tin cần chỉnh sửa(số tương ứng theo list thông tin) :");
+                choice = Integer.parseInt(SCANNER.nextLine());
+                if (choice < 0 || choice >= customerAttributes.size()) {
+                    throw new NumberFormatException();
+                }
+                break;
+            } catch (NumberFormatException nfe) {
+                System.out.println("Lựa chọn không hợp lệ\n" +
+                        "Thoát chỉnh sửa!");
+            }
+        }
+        return choice;
+    }
+
+    private int findIndexOfCode(String code) {
+        for (E e : people) {
+            if (code.equals(e.getCode())) {
+                return people.indexOf(e);
+            }
+        }
+        return -1;
+    }
+
+    private void editEmployee(String code, int index) {
+        ArrayList<String> employeeAttributes = new ArrayList<>(personAttributes);
+        employeeAttributes.add("Level");
+        employeeAttributes.add("Position");
+        employeeAttributes.add("Wage");
+
+        int choice = getChoiceEditAttribute(code, employeeAttributes, "nhân viên");
+
+        boolean flag;
+        if (choice < 6) {
+            flag = editAttributePerson(index, choice, "nhân viên");
+        } else {
+            flag = editAttributeEmployee(index, choice);
+        }
+
+        System.out.println(flag ? "Chỉnh sửa thành công!" : "Chỉnh sửa thất bại!");
+        System.out.println("Thoát chỉnh sửa!");
+    }
+
+    private boolean editAttributeEmployee(int index, int choice) {
+        EmployeeValidate employeeValidate = new EmployeeValidate();
+        switch (choice) {
+            case 6:
+                String level = employeeValidate.validateLevel();
+                if (checkAccept()) {
+                    ((Employee) people.get(index)).setEmployeeLevel(level);
+                    return true;
+                }
+                break;
+            case 7:
+                String position = employeeValidate.validatePosition();
+                if (checkAccept()) {
+                    ((Employee) people.get(index)).setEmployeePosition(position);
+                    return true;
+                }
+                break;
+            case 8:
+                Double wage = employeeValidate.validateWage();
+                if (checkAccept()) {
+                    ((Employee) people.get(index)).setEmployeeWage(wage);
+                    return true;
+                }
+                break;
+        }
+        return false;
+    }
+
+    private boolean editAttributePerson(int index, int choice, String personName) {
+        switch (choice) {
+            case 0:
+                String name = personValidate.validateName(personName);
+                if (checkAccept()) {
+                    people.get(index).setName(name);
+                    return true;
+                }
+                break;
+            case 1:
+                Date birthDate = personValidate.validateBirthDate(personName);
+                if (checkAccept()) {
+                    people.get(index).setBirthDate(birthDate);
+                    return true;
+                }
+                break;
+            case 2:
+                Boolean gender = personValidate.validateGender(personName);
+                if (checkAccept()) {
+                    people.get(index).setGender(gender);
+                    return true;
+                }
+                break;
+            case 3:
+                String idCard = personValidate.validateIdentityCard(personName);
+                if (checkAccept()) {
+                    people.get(index).setIdentityCard(idCard);
+                    return true;
+                }
+                break;
+            case 4:
+                String phoneNumber = personValidate.validatePhoneNumber(personName);
+                if (checkAccept()) {
+                    people.get(index).setPhoneNumber(phoneNumber);
+                    return true;
+                }
+                break;
+            case 5:
+                String email = personValidate.validateEmail(personName);
+                if (checkAccept()) {
+                    people.get(index).setEmail(email);
+                    return true;
+                }
+                break;
+        }
+        return false;
+    }
+
+    private boolean checkAccept() {
+        System.out.print("Xác nhận chỉnh sửa (Bất cứ gì ngoại trừ 'Y' là huỷ bỏ) :");
+        return SCANNER.nextLine().equals("Y");
     }
 }

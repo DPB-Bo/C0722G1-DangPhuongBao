@@ -35,7 +35,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     @Override
     public void edit() {
-
+        employeePersonList.edit("nhân viên", EMPLOYEE);
     }
 
     public Employee createEmployee() {
