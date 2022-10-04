@@ -9,7 +9,7 @@ public abstract class Person {
     private Date birthDate;
     private Boolean gender;
     private String identityCard;
-    private Integer phoneNumber;
+    private String phoneNumber;
     private String email;
 
     public String getCode() {
@@ -28,8 +28,10 @@ public abstract class Person {
         this.name = name;
     }
 
-    public Date getBirthDate() {
-        return birthDate;
+    public String getBirthDate() {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+
+        return dateFormat.format(this.birthDate);
     }
 
     public void setBirthDate(Date birthDate) {
@@ -52,11 +54,11 @@ public abstract class Person {
         this.identityCard = identityCard;
     }
 
-    public Integer getPhoneNumber() {
+    public String getPhoneNumber() {
         return phoneNumber;
     }
 
-    public void setPhoneNumber(Integer phoneNumber) {
+    public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
     }
 
@@ -71,7 +73,7 @@ public abstract class Person {
     public Person() {
     }
 
-    public Person(String code, String name, Date birthDate, Boolean gender, String identityCard, Integer phoneNumber, String email) {
+    public Person(String code, String name, Date birthDate, Boolean gender, String identityCard, String phoneNumber, String email) {
         this.code = code;
         this.name = name;
         this.birthDate = birthDate;

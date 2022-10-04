@@ -5,12 +5,12 @@ import java.util.Date;
 public class Employee extends Person {
     private String employeeLevel;
     private String employeePosition;
-    private String employeeWage;
+    private Double employeeWage;
 
     public Employee() {
     }
 
-    public Employee(String code, String name, Date birthDate, Boolean gender, String identityCard, Integer phoneNumber, String email, String employeeLevel, String employeePosition, String employeeWage) {
+    public Employee(String code, String name, Date birthDate, Boolean gender, String identityCard, String phoneNumber, String email, String employeeLevel, String employeePosition, Double employeeWage) {
         super(code, name, birthDate, gender, identityCard, phoneNumber, email);
         this.employeeLevel = employeeLevel;
         this.employeePosition = employeePosition;
@@ -34,10 +34,10 @@ public class Employee extends Person {
     }
 
     public String getEmployeeWage() {
-        return employeeWage;
+        return String.format("%.0f", employeeWage);
     }
 
-    public void setEmployeeWage(String employeeWage) {
+    public void setEmployeeWage(Double employeeWage) {
         this.employeeWage = employeeWage;
     }
 
@@ -47,7 +47,7 @@ public class Employee extends Person {
                 super.toString() +
                 "Level='" + employeeLevel + '\'' +
                 ", Position='" + employeePosition + '\'' +
-                ", Wage='" + employeeWage + '\'' +
+                ", Wage='" + String.format("%.0f", employeeWage) + '\'' +
                 '}';
     }
 }

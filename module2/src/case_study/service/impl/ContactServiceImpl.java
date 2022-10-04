@@ -12,14 +12,4 @@ public class ContactServiceImpl implements ContactService {
     public void display() {
 
     }
-
-    @Override
-    public void readFile() {
-
-    }
-
-    @Override
-    public void writeFile() {
-
-    }
 }

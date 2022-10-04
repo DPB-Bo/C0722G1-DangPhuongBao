@@ -5,7 +5,4 @@ public interface Service {
 
     void display();
 
-    void readFile();
-
-    void writeFile();
 }

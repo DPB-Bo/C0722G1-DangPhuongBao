@@ -12,14 +12,4 @@ public class BookingServiceImpl implements BookingService {
     public void display() {
 
     }
-
-    @Override
-    public void readFile() {
-
-    }
-
-    @Override
-    public void writeFile() {
-
-    }
 }

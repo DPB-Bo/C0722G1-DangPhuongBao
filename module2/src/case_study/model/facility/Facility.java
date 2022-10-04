@@ -6,16 +6,26 @@ public abstract class Facility {
     private Double servicePrice;
     private Integer maxPeople;
     private Double rentalType;
+    private String serviceCode;
 
     public Facility() {
     }
 
-    public Facility(String serviceName, Double serviceArea, Double servicePrice, Integer maxPeople, Double rentalType) {
+    public Facility(String serviceName, Double serviceArea, Double servicePrice, Integer maxPeople, Double rentalType, String serviceCode) {
         this.serviceName = serviceName;
         this.serviceArea = serviceArea;
         this.servicePrice = servicePrice;
         this.maxPeople = maxPeople;
         this.rentalType = rentalType;
+        this.serviceCode = serviceCode;
+    }
+
+    public String getServiceCode() {
+        return serviceCode;
+    }
+
+    public void setServiceCode(String serviceCode) {
+        this.serviceCode = serviceCode;
     }
 
     public String getServiceName() {
@@ -66,6 +76,7 @@ public abstract class Facility {
                 ", servicePrice=" + servicePrice +
                 ", maxPeople=" + maxPeople +
                 ", rentalType=" + rentalType +
+                ", serviceCode='" + serviceCode + '\'' +
                 '}';
     }
 }

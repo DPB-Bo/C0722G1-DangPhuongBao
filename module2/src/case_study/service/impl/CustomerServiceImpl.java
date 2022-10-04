@@ -14,16 +14,6 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
-    public void readFile() {
-
-    }
-
-    @Override
-    public void writeFile() {
-
-    }
-
-    @Override
     public void edit() {
 
     }
