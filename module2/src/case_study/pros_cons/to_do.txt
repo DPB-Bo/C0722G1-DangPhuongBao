@@ -1,0 +1,1 @@
+nghiên cứu singleton Scanner ~~

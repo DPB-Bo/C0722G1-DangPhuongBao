@@ -2,8 +2,10 @@ package case_study.controller;
 
 import case_study.service.CustomerService;
 import case_study.service.EmployeeService;
+import case_study.service.FacilityService;
 import case_study.service.impl.CustomerServiceImpl;
 import case_study.service.impl.EmployeeServiceImpl;
+import case_study.service.impl.FacilityServiceImpl;
 
 import java.util.Scanner;
 
@@ -13,6 +15,8 @@ public class FuramaController {
     private final EmployeeService employeeService = new EmployeeServiceImpl();
 
     private final CustomerService customerService = new CustomerServiceImpl();
+
+    private final FacilityService facilityServiceImpl = new FacilityServiceImpl();
 
     public void displayMainMenu() {
         while (true) {
@@ -99,8 +103,7 @@ public class FuramaController {
                     "1.\tDisplay list customers\n" +
                     "2.\tAdd new customer\n" +
                     "3.\tEdit customer\n" +
-                    "4.\tReturn main menu\n" +
-                    "Enter your choice: ");
+                    "4.\tReturn main menu\n");
 
             int choice = inputChoice();
 
@@ -130,14 +133,15 @@ public class FuramaController {
                     "1\tDisplay list facility\n" +
                     "2\tAdd new facility\n" +
                     "3\tDisplay list facility maintenance\n" +
-                    "4\tReturn main menu\n" +
-                    "Enter your choice: ");
+                    "4\tReturn main menu\n");
 
             int choice = inputChoice();
 
             switch (choice) {
                 case 1:
                 case 2:
+                    facilityServiceImpl.add();
+                    break;
                 case 3:
                 case 4:
                     return;

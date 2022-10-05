@@ -7,8 +7,7 @@ import case_study.utils.file.WriteFileUtils;
 import case_study.utils.generic_list.PersonList;
 import case_study.utils.validate.CustomerValidate;
 
-import static case_study.utils.person_enum.PersonEnum.CUSTOMER;
-import static case_study.utils.person_enum.PersonEnum.EMPLOYEE;
+import static case_study.enum_package.PersonEnum.CUSTOMER;
 
 public class CustomerServiceImpl implements CustomerService {
 
@@ -21,8 +20,8 @@ public class CustomerServiceImpl implements CustomerService {
     public void add() {
         ReadFileUtils.readFilePerson(PATH, customerPersonList, CUSTOMER);
         customerPersonList.add(createCustomer());
-        System.out.println("Thêm mới thahh công!");
         WriteFileUtils.writePersonFile(PATH, customerPersonList, CUSTOMER);
+        System.out.println("Thêm mới thahh công!");
     }
 
     @Override

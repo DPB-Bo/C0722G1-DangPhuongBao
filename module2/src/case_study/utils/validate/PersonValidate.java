@@ -2,9 +2,9 @@ package case_study.utils.validate;
 
 import case_study.utils.exception.person_exception.*;
 
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.Scanner;
-import java.util.zip.DataFormatException;
 
 public class PersonValidate {
     private final Scanner SCANNER = new Scanner(System.in);
@@ -60,7 +60,11 @@ public class PersonValidate {
                     throw new BirthDateException("Không đúng định dạng");
                 }
                 String[] dateParts = dateString.split("/");
-                return new Date(Integer.parseInt(dateParts[2]) - 1900, (Integer.parseInt(dateParts[1]) - 1), Integer.parseInt(dateParts[0]));
+                boolean isDateException = Integer.parseInt(dateParts[2]) < LocalDate.now().getYear() - 18 || Integer.parseInt(dateParts[2]) > LocalDate.now().getYear() + 100;
+                if (isDateException) {
+                    throw new BirthDateException("Tuổi không hợp lệ!");
+                }
+                return new Date(Integer.parseInt(dateParts[2]) - 1900, Integer.parseInt(dateParts[1]) - 1, Integer.parseInt(dateParts[0]));
             } catch (BirthDateException e) {
                 System.out.println(e.getMessage());
             }

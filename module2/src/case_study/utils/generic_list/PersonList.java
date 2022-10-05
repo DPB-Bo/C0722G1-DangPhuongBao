@@ -3,7 +3,7 @@ package case_study.utils.generic_list;
 import case_study.model.person.Customer;
 import case_study.model.person.Employee;
 import case_study.model.person.Person;
-import case_study.utils.person_enum.PersonEnum;
+import case_study.enum_package.PersonEnum;
 import case_study.utils.validate.CustomerValidate;
 import case_study.utils.validate.EmployeeValidate;
 import case_study.utils.validate.PersonValidate;
@@ -72,15 +72,23 @@ public class PersonList<E extends Person> {
         Boolean gender = personValidate.validateGender(personName);
         e.setGender(gender);
 
-        String idCard = personValidate.validateIdentityCard(personName);
+        String idCard;
+        while (true) {
+            idCard = personValidate.validateIdentityCard(personName);
+            if (!(checkContainsIDCard(idCard))) {
+                break;
+            } else {
+                System.out.println("Chứng minh nhân dân đã tồn tại! ");
+            }
+        }
         e.setIdentityCard(idCard);
+
 
         String phoneNumber = personValidate.validatePhoneNumber(personName);
         e.setPhoneNumber(phoneNumber);
 
         String email = personValidate.validateEmail(personName);
         e.setEmail(email);
-
     }
 
     private boolean checkContainsCode(String code) {
@@ -92,11 +100,22 @@ public class PersonList<E extends Person> {
         return false;
     }
 
+    private boolean checkContainsIDCard(String idCard) {
+        for (E e : people) {
+            if (idCard.equals(e.getIdentityCard())) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     public void edit(String s, PersonEnum personEnum) {
         System.out.printf("Nhập vào mã %s muốn chỉnh sửa: ", s);
         String code = SCANNER.nextLine();
         int indexOfCode = findIndexOfCode(code);
         if (indexOfCode != -1) {
+            System.out.printf("Các thông tin của %s có mã %s là:\n", s, code);
+            System.out.println(people.get(indexOfCode).toString());
             switch (personEnum) {
                 case EMPLOYEE:
                     editEmployee(code, indexOfCode);

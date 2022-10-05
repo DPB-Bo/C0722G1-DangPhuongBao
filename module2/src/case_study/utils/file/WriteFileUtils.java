@@ -4,7 +4,7 @@ import case_study.model.person.Customer;
 import case_study.model.person.Employee;
 import case_study.utils.exception.file_exception.FilePersonException;
 import case_study.utils.generic_list.PersonList;
-import case_study.utils.person_enum.PersonEnum;
+import case_study.enum_package.PersonEnum;
 
 import java.io.BufferedWriter;
 import java.io.File;
@@ -46,5 +46,9 @@ public class WriteFileUtils {
         } catch (FilePersonException e) {
             System.out.println(e.getMessage());
         }
+    }
+
+    public static void writeFacilityFile(String path, PersonList personList) {
+
     }
 }

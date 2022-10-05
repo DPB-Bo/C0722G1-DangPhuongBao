@@ -5,13 +5,13 @@ public abstract class Facility {
     private Double serviceArea;
     private Double servicePrice;
     private Integer maxPeople;
-    private Double rentalType;
+    private String rentalType;
     private String serviceCode;
 
     public Facility() {
     }
 
-    public Facility(String serviceName, Double serviceArea, Double servicePrice, Integer maxPeople, Double rentalType, String serviceCode) {
+    public Facility(String serviceCode, String serviceName, Double serviceArea, Double servicePrice, Integer maxPeople, String rentalType) {
         this.serviceName = serviceName;
         this.serviceArea = serviceArea;
         this.servicePrice = servicePrice;
@@ -36,16 +36,16 @@ public abstract class Facility {
         this.serviceName = serviceName;
     }
 
-    public Double getServiceArea() {
-        return serviceArea;
+    public String getServiceArea() {
+        return String.format("%.0f", serviceArea);
     }
 
     public void setServiceArea(Double serviceArea) {
         this.serviceArea = serviceArea;
     }
 
-    public Double getServicePrice() {
-        return servicePrice;
+    public String getServicePrice() {
+        return String.format("%.0f", servicePrice);
     }
 
     public void setServicePrice(Double servicePrice) {
@@ -60,11 +60,11 @@ public abstract class Facility {
         this.maxPeople = maxPeople;
     }
 
-    public Double getRentalType() {
+    public String getRentalType() {
         return rentalType;
     }
 
-    public void setRentalType(Double rentalType) {
+    public void setRentalType(String rentalType) {
         this.rentalType = rentalType;
     }
 
@@ -72,8 +72,8 @@ public abstract class Facility {
     public String toString() {
         return "Facility{" +
                 "serviceName='" + serviceName + '\'' +
-                ", serviceArea=" + serviceArea +
-                ", servicePrice=" + servicePrice +
+                ", serviceArea=" + String.format("%.0f", serviceArea) +
+                ", servicePrice=" + String.format("%.0f", servicePrice) +
                 ", maxPeople=" + maxPeople +
                 ", rentalType=" + rentalType +
                 ", serviceCode='" + serviceCode + '\'' +

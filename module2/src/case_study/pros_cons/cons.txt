@@ -1,2 +1,2 @@
 - Tiếng việt , TIếng anh lẫn lộn - > sẽ fix sau khi hoàn thành hết task
-- đặt các method theo vị trí lộn xộn
+- đặt tên biến còn tối nghĩa

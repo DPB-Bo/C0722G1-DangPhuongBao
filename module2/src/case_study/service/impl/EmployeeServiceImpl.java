@@ -8,7 +8,7 @@ import case_study.utils.generic_list.PersonList;
 import case_study.utils.validate.EmployeeValidate;
 
 
-import static case_study.utils.person_enum.PersonEnum.EMPLOYEE;
+import static case_study.enum_package.PersonEnum.EMPLOYEE;
 
 public class EmployeeServiceImpl implements EmployeeService {
     private PersonList<Employee> employeePersonList = new PersonList<>();
@@ -19,8 +19,8 @@ public class EmployeeServiceImpl implements EmployeeService {
     public void add() {
         ReadFileUtils.readFilePerson(PATH, employeePersonList, EMPLOYEE);
         employeePersonList.add(createEmployee());
-        System.out.println("Thêm mới thành công!");
         WriteFileUtils.writePersonFile(PATH, employeePersonList, EMPLOYEE);
+        System.out.println("Thêm mới thành công!");
     }
 
     @Override

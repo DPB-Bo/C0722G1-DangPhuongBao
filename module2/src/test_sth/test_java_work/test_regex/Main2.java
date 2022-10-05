@@ -12,7 +12,7 @@ public class Main2 {
         //COACH123
         //MOTOR123
         //TRUCK123
-        Pattern pattern = Pattern.compile("^(COACH|MOTOR|TRUCK)[0-9]{3}");
+        Pattern pattern = Pattern.compile("^[A-Z][a-z]+");
         Matcher matcher = pattern.matcher(sth);
         System.out.println(matcher.matches());
     }

@@ -1,4 +1,4 @@
-package case_study.utils.person_enum;
+package case_study.enum_package;
 
 public enum PersonEnum {
     EMPLOYEE,
