@@ -29,8 +29,8 @@ public class Villa extends Facility {
         this.roomStandard = roomStandard;
     }
 
-    public Double getPoolArea() {
-        return poolArea;
+    public String getPoolArea() {
+        return String.format("%.0f", poolArea);
     }
 
     public void setPoolArea(Double poolArea) {

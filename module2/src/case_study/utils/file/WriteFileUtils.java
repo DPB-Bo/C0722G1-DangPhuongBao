@@ -1,16 +1,24 @@
 package case_study.utils.file;
 
+import case_study.model.facility.Facility;
+import case_study.model.facility.House;
+import case_study.model.facility.Room;
+import case_study.model.facility.Villa;
 import case_study.model.person.Customer;
 import case_study.model.person.Employee;
+import case_study.utils.exception.file_exception.FileFacilityException;
 import case_study.utils.exception.file_exception.FilePersonException;
 import case_study.utils.generic_list.PersonList;
 import case_study.enum_package.PersonEnum;
 
+import javax.sound.sampled.Line;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
+import java.util.Set;
 
 public class WriteFileUtils {
 
@@ -48,7 +56,32 @@ public class WriteFileUtils {
         }
     }
 
-    public static void writeFacilityFile(String path, PersonList personList) {
-
+    public static void writeFacilityFile(String path, LinkedHashMap<Facility, Integer> facilityMap) {
+        try {
+            File file = new File(path);
+            BufferedWriter writer = new BufferedWriter(new FileWriter(file));
+            Set<Facility> facilitySet = facilityMap.keySet();
+            if (facilitySet.size() < 1) {
+                throw new FileFacilityException("Danh sách hệ thống trống, không thể ghi vào file");
+            }
+            String info;
+            for (Facility facility : facilitySet) {
+                if (facility.getServiceCode().contains("VL")) {
+                    info = String.format("%s,%s,%s,%s,%s,%s,%s,%s,%s", facility.getServiceCode(), facility.getServiceName(), facility.getServiceArea(), facility.getServicePrice(), facility.getMaxPeople(), facility.getRentalType(), ((Villa) facility).getRoomStandard(), ((Villa) facility).getPoolArea(), ((Villa) facility).getFloor());
+                    writer.write(info);
+                }
+                if (facility.getServiceCode().contains("RO")) {
+                    info = String.format("%s,%s,%s,%s,%s,%s,%s", facility.getServiceCode(), facility.getServiceName(), facility.getServiceArea(), facility.getServicePrice(), facility.getMaxPeople(), facility.getRentalType(), ((Room) facility).getFreeServiceIncluded());
+                    writer.write(info);
+                }
+                if (facility.getServiceCode().contains("HO")) {
+                    info = String.format("%s,%s,%s,%s,%s,%s,%s,%s", facility.getServiceCode(), facility.getServiceName(), facility.getServiceArea(), facility.getServicePrice(), facility.getMaxPeople(), facility.getRentalType(), ((House) facility).getRoomStandard(), ((House) facility).getFloor());
+                    writer.write(info);
+                }
+            }
+            writer.close();
+        } catch (IOException | FileFacilityException e) {
+            System.out.println(e.getMessage());
+        }
     }
 }

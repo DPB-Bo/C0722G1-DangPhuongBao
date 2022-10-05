@@ -49,7 +49,7 @@ public class ReadFileUtils {
             BufferedReader br = new BufferedReader(new FileReader(f));
             String line;
             String[] info;
-            facilityList = new LinkedHashMap<Facility, Integer>();
+            facilityList.clear();
             while ((line = br.readLine()) != null) {
                 info = line.split(",");
                 if (info[0].contains("VL")) {
@@ -62,6 +62,7 @@ public class ReadFileUtils {
                     facilityList.put(new Room(info[0], info[1], Double.parseDouble(info[2]), Double.parseDouble(info[3]), Integer.parseInt(info[4]), info[5], info[6]), 0);
                 }
             }
+            br.close();
         } catch (FileNotFoundException e) {
             System.out.println("Không tìm thấy file");
         } catch (IOException e) {

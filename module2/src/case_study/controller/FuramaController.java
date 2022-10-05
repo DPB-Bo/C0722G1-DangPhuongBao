@@ -139,10 +139,14 @@ public class FuramaController {
 
             switch (choice) {
                 case 1:
+                    facilityServiceImpl.display();
+                    break;
                 case 2:
                     facilityServiceImpl.add();
                     break;
                 case 3:
+                    facilityServiceImpl.displayFacilityMaintenance();
+                    break;
                 case 4:
                     return;
                 default:

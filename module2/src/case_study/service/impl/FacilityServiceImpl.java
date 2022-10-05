@@ -6,6 +6,8 @@ import case_study.model.facility.House;
 import case_study.model.facility.Room;
 import case_study.model.facility.Villa;
 import case_study.service.FacilityService;
+import case_study.utils.file.ReadFileUtils;
+import case_study.utils.file.WriteFileUtils;
 import case_study.utils.validate.FacilityValidate;
 import case_study.utils.validate.HouseValidate;
 import case_study.utils.validate.RoomValidate;
@@ -34,34 +36,38 @@ public class FacilityServiceImpl implements FacilityService {
 
     private RoomValidate roomValidate = new RoomValidate();
 
+    private final String PATH = "src/case_study/data/facility.csv";
+
     @Override
     public void add() {
-        System.out.print("-------------- ADD NEW FACILITY MENU --------------" +
-                "1\tAdd new Villa\n" +
-                "2\tAdd new House\n" +
-                "3\tAdd new Room\n" +
-                "4\tDisplay list facility maintenance\n" +
-                "5\tReturn main menu\n");
+        while (true) {
+            System.out.print("-------------- ADD NEW FACILITY MENU --------------" +
+                    "1\tAdd new Villa\n" +
+                    "2\tAdd new House\n" +
+                    "3\tAdd new Room\n" +
+                    "4\tDisplay list facility maintenance\n" +
+                    "5\tReturn main menu\n");
 
-        int choice = inputChoice();
-        switch (choice) {
-            case 1:
-                addVilla();
-                break;
-            case 2:
-                addHouse();
-                break;
-            case 3:
-                addRoom();
-                break;
-            case 4:
-                displayFacilityMaintenance();
-                break;
-            case 5:
-                return;
-            default:
-                System.out.print("\nKhông có lựa chọn này!");
-                break;
+            int choice = inputChoice();
+            switch (choice) {
+                case 1:
+                    addVilla();
+                    break;
+                case 2:
+                    addHouse();
+                    break;
+                case 3:
+                    addRoom();
+                    break;
+                case 4:
+                    displayFacilityMaintenance();
+                    break;
+                case 5:
+                    return;
+                default:
+                    System.out.print("\nKhông có lựa chọn này!");
+                    break;
+            }
         }
     }
 
@@ -78,7 +84,10 @@ public class FacilityServiceImpl implements FacilityService {
 
     @Override
     public void display() {
-
+        ReadFileUtils.readFileFacility(PATH, facilityList);
+        for (Facility facility : facilityKeys) {
+            System.out.println(facility);
+        }
     }
 
     @Override
@@ -87,6 +96,8 @@ public class FacilityServiceImpl implements FacilityService {
 
 
     private void addVilla() {
+        ReadFileUtils.readFileFacility(PATH, facilityList);
+
         Villa villa = new Villa();
         setAttributeFacility(VILLA, villa);
 
@@ -100,10 +111,14 @@ public class FacilityServiceImpl implements FacilityService {
         villa.setFloor(floor);
 
         facilityList.put(villa, 0);
+
+        WriteFileUtils.writeFacilityFile(PATH, facilityList);
     }
 
 
     private void addHouse() {
+        ReadFileUtils.readFileFacility(PATH, facilityList);
+
         House house = new House();
         setAttributeFacility(HOUSE, house);
 
@@ -114,10 +129,14 @@ public class FacilityServiceImpl implements FacilityService {
         house.setFloor(floor);
 
         facilityList.put(house, 0);
+
+        WriteFileUtils.writeFacilityFile(PATH, facilityList);
     }
 
 
     private void addRoom() {
+        ReadFileUtils.readFileFacility(PATH, facilityList);
+
         Room room = new Room();
         setAttributeFacility(HOUSE, room);
 
@@ -125,6 +144,8 @@ public class FacilityServiceImpl implements FacilityService {
         room.setFreeServiceIncluded(freeServiceIncluded);
 
         facilityList.put(room, 0);
+
+        WriteFileUtils.writeFacilityFile(PATH, facilityList);
     }
 
     private <E extends Facility> void setAttributeFacility(FacilityEnum facilityEnum, E e) {
