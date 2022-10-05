@@ -1,8 +1,10 @@
 package case_study.utils.generic_list;
 
+import case_study.model.person.Customer;
 import case_study.model.person.Employee;
 import case_study.model.person.Person;
 import case_study.utils.person_enum.PersonEnum;
+import case_study.utils.validate.CustomerValidate;
 import case_study.utils.validate.EmployeeValidate;
 import case_study.utils.validate.PersonValidate;
 
@@ -126,10 +128,25 @@ public class PersonList<E extends Person> {
         System.out.println("Thoát chỉnh sửa!");
     }
 
-    ////////////// task 4
     private boolean editAttributeCustomer(int index, int choice) {
-        return true;
-
+        CustomerValidate customerValidate = new CustomerValidate();
+        switch (choice) {
+            case 6:
+                String rank = customerValidate.validateRank();
+                if (checkAccept()) {
+                    ((Customer) people.get(index)).setCustomerRank(rank);
+                    return true;
+                }
+                break;
+            case 7:
+                String address = customerValidate.validateAddress();
+                if (checkAccept()) {
+                    ((Customer) people.get(index)).setCustomerAddress(address);
+                    return true;
+                }
+                break;
+        }
+        return false;
     }
 
     private int getChoiceEditAttribute(String code, ArrayList<String> customerAttributes, String personName) {

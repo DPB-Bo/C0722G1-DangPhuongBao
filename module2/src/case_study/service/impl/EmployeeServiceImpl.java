@@ -35,10 +35,12 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     @Override
     public void edit() {
+        ReadFileUtils.readFilePerson(PATH, employeePersonList, EMPLOYEE);
         employeePersonList.edit("nhân viên", EMPLOYEE);
+        WriteFileUtils.writePersonFile(PATH, employeePersonList, EMPLOYEE);
     }
 
-    public Employee createEmployee() {
+    private Employee createEmployee() {
         Employee employee = new Employee();
         employeePersonList.createAttributePerson(employee, "nhân viên");
 
