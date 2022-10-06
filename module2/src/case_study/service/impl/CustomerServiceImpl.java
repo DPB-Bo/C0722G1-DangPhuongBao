@@ -16,6 +16,11 @@ public class CustomerServiceImpl implements CustomerService {
     private CustomerValidate customerValidate = new CustomerValidate();
     private final String PATH = "src/case_study/data/customer.csv";
 
+    public PersonList<Customer> getCustomerPersonList() {
+        ReadFileUtils.readFilePerson(PATH, customerPersonList, CUSTOMER);
+        return customerPersonList;
+    }
+
     @Override
     public void add() {
         ReadFileUtils.readFilePerson(PATH, customerPersonList, CUSTOMER);

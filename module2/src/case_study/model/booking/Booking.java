@@ -1,5 +1,7 @@
 package case_study.model.booking;
 
+
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class Booking {
@@ -7,17 +9,18 @@ public class Booking {
     private Date startDate;
     private Date endDate;
     private String customerCode;
-    private String serviceName;
+    private String serviceCode;
     private String serviceType;
 
     public Booking() {
     }
 
-    public Booking(String bookingCode, Date startDate, Date endDate, String serviceName, String serviceType) {
+    public Booking(String bookingCode, String serviceCode, String customerCode, Date startDate, Date endDate, String serviceType) {
         this.bookingCode = bookingCode;
         this.startDate = startDate;
         this.endDate = endDate;
-        this.serviceName = serviceName;
+        this.customerCode = customerCode;
+        this.serviceCode = serviceCode;
         this.serviceType = serviceType;
     }
 
@@ -41,6 +44,18 @@ public class Booking {
         return endDate;
     }
 
+    public String getStartDateToString() {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+
+        return dateFormat.format(this.startDate);
+    }
+
+    public String getEndDateToString() {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+
+        return dateFormat.format(this.endDate);
+    }
+
     public void setEndDate(Date endDate) {
         this.endDate = endDate;
     }
@@ -53,12 +68,12 @@ public class Booking {
         this.customerCode = customerCode;
     }
 
-    public String getServiceName() {
-        return serviceName;
+    public String getServiceCode() {
+        return serviceCode;
     }
 
-    public void setServiceName(String serviceName) {
-        this.serviceName = serviceName;
+    public void setServiceCode(String serviceCode) {
+        this.serviceCode = serviceCode;
     }
 
     public String getServiceType() {
@@ -73,10 +88,11 @@ public class Booking {
     public String toString() {
         return "Booking{" +
                 "bookingCode='" + bookingCode + '\'' +
-                ", startDate=" + startDate +
-                ", endDate=" + endDate +
-                ", serviceName='" + serviceName + '\'' +
+                ", startDate=" + getStartDateToString() +
+                ", endDate=" + getEndDateToString() +
+                ", serviceName='" + serviceCode + '\'' +
                 ", serviceType='" + serviceType + '\'' +
                 '}';
     }
+    
 }

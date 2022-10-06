@@ -14,6 +14,7 @@ import case_study.utils.validate.RoomValidate;
 import case_study.utils.validate.VillaValidate;
 
 import java.util.LinkedHashMap;
+import java.util.Map;
 import java.util.Scanner;
 import java.util.Set;
 
@@ -37,6 +38,15 @@ public class FacilityServiceImpl implements FacilityService {
     private RoomValidate roomValidate = new RoomValidate();
 
     private final String PATH = "src/case_study/data/facility.csv";
+
+    public String getPATH() {
+        return PATH;
+    }
+
+    public LinkedHashMap<Facility, Integer> getFacilityList() {
+        ReadFileUtils.readFileFacility(PATH, facilityList);
+        return facilityList;
+    }
 
     @Override
     public void add() {
@@ -92,6 +102,16 @@ public class FacilityServiceImpl implements FacilityService {
 
     @Override
     public void displayFacilityMaintenance() {
+        boolean flag = false;
+        for (Map.Entry<Facility, Integer> entry : facilityList.entrySet()) {
+            if (entry.getValue() > 4) {
+                flag = true;
+                System.out.println(entry.getKey());
+            }
+        }
+        if (!flag) {
+            System.out.println("Hiện tại không có dịch vụ bảo trì!");
+        }
     }
 
 

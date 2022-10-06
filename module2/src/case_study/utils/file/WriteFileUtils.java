@@ -1,11 +1,13 @@
 package case_study.utils.file;
 
+import case_study.model.booking.Booking;
 import case_study.model.facility.Facility;
 import case_study.model.facility.House;
 import case_study.model.facility.Room;
 import case_study.model.facility.Villa;
 import case_study.model.person.Customer;
 import case_study.model.person.Employee;
+import case_study.utils.exception.file_exception.FileBookingException;
 import case_study.utils.exception.file_exception.FileFacilityException;
 import case_study.utils.exception.file_exception.FilePersonException;
 import case_study.utils.generic_list.PersonList;
@@ -66,21 +68,44 @@ public class WriteFileUtils {
             }
             String info;
             for (Facility facility : facilitySet) {
+
                 if (facility.getServiceCode().contains("VL")) {
-                    info = String.format("%s,%s,%s,%s,%s,%s,%s,%s,%s", facility.getServiceCode(), facility.getServiceName(), facility.getServiceArea(), facility.getServicePrice(), facility.getMaxPeople(), facility.getRentalType(), ((Villa) facility).getRoomStandard(), ((Villa) facility).getPoolArea(), ((Villa) facility).getFloor());
+                    info = String.format("%s,%s,%s,%s,%s,%s,%s,%s,%s,%s", facility.getServiceCode(), facility.getServiceName(), facility.getServiceArea(), facility.getServicePrice(), facility.getMaxPeople(), facility.getRentalType(), ((Villa) facility).getRoomStandard(), ((Villa) facility).getPoolArea(), ((Villa) facility).getFloor(), facilityMap.get(facility));
                     writer.write(info);
+                    writer.newLine();
                 }
                 if (facility.getServiceCode().contains("RO")) {
-                    info = String.format("%s,%s,%s,%s,%s,%s,%s", facility.getServiceCode(), facility.getServiceName(), facility.getServiceArea(), facility.getServicePrice(), facility.getMaxPeople(), facility.getRentalType(), ((Room) facility).getFreeServiceIncluded());
+                    info = String.format("%s,%s,%s,%s,%s,%s,%s,%s", facility.getServiceCode(), facility.getServiceName(), facility.getServiceArea(), facility.getServicePrice(), facility.getMaxPeople(), facility.getRentalType(), ((Room) facility).getFreeServiceIncluded(), facilityMap.get(facility));
                     writer.write(info);
+                    writer.newLine();
                 }
                 if (facility.getServiceCode().contains("HO")) {
-                    info = String.format("%s,%s,%s,%s,%s,%s,%s,%s", facility.getServiceCode(), facility.getServiceName(), facility.getServiceArea(), facility.getServicePrice(), facility.getMaxPeople(), facility.getRentalType(), ((House) facility).getRoomStandard(), ((House) facility).getFloor());
+                    info = String.format("%s,%s,%s,%s,%s,%s,%s,%s,%s", facility.getServiceCode(), facility.getServiceName(), facility.getServiceArea(), facility.getServicePrice(), facility.getMaxPeople(), facility.getRentalType(), ((House) facility).getRoomStandard(), ((House) facility).getFloor(), facilityMap.get(facility));
                     writer.write(info);
+                    writer.newLine();
                 }
             }
             writer.close();
         } catch (IOException | FileFacilityException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    public static void writeBookingFile(String path, ArrayList<Booking> bookings) {
+        try {
+            File file = new File(path);
+            BufferedWriter writer = new BufferedWriter(new FileWriter(file));
+            if (bookings.size() < 1) {
+                throw new FileBookingException("Danh sách hệ thống trống, không thể ghi vào file");
+            }
+            String info;
+            for (Booking book : bookings) {
+                info = String.format("%s,%s,%s,%s,%s,%s", book.getBookingCode(), book.getServiceCode(), book.getCustomerCode(), book.getStartDateToString(), book.getEndDateToString(), book.getServiceType());
+                writer.write(info);
+                writer.newLine();
+            }
+            writer.close();
+        } catch (IOException | FileBookingException e) {
             System.out.println(e.getMessage());
         }
     }

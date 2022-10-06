@@ -1,8 +1,10 @@
 package case_study.controller;
 
+import case_study.service.BookingService;
 import case_study.service.CustomerService;
 import case_study.service.EmployeeService;
 import case_study.service.FacilityService;
+import case_study.service.impl.BookingServiceImpl;
 import case_study.service.impl.CustomerServiceImpl;
 import case_study.service.impl.EmployeeServiceImpl;
 import case_study.service.impl.FacilityServiceImpl;
@@ -17,6 +19,8 @@ public class FuramaController {
     private final CustomerService customerService = new CustomerServiceImpl();
 
     private final FacilityService facilityServiceImpl = new FacilityServiceImpl();
+
+    private final BookingService bookingService = new BookingServiceImpl();
 
     public void displayMainMenu() {
         while (true) {
@@ -129,7 +133,7 @@ public class FuramaController {
 
     private void displayOptionThree() {
         while (true) {
-            System.out.print("-------------- FACILITY MANAGEMENT --------------" +
+            System.out.print("-------------- FACILITY MANAGEMENT --------------\n" +
                     "1\tDisplay list facility\n" +
                     "2\tAdd new facility\n" +
                     "3\tDisplay list facility maintenance\n" +
@@ -158,10 +162,10 @@ public class FuramaController {
 
     private void displayOptionFour() {
         while (true) {
-            System.out.print("-------------- BOOKING MANAGEMENT --------------" +
+            System.out.print("-------------- BOOKING MANAGEMENT --------------\n" +
                     "1.\tAdd new booking\n" +
                     "2.\tDisplay list booking\n" +
-                    "3.\tCreate new constracts\n" +
+                    "3.\tCreate new contracts\n" +
                     "4.\tDisplay list contracts\n" +
                     "5.\tEdit contracts\n" +
                     "6.\tReturn main menu\n");
@@ -170,7 +174,11 @@ public class FuramaController {
 
             switch (choice) {
                 case 1:
+                    bookingService.add();
+                    break;
                 case 2:
+                    bookingService.display();
+                    break;
                 case 3:
                 case 4:
                 case 5:
@@ -185,7 +193,7 @@ public class FuramaController {
 
     private void displayOptionFive() {
         while (true) {
-            System.out.print("-------------- PROMOTION MANAGEMENT --------------" +
+            System.out.print("-------------- PROMOTION MANAGEMENT --------------\n" +
                     "1.\tDisplay list customers use service\n" +
                     "2.\tDisplay list customers get voucher\n" +
                     "3.\tReturn main menu\n");

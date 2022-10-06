@@ -1,6 +1,7 @@
 package case_study.utils.file;
 
 
+import case_study.model.booking.Booking;
 import case_study.model.facility.Facility;
 import case_study.model.facility.House;
 import case_study.model.facility.Room;
@@ -53,14 +54,37 @@ public class ReadFileUtils {
             while ((line = br.readLine()) != null) {
                 info = line.split(",");
                 if (info[0].contains("VL")) {
-                    facilityList.put(new Villa(info[0], info[1], Double.parseDouble(info[2]), Double.parseDouble(info[3]), Integer.parseInt(info[4]), info[5], info[6], Double.parseDouble(info[7]), Integer.parseInt(info[8])), 0);
+                    facilityList.put(new Villa(info[0], info[1], Double.parseDouble(info[2]), Double.parseDouble(info[3]), Integer.parseInt(info[4]), info[5], info[6], Double.parseDouble(info[7]), Integer.parseInt(info[8])), Integer.parseInt(info[9]));
                 }
                 if (info[0].contains("HO")) {
-                    facilityList.put(new House(info[0], info[1], Double.parseDouble(info[2]), Double.parseDouble(info[3]), Integer.parseInt(info[4]), info[5], info[6], Integer.parseInt(info[7])), 0);
+                    facilityList.put(new House(info[0], info[1], Double.parseDouble(info[2]), Double.parseDouble(info[3]), Integer.parseInt(info[4]), info[5], info[6], Integer.parseInt(info[7])), Integer.parseInt(info[8]));
                 }
                 if (info[0].contains("RO")) {
-                    facilityList.put(new Room(info[0], info[1], Double.parseDouble(info[2]), Double.parseDouble(info[3]), Integer.parseInt(info[4]), info[5], info[6]), 0);
+                    facilityList.put(new Room(info[0], info[1], Double.parseDouble(info[2]), Double.parseDouble(info[3]), Integer.parseInt(info[4]), info[5], info[6]), Integer.parseInt(info[7]));
                 }
+            }
+            br.close();
+        } catch (FileNotFoundException e) {
+            System.out.println("Không tìm thấy file");
+        } catch (IOException e) {
+            System.out.println("Đọc file lỗi!");
+        }
+    }
+
+    public static void readFileBooking(String path, ArrayList<Booking> bookings) {
+        try {
+            File f = new File(path);
+            BufferedReader br = new BufferedReader(new FileReader(f));
+            String line;
+            String[] info;
+            String[] startDayParts;
+            String[] endDayParts;
+            bookings.clear();
+            while ((line = br.readLine()) != null) {
+                info = line.split(",");
+                startDayParts = info[3].split("/");
+                endDayParts = info[4].split("/");
+                bookings.add(new Booking(info[0], info[1], info[2], new Date(Integer.parseInt(startDayParts[2]) - 1900, Integer.parseInt(startDayParts[1]) - 1, Integer.parseInt(startDayParts[0])), new Date(Integer.parseInt(endDayParts[2]) - 1900, Integer.parseInt(endDayParts[1]) - 1, Integer.parseInt(endDayParts[0])), info[5]));
             }
             br.close();
         } catch (FileNotFoundException e) {
