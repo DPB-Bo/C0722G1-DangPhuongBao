@@ -1,13 +1,7 @@
 package case_study.controller;
 
-import case_study.service.BookingService;
-import case_study.service.CustomerService;
-import case_study.service.EmployeeService;
-import case_study.service.FacilityService;
-import case_study.service.impl.BookingServiceImpl;
-import case_study.service.impl.CustomerServiceImpl;
-import case_study.service.impl.EmployeeServiceImpl;
-import case_study.service.impl.FacilityServiceImpl;
+import case_study.service.*;
+import case_study.service.impl.*;
 
 import java.util.Scanner;
 
@@ -21,6 +15,8 @@ public class FuramaController {
     private final FacilityService facilityServiceImpl = new FacilityServiceImpl();
 
     private final BookingService bookingService = new BookingServiceImpl();
+
+    private final ContactService contactService = new ContactServiceImpl();
 
     public void displayMainMenu() {
         while (true) {
@@ -180,8 +176,14 @@ public class FuramaController {
                     bookingService.display();
                     break;
                 case 3:
+                    contactService.add();
+                    break;
                 case 4:
+                    contactService.display();
+                    break;
                 case 5:
+                    contactService.edit();
+                    break;
                 case 6:
                     return;
                 default:

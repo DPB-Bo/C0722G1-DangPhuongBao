@@ -5,4 +5,4 @@ BOOKING:
 - Validate cơ bản : checked
 - Xét ngày end phải lớn hơn ngày start: checked
 - ngày start mới không được nhỏ hơn ngày end của booking có trùng mã dịch vụ
-- đọc file booking xét số lần xuất hiện của mã dịch vụ thì tăng lên value tương ứng với listmap bên facility
+- đọc file booking xét số lần xuất hiện của mã dịch vụ thì tăng lên value tương ứng với listmap bên facility: cancel

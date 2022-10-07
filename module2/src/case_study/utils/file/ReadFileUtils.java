@@ -2,6 +2,7 @@ package case_study.utils.file;
 
 
 import case_study.model.booking.Booking;
+import case_study.model.contract.Contract;
 import case_study.model.facility.Facility;
 import case_study.model.facility.House;
 import case_study.model.facility.Room;
@@ -85,6 +86,25 @@ public class ReadFileUtils {
                 startDayParts = info[3].split("/");
                 endDayParts = info[4].split("/");
                 bookings.add(new Booking(info[0], info[1], info[2], new Date(Integer.parseInt(startDayParts[2]) - 1900, Integer.parseInt(startDayParts[1]) - 1, Integer.parseInt(startDayParts[0])), new Date(Integer.parseInt(endDayParts[2]) - 1900, Integer.parseInt(endDayParts[1]) - 1, Integer.parseInt(endDayParts[0])), info[5]));
+            }
+            br.close();
+        } catch (FileNotFoundException e) {
+            System.out.println("Không tìm thấy file");
+        } catch (IOException e) {
+            System.out.println("Đọc file lỗi!");
+        }
+    }
+
+    public static void readFileContract(String path, ArrayList<Contract> contracts) {
+        try {
+            File f = new File(path);
+            BufferedReader br = new BufferedReader(new FileReader(f));
+            String line;
+            String[] info;
+            contracts.clear();
+            while ((line = br.readLine()) != null) {
+                info = line.split(",");
+                contracts.add(new Contract(info[0], info[1], info[2], Integer.parseInt(info[3]), Integer.parseInt(info[4])));
             }
             br.close();
         } catch (FileNotFoundException e) {

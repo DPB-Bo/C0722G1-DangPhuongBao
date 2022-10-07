@@ -1,6 +1,7 @@
 package case_study.utils.file;
 
 import case_study.model.booking.Booking;
+import case_study.model.contract.Contract;
 import case_study.model.facility.Facility;
 import case_study.model.facility.House;
 import case_study.model.facility.Room;
@@ -8,6 +9,7 @@ import case_study.model.facility.Villa;
 import case_study.model.person.Customer;
 import case_study.model.person.Employee;
 import case_study.utils.exception.file_exception.FileBookingException;
+import case_study.utils.exception.file_exception.FileContractException;
 import case_study.utils.exception.file_exception.FileFacilityException;
 import case_study.utils.exception.file_exception.FilePersonException;
 import case_study.utils.generic_list.PersonList;
@@ -106,6 +108,25 @@ public class WriteFileUtils {
             }
             writer.close();
         } catch (IOException | FileBookingException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    public static void writeContractFile(String path, ArrayList<Contract> contracts) {
+        try {
+            File file = new File(path);
+            BufferedWriter writer = new BufferedWriter(new FileWriter(file));
+            if (contracts.size() < 1) {
+                throw new FileContractException("Danh sách hệ thống trống, không thể ghi vào file");
+            }
+            String info;
+            for (Contract contract : contracts) {
+                info = String.format("%s,%s,%s,%s,%s", contract.getContractCode(), contract.getBookingCode(), contract.getCustomerCode(), contract.getContractTotalPayment(), contract.getContractDeposit());
+                writer.write(info);
+                writer.newLine();
+            }
+            writer.close();
+        } catch (IOException | FileContractException e) {
             System.out.println(e.getMessage());
         }
     }

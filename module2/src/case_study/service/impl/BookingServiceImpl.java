@@ -27,6 +27,11 @@ public class BookingServiceImpl implements BookingService {
 
     private final String PATH = "src/case_study/data/booking.csv";
 
+    public ArrayList<Booking> getBookingList() {
+        bookingList.sort(new BookingComparator());
+        return bookingList;
+    }
+
     @Override
     public void add() {
         if (checkAvailable(getServiceCodeList())) {
