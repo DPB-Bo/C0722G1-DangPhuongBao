@@ -1,0 +1,3 @@
+Sử dụng mã triển khai các lớp hình học ở repository này (checkout sang nhánh develop để lấy source code). Hãy tạo một interface Colorable với một phương thức void có tên howToColor(). Cho lớp Square triển khai interface này với phương thức howToColor() hiển thị thông điệp Color all four sides..
+
+Tạo một mảng các đối tượng hình học trong đó có ít nhất một Square. Với mỗi phần tử trong mảng, hiển thị diện tích của nó, nếu phần tử đó là một Colorable, gọi phương thức howToColor().

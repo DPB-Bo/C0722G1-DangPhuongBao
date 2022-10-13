@@ -1,0 +1,5 @@
+nên dùng kdl nguyên thuỷ hay tham chiếu của kdl nguyên thuỷ cho nay về sau?
+Sử lý nullpointerexception thế nào khi dùng kiểu tham chiếu của kdl nguyên thuỷ?
+tương tác trong method nên dùng this.elementname hay elementname?
+tại sao sau khi ghi đè toString thì lúc ra main k cần print object.toString mà chỉ cần object?
+Tại sao sau khi generator thì code toàn nhảy lên đầu @@! ?

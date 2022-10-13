@@ -1,0 +1,4 @@
+Sao main lại phi static // có phải là do các class đều là con của object ảnh hưởng?// lúc chạy không có đối tượng được khởi tạo -> nên thằng jvm mới dùng static (static chạy ma khong can khoi tao) main đê chạy chương trình
+phương thức static không dùng được this , super thì ảnh hưởng ntn đến class?// ???
+cách xác định dùng access modifier nào cho từng trường hop- Qui định chung? (trừ thuộc tính)?
+thuộc tính -> private nhưng mà thằng con ở package khác thì dùng super? v thì có bài đọc protected default thuộc tính làm gì?
