@@ -2,8 +2,13 @@ package test_sth.test_java_work;
 
 import sun.util.resources.LocaleData;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.time.DateTimeException;
 import java.time.LocalDate;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.Locale;
 import java.util.Scanner;
 
@@ -12,13 +17,17 @@ public class TestLocalDay {
         Scanner scanner = new Scanner(System.in);
         while (true) {
             System.out.println("Nhập vào ngày tháng năm");
-            String[] dayParts = scanner.nextLine().split("/");
+            String dateStr = scanner.nextLine();
             try {
-                LocalDate date = LocalDate.of(Integer.parseInt(dayParts[2]), Integer.parseInt(dayParts[1]) - 1, Integer.parseInt(dayParts[0]));
-            } catch (DateTimeException e) {
-                System.out.println(e.getMessage());
+                DateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+                sdf.setLenient(false);
+                Date date = sdf.parse(dateStr);
+                LocalDate localDate = LocalDate.of(date.getYear() + 1900, date.getMonth() + 1, date.getDate());
+                System.out.println(localDate);
+                break;
+            } catch (ParseException e) {
+                System.out.println("Error parsing date string");
             }
-            break;
         }
     }
 }
