@@ -60,4 +60,130 @@ FROM
     dich_vu_di_kem ON hop_dong_chi_tiet.ma_dich_vu_di_kem = dich_vu_di_kem.ma_dich_vu_di_kem
 GROUP BY ma_khach_hang , ma_hop_dong
 ORDER BY ma_khach_hang ASC , ma_hop_dong DESC;
+
 --- Task 6 ---
+SELECT 
+    dv.ma_dich_vu,
+    dv.ten_dich_vu,
+    dv.dien_tich,
+    dv.chi_phi_thue,
+    loai_dich_vu.ten_loai_dich_vu,
+    hop_dong.ma_hop_dong,
+    hop_dong.ngay_lam_hop_dong
+FROM
+    dich_vu dv
+        JOIN
+    loai_dich_vu ON loai_dich_vu.ma_loai_dich_vu = dv.ma_loai_dich_vu
+        JOIN
+    hop_dong ON dv.ma_dich_vu = hop_dong.ma_dich_vu
+WHERE
+    dv.ma_dich_vu NOT IN (SELECT 
+            ma_dich_vu
+        FROM
+            hop_dong
+        WHERE
+            (MONTH(hop_dong.ngay_lam_hop_dong) IN (1 , 2, 3))
+                AND (YEAR(hop_dong.ngay_lam_hop_dong) = 2021))
+GROUP BY dv.ma_dich_vu;
+
+--- Task 7 ---
+SELECT 
+    dv.ma_dich_vu,
+    dv.ten_dich_vu,
+    dv.dien_tich,
+    dv.so_nguoi_toi_da,
+    dv.chi_phi_thue,
+    loai_dich_vu.ten_loai_dich_vu
+FROM
+    dich_vu dv
+        JOIN
+    loai_dich_vu ON loai_dich_vu.ma_loai_dich_vu = dv.ma_loai_dich_vu
+        JOIN
+    hop_dong ON dv.ma_dich_vu = hop_dong.ma_dich_vu
+WHERE
+    YEAR(hop_dong.ngay_lam_hop_dong) = 2020
+        AND (dv.ma_dich_vu NOT IN (SELECT 
+            ma_dich_vu
+        FROM
+            hop_dong
+        WHERE
+            YEAR(hop_dong.ngay_lam_hop_dong) = 2021))
+GROUP BY dv.ma_dich_vu;
+
+--- Task 8 ---
+
+	--- Task 8 EX 1 ---
+SELECT kh.ho_ten
+FROM khach_hang kh
+GROUP BY ho_ten;
+
+	--- Task 8 EX 2 ---
+SELECT kh.ho_ten
+FROM khach_hang kh
+UNION
+SELECT kh.ho_ten
+FROM khach_hang kh;
+
+	--- Task 8 EX 3 ---
+SELECT DISTINCT kh.ho_ten
+FROM khach_hang kh;
+
+--- Task 9 ---
+SELECT 
+    MONTH(hd.ngay_lam_hop_dong) AS thang,
+    COUNT(hd.ngay_lam_hop_dong) AS so_luong_khach_hang
+FROM
+    hop_dong hd
+        JOIN
+    khach_hang kh ON kh.ma_khach_hang = hd.ma_khach_hang
+WHERE
+    YEAR(hd.ngay_lam_hop_dong) = 2021
+GROUP BY thang
+ORDER BY thang;
+
+--- Task 10 ---
+SELECT 
+    hd.ma_hop_dong,
+    hd.ngay_lam_hop_dong,
+    hd.ngay_ket_thuc,
+    hd.tien_dat_coc,
+    SUM(hdct.so_luong) so_luong_dich_vu_di_kem
+FROM
+    hop_dong hd
+        LEFT JOIN
+    hop_dong_chi_tiet hdct ON hd.ma_hop_dong = hdct.ma_hop_dong
+        LEFT JOIN
+    dich_vu_di_kem dvdk ON dvdk.ma_dich_vu_di_kem = hdct.ma_dich_vu_di_kem
+GROUP BY hd.ma_hop_dong
+ORDER BY hd.ma_hop_dong;
+
+--- Task 11 ---
+SELECT 
+    dvdk.ma_dich_vu_di_kem, dvdk.ten_dich_vu_di_kem
+FROM
+    dich_vu_di_kem dvdk
+        JOIN
+    hop_dong_chi_tiet hdct ON hdct.ma_dich_vu_di_kem = dvdk.ma_dich_vu_di_kem
+        JOIN
+    hop_dong hd ON hd.ma_hop_dong = hdct.ma_hop_dong
+        JOIN
+    khach_hang kh ON kh.ma_khach_hang = hd.ma_khach_hang
+        JOIN
+    loai_khach lk ON lk.ma_loai_khach = kh.ma_loai_khach
+WHERE
+    kh.dia_chi REGEXP ('(Vinh|Quảng Ngãi)')
+        AND lk.ten_loai_khach REGEXP ('Diamond')
+ORDER BY dvdk.ma_dich_vu_di_kem;
+
+--- Task 12 ---
+SELECT hd.ma_hop_dong, nv.ho_ten AS ho_ten_nhan_vien, kh.ho_ten AS ho_ten_khach_hang, kh.so_dien_thoai, dv.ten_dich_vu, SUM(hdct.so_luong) AS so_luong_dich_vu_di_kem, SUM(hd.tien_dat_coc) tien_dat_coc
+FROM khach_hang kh
+JOIN hop_dong hd ON hd.ma_khach_hang = kh.ma_khach_hang
+JOIN nhan_vien nv ON hd.ma_nhan_vien = nv.ma_nhan_vien
+JOIN dich_vu dv ON hd.ma_dich_vu = dv.ma_dich_vu
+LEFT JOIN hop_dong_chi_tiet hdct ON hdct.ma_hop_dong = hd.ma_hop_dong
+LEFT JOIN dich_vu_di_kem dvdk ON dvdk.ma_dich_vu_di_kem = hdct.ma_dich_vu_di_kem
+GROUP BY hd.ma_hop_dong, dv.ten_dich_vu
+HAVING COUNT(YEAR(hd.ngay_lam_hop_dong) = 2021 AND MONTH(hd.ngay_lam_hop_dong) IN (1,2,3,4,5,6)) =  0 AND
+(COUNT(YEAR(hd.ngay_lam_hop_dong) = 2020 AND MONTH(hd.ngay_lam_hop_dong) IN (10,11,12)))>0
+ORDER BY hd.ma_hop_dong;
