@@ -213,9 +213,29 @@ FROM
 	hop_dong_chi_tiet hdct JOIN dich_vu_di_kem dvdk ON hdct.ma_dich_vu_di_kem = dvdk.ma_dich_vu_di_kem
 GROUP BY
 	hdct.ma_dich_vu_di_kem, dvdk.ten_dich_vu_di_kem
-HAVING
-	sum(hdct.so_luong) >= ALL (
+HAVING 
+	sum(hdct.so_luong) >= ALL ( -- Xét trên chính nó chỉ lấy bằng và lớn hơn -- 
 		SELECT sum(hop_dong_chi_tiet.so_luong) 
         FROM hop_dong_chi_tiet
         GROUP BY hop_dong_chi_tiet.ma_dich_vu_di_kem
 		);
+        
+--- Task 14 ---
+SELECT hd.ma_hop_dong, ldv.ten_loai_dich_vu, dvdk.ten_dich_vu_di_kem, COUNT(hdct.ma_dich_vu_di_kem)
+FROM hop_dong hd
+JOIN dich_vu dv ON hd.ma_dich_vu = dv.ma_dich_vu
+JOIN loai_dich_vu ldv ON dv.ma_loai_dich_vu = ldv.ma_loai_dich_vu
+JOIN hop_dong_chi_tiet hdct ON hd.ma_hop_dong = hdct.ma_hop_dong
+JOIN dich_vu_di_kem dvdk ON dvdk.ma_dich_vu_di_kem = hdct.ma_dich_vu_di_kem
+GROUP BY hdct.ma_dich_vu_di_kem
+HAVING COUNT(hdct.ma_dich_vu_di_kem)=1
+ORDER BY hd.ma_hop_dong;
+
+--- Task 15 ---
+SELECT nv.ma_nhan_vien,nv.ho_ten, td.ten_trinh_do, bp.ten_bo_phan, nv.so_dien_thoai,nv.dia_chi
+FROM nhan_vien nv
+JOIN trinh_do td ON td.ma_trinh_do = nv.ma_trinh_do
+JOIN bo_phan bp ON bp.ma_bo_phan = nv.ma_bo_phan
+JOIN hop_dong hd ON hd.ma_nhan_vien = nv.ma_nhan_vien
+GROUP BY nv.ma_nhan_vien
+HAVING COUNT(hd.ma_nhan_vien)<=3
