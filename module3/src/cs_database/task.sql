@@ -221,21 +221,113 @@ HAVING
 		);
         
 --- Task 14 ---
-SELECT hd.ma_hop_dong, ldv.ten_loai_dich_vu, dvdk.ten_dich_vu_di_kem, COUNT(hdct.ma_dich_vu_di_kem)
-FROM hop_dong hd
-JOIN dich_vu dv ON hd.ma_dich_vu = dv.ma_dich_vu
-JOIN loai_dich_vu ldv ON dv.ma_loai_dich_vu = ldv.ma_loai_dich_vu
-JOIN hop_dong_chi_tiet hdct ON hd.ma_hop_dong = hdct.ma_hop_dong
-JOIN dich_vu_di_kem dvdk ON dvdk.ma_dich_vu_di_kem = hdct.ma_dich_vu_di_kem
+SELECT 
+    hd.ma_hop_dong,
+    ldv.ten_loai_dich_vu,
+    dvdk.ten_dich_vu_di_kem,
+    COUNT(hdct.ma_dich_vu_di_kem)
+FROM
+    hop_dong hd
+        JOIN
+    dich_vu dv ON hd.ma_dich_vu = dv.ma_dich_vu
+        JOIN
+    loai_dich_vu ldv ON dv.ma_loai_dich_vu = ldv.ma_loai_dich_vu
+        JOIN
+    hop_dong_chi_tiet hdct ON hd.ma_hop_dong = hdct.ma_hop_dong
+        JOIN
+    dich_vu_di_kem dvdk ON dvdk.ma_dich_vu_di_kem = hdct.ma_dich_vu_di_kem
 GROUP BY hdct.ma_dich_vu_di_kem
-HAVING COUNT(hdct.ma_dich_vu_di_kem)=1
+HAVING COUNT(hdct.ma_dich_vu_di_kem) = 1
 ORDER BY hd.ma_hop_dong;
 
 --- Task 15 ---
-SELECT nv.ma_nhan_vien,nv.ho_ten, td.ten_trinh_do, bp.ten_bo_phan, nv.so_dien_thoai,nv.dia_chi
-FROM nhan_vien nv
-JOIN trinh_do td ON td.ma_trinh_do = nv.ma_trinh_do
-JOIN bo_phan bp ON bp.ma_bo_phan = nv.ma_bo_phan
-JOIN hop_dong hd ON hd.ma_nhan_vien = nv.ma_nhan_vien
+SELECT 
+    nv.ma_nhan_vien,
+    nv.ho_ten,
+    td.ten_trinh_do,
+    bp.ten_bo_phan,
+    nv.so_dien_thoai,
+    nv.dia_chi
+FROM
+    nhan_vien nv
+        JOIN
+    trinh_do td ON td.ma_trinh_do = nv.ma_trinh_do
+        JOIN
+    bo_phan bp ON bp.ma_bo_phan = nv.ma_bo_phan
+        JOIN
+    hop_dong hd ON hd.ma_nhan_vien = nv.ma_nhan_vien
 GROUP BY nv.ma_nhan_vien
-HAVING COUNT(hd.ma_nhan_vien)<=3
+HAVING COUNT(hd.ma_nhan_vien) <= 3;
+
+
+--- CÂU LỆNH ON/OFF SAFE MOD ---
+SET SQL_SAFE_UPDATES = 0;
+SET SQL_SAFE_UPDATES = 1;
+
+
+--- Task 16 ---
+--- Xóa những Nhân viên chưa từng lập được hợp đồng nào từ năm 2019 đến năm 2021 ---
+SET SQL_SAFE_UPDATES = 0;
+DELETE FROM nhan_vien
+WHERE ma_nhan_vien NOT IN (
+SELECT hd.ma_nhan_vien
+FROM hop_dong hd
+GROUP BY hd.ma_nhan_vien
+);
+SET SQL_SAFE_UPDATES = 1;
+
+--- Task 17 ---
+---	Cập nhật thông tin những khách hàng có ten_loai_khach từ Platinum lên Diamond, chỉ cập nhật những khách hàng đã từng đặt phòng với Tổng Tiền thanh toán trong năm 2021 là lớn hơn 3.000.000 VNĐ---
+UPDATE khach_hang kh 
+SET 
+    kh.ma_loai_khach = 1
+WHERE
+    kh.ma_khach_hang IN (SELECT 
+            a.mkh
+        FROM
+            (SELECT 
+                hop_dong.ma_khach_hang mkh,
+                    (IFNULL(dich_vu.chi_phi_thue, 0) + IFNULL(SUM(IFNULL(hop_dong_chi_tiet.so_luong, 0) * IFNULL(dich_vu_di_kem.gia, 0)), 0)) AS tong_tien
+            FROM
+                hop_dong
+            LEFT JOIN hop_dong_chi_tiet ON hop_dong_chi_tiet.ma_hop_dong = hop_dong.ma_hop_dong
+            LEFT JOIN dich_vu ON hop_dong.ma_dich_vu = dich_vu.ma_dich_vu
+            LEFT JOIN dich_vu_di_kem ON hop_dong_chi_tiet.ma_dich_vu_di_kem = dich_vu_di_kem.ma_dich_vu_di_kem
+            WHERE
+                YEAR(hop_dong.ngay_lam_hop_dong) = 2021
+            GROUP BY ma_khach_hang
+            HAVING tong_tien > 3000000) a);
+            
+--- Task 18 ---
+--- Xóa những khách hàng có hợp đồng trước năm 2021 (chú ý ràng buộc giữa các bảng). ---
+DELETE FROM hop_dong , hop_dong_chi_tiet USING hop_dong
+        JOIN
+    hop_dong_chi_tiet 
+WHERE
+    YEAR(hop_dong.ngay_lam_hop_dong) < 2021
+    AND hop_dong.ma_hop_dong = hop_dong_chi_tiet.ma_hop_dong;
+--- CÓ THỂ CHÈN CASADE VÀO KHOÁ PHỤ THÌ DELETE BÌNH THƯỜNG MÀ KHÔNG CẦN LÀM NHƯ TRÊN ---
+
+--- Task 19 ---
+---	Cập nhật giá cho các dịch vụ đi kèm được sử dụng trên 10 lần trong năm 2020 lên gấp đôi ---
+UPDATE dich_vu_di_kem dvdk 
+SET 
+    gia = gia * 2
+WHERE
+    dvdk.ma_dich_vu_di_kem = (SELECT 
+            a.mdvdk
+        FROM
+            (SELECT 
+                hdct.ma_dich_vu_di_kem mdvdk , SUM(hdct.so_luong) tsl
+            FROM
+                hop_dong hd
+            JOIN hop_dong_chi_tiet hdct ON hd.ma_hop_dong = hdct.ma_hop_dong
+            WHERE
+                YEAR(hd.ngay_lam_hop_dong) = 2020
+            GROUP BY ma_dich_vu_di_kem) a WHERE a.tsl >10);
+
+--- Task 20 --- 
+--- Hiển thị thông tin của tất cả các nhân viên và khách hàng có trong hệ thống, thông tin hiển thị bao gồm id (ma_nhan_vien, ma_khach_hang), ho_ten, email, so_dien_thoai, ngay_sinh, dia_chi ---
+SELECT nv.ma_nhan_vien id,nv.ho_ten,nv.email,nv.so_dien_thoai,nv.ngay_sinh,nv.dia_chi FROM nhan_vien nv
+UNION
+SELECT kh.ma_khach_hang,kh.ho_ten,kh.email,kh.so_dien_thoai,kh.ngay_sinh,kh.dia_chi FROM khach_hang kh
