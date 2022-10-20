@@ -176,14 +176,46 @@ WHERE
 ORDER BY dvdk.ma_dich_vu_di_kem;
 
 --- Task 12 ---
-SELECT hd.ma_hop_dong, nv.ho_ten AS ho_ten_nhan_vien, kh.ho_ten AS ho_ten_khach_hang, kh.so_dien_thoai, dv.ten_dich_vu, SUM(hdct.so_luong) AS so_luong_dich_vu_di_kem, SUM(hd.tien_dat_coc) tien_dat_coc
-FROM khach_hang kh
-JOIN hop_dong hd ON hd.ma_khach_hang = kh.ma_khach_hang
-JOIN nhan_vien nv ON hd.ma_nhan_vien = nv.ma_nhan_vien
-JOIN dich_vu dv ON hd.ma_dich_vu = dv.ma_dich_vu
-LEFT JOIN hop_dong_chi_tiet hdct ON hdct.ma_hop_dong = hd.ma_hop_dong
-LEFT JOIN dich_vu_di_kem dvdk ON dvdk.ma_dich_vu_di_kem = hdct.ma_dich_vu_di_kem
-GROUP BY hd.ma_hop_dong, dv.ten_dich_vu
-HAVING COUNT(YEAR(hd.ngay_lam_hop_dong) = 2021 AND MONTH(hd.ngay_lam_hop_dong) IN (1,2,3,4,5,6)) =  0 AND
-(COUNT(YEAR(hd.ngay_lam_hop_dong) = 2020 AND MONTH(hd.ngay_lam_hop_dong) IN (10,11,12)))>0
+SELECT 
+    hd.ma_hop_dong,
+    nv.ho_ten AS ho_ten_nhan_vien,
+    kh.ho_ten AS ho_ten_khach_hang,
+    kh.so_dien_thoai,
+    dv.ten_dich_vu,
+    SUM(hdct.so_luong) AS so_luong_dich_vu_di_kem,
+    SUM(hd.tien_dat_coc) tien_dat_coc,
+    hd.ngay_lam_hop_dong
+FROM
+    khach_hang kh
+        JOIN
+    hop_dong hd ON hd.ma_khach_hang = kh.ma_khach_hang
+        JOIN
+    nhan_vien nv ON hd.ma_nhan_vien = nv.ma_nhan_vien
+        JOIN
+    dich_vu dv ON hd.ma_dich_vu = dv.ma_dich_vu
+        LEFT JOIN
+    hop_dong_chi_tiet hdct ON hdct.ma_hop_dong = hd.ma_hop_dong
+        LEFT JOIN
+    dich_vu_di_kem dvdk ON dvdk.ma_dich_vu_di_kem = hdct.ma_dich_vu_di_kem
+GROUP BY ma_hop_dong
+HAVING (YEAR(hd.ngay_lam_hop_dong) = 2020
+    AND MONTH(hd.ngay_lam_hop_dong) IN (10 , 11, 12))
+    AND NOT (YEAR(hd.ngay_lam_hop_dong) = 2021
+    AND MONTH(hd.ngay_lam_hop_dong) IN (1 , 2, 3, 4, 5, 6))
 ORDER BY hd.ma_hop_dong;
+
+--- Task 13 ---
+SELECT
+	hdct.ma_dich_vu_di_kem,
+    dvdk.ten_dich_vu_di_kem,
+    sum(hdct.so_luong) AS so_luong_dich_vu_di_kem
+FROM
+	hop_dong_chi_tiet hdct JOIN dich_vu_di_kem dvdk ON hdct.ma_dich_vu_di_kem = dvdk.ma_dich_vu_di_kem
+GROUP BY
+	hdct.ma_dich_vu_di_kem, dvdk.ten_dich_vu_di_kem
+HAVING
+	sum(hdct.so_luong) >= ALL (
+		SELECT sum(hop_dong_chi_tiet.so_luong) 
+        FROM hop_dong_chi_tiet
+        GROUP BY hop_dong_chi_tiet.ma_dich_vu_di_kem
+		);
