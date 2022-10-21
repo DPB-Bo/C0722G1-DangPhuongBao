@@ -305,6 +305,7 @@ WHERE
         WHERE
             ma_loai_khach = 2
         GROUP BY mkh)b WHERE tong>1000000);
+        
 --- Task 18 ---
 --- Xóa những khách hàng có hợp đồng trước năm 2021 (chú ý ràng buộc giữa các bảng). ---
 DELETE FROM hop_dong , hop_dong_chi_tiet USING hop_dong
@@ -317,6 +318,7 @@ WHERE
 
 --- Task 19 ---
 ---	Cập nhật giá cho các dịch vụ đi kèm được sử dụng trên 10 lần trong năm 2020 lên gấp đôi ---
+SET SQL_SAFE_UPDATES = 0;
 UPDATE dich_vu_di_kem dvdk 
 SET 
     gia = gia * 2
@@ -332,6 +334,7 @@ WHERE
             WHERE
                 YEAR(hd.ngay_lam_hop_dong) = 2020
             GROUP BY ma_dich_vu_di_kem) a WHERE a.tsl >10);
+SET SQL_SAFE_UPDATES = 1;
 
 --- Task 20 --- 
 --- Hiển thị thông tin của tất cả các nhân viên và khách hàng có trong hệ thống, thông tin hiển thị bao gồm id (ma_nhan_vien, ma_khach_hang), ho_ten, email, so_dien_thoai, ngay_sinh, dia_chi ---
@@ -340,6 +343,84 @@ UNION
 SELECT kh.ma_khach_hang,kh.ho_ten,kh.email,kh.so_dien_thoai,kh.ngay_sinh,kh.dia_chi FROM khach_hang kh;
 
 --- Task 21 ---
---- Tạo khung nhìn có tên là v_nhan_vien để lấy được thông tin của tất cả các nhân viên có địa chỉ là “Hải Châu” và đã từng lập hợp đồng cho một hoặc nhiều khách hàng bất kì với ngày lập hợp đồng là “12/12/2019” ---
-CREATE VIEW v_nhan_vien AS
-SELECT * 
+--- Tạo khung nhìn có tên là v_nhan_vien để lấy được thông tin của tất cả các nhân viên có địa chỉ là “Đà Nẵng” và đã từng lập hợp đồng cho một hoặc nhiều khách hàng bất kì với tháng lập hợp đồng là 4 ---
+CREATE OR REPLACE VIEW v_nhan_vien AS
+    SELECT 
+        nv.*
+    FROM
+        nhan_vien nv
+            JOIN
+        hop_dong hd ON hd.ma_nhan_vien = nv.ma_nhan_vien
+    WHERE
+        nv.dia_chi REGEXP ('Đà Nẵng')
+            AND MONTH(ngay_lam_hop_dong) = 4
+    GROUP BY nv.ma_nhan_vien;
+    
+--- Task 22 ---
+--- Thông qua khung nhìn v_nhan_vien thực hiện cập nhật địa chỉ thành “Liên Chiểu” đối với tất cả các nhân viên được nhìn thấy bởi khung nhìn này. ---
+UPDATE nhan_vien
+SET 
+    dia_chi = 'Liên Chiểu'
+WHERE
+    ma_nhan_vien IN (SELECT 
+            ma_nhan_vien
+        FROM
+            v_nhan_vien);
+
+--- Task 23 ---
+---	Tạo Stored Procedure sp_xoa_khach_hang dùng để xóa thông tin của một khách hàng nào đó với ma_khach_hang được truyền vào như là 1 tham số của sp_xoa_khach_hang ---
+DELIMITER // 
+CREATE PROCEDURE sp_xoa_khach_hang (
+IN kh_id INT)
+BEGIN
+DELETE FROM khach_hang kh
+WHERE kh.ma_khach_hang = kh_id;
+END //
+DELIMITER ;
+;
+
+SET SQL_SAFE_UPDATES = 1;
+
+SELECT * FROM hop_dong;
+--- Task 24 ---
+--- Tạo Stored Procedure sp_them_moi_hop_dong dùng để thêm mới vào bảng hop_dong với yêu cầu sp_them_moi_hop_dong phải thực hiện kiểm tra tính hợp lệ của dữ liệu bổ sung, với nguyên tắc không được trùng khóa chính và đảm bảo toàn vẹn tham chiếu đến các bảng liên quan. ---
+DELIMITER // 
+CREATE PROCEDURE sp_them_moi_hop_dong(
+IN hd_id INT,
+IN hd_nlhd DATE,
+IN hd_nkt DATE,
+IN hd_tdc INT,
+IN hd_mnv INT,
+IN hd_mkh INT,
+IN hd_mdv INT
+)
+BEGIN
+	-- CHỈ MỚI KIỂM TRA CÁC KHOÁ, CHƯA KIỂM TRA TÍNH ĐÚNG ĐẮN CỦA CÁC TRƯỜNG KHÁC @@!
+	IF NOT EXISTS (SELECT * FROM v_ma_hop_dong WHERE ma_hop_dong = hd_id) THEN 
+    INSERT INTO error_log (el_log) VALUE ('ma hop dong da ton tai');
+    ELSEIF NOT EXISTS(SELECT * FROM v_ma_nhan_vien WHERE ma_nhan_vien = hd_mnv) THEN 
+    INSERT INTO error_log (el_log) VALUE ('khong tim thay ma nhan vien');
+    ELSEIF EXISTS(SELECT * FROM v_khach_hang WHERE ma_khach_hang = hd_mkh) THEN
+    INSERT INTO error_log (el_log) VALUE ('khong tim thay ma khach hang');
+    ELSE
+    INSERT INTO hop_dong (ma_hop_dong,ngay_lam_hop_dong,ngay_ket_thuc,tien_dat_coc,ma_nhan_vien,ma_khach_hang,ma_dich_vu) VALUE(hd_id,hd_nlhd,hd_nkt,hd_tdc,hd_mnv,hd_mkh,hd_mdv);
+    INSERT INTO history_detail (his_log,his_date) VALUE('Thêm mới hợp đồng thành công',NOW()); -- Muốn thêm câu thêm thành công hợp đồng với mã ... nhưng chưa biết dùng nhét chuỗi có biến trong value
+    END IF;
+END //
+DELIMITER ;
+;
+
+-- Có idea tạo 1 function tự tạo các view lấy ra ID vì viết 3 cái view lười quá nhưng viết function lười hơn --
+CREATE VIEW v_ma_hop_dong AS
+SELECT hd.ma_hop_dong
+FROM hop_dong hd;
+
+CREATE VIEW v_ma_nhan_vien AS
+SELECT nv.ma_nhan_vien
+FROM nhan_vien nv;
+
+CREATE VIEW v_ma_khach_hang AS
+SELECT kh.ma_khach_hang
+FROM khach_hang kh;
+
+CALL sp_them_moi_hop_dong(1,'1999-06-15','1999-06-15',0,100,100,100);

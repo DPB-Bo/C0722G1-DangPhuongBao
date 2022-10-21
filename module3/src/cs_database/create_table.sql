@@ -135,3 +135,17 @@ PRIMARY KEY(ma_hop_dong_chi_tiet),
 FOREIGN KEY(ma_hop_dong) REFERENCES hop_dong(ma_hop_dong),
 FOREIGN KEY(ma_dich_vu_di_kem) REFERENCES dich_vu_di_kem(ma_dich_vu_di_kem)
 );
+
+--- Tạo bảng chứa Error Log ---
+CREATE TABLE error_log(
+el_id INT AUTO_INCREMENT PRIMARY KEY,
+el_log VARCHAR(100)
+);
+
+--- Tạo bảng history_detail chứa Success Action detail ---
+CREATE TABLE history_detail(
+his_id INT AUTO_INCREMENT PRIMARY KEY,
+his_log VARCHAR(100) NOT NULL,
+his_date DATE NOT NULL 
+-- Muốn tạo thêm 2 cột chứa mã người thực hiện và role của người thực hiện
+)
