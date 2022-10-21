@@ -277,11 +277,10 @@ GROUP BY hd.ma_nhan_vien
 SET SQL_SAFE_UPDATES = 1;
 
 --- Task 17 ---
----	Cập nhật thông tin những khách hàng có ten_loai_khach từ Platinum lên Diamond, chỉ cập nhật những khách hàng đã từng đặt phòng với Tổng Tiền thanh toán trong năm 2021 là lớn hơn 10.000.000 VNĐ ---
---- ************ Đáp án sai nên sửa yêu cầu đề thành Tổng Tiền thanh toán trong năm 2021 là lớn hơn 3.000.000 VNĐ từ Sliver lên GOLD ************ -------
+---	Cập nhật thông tin những khách hàng có ten_loai_khach từ Platinum lên Diamond, chỉ cập nhật những khách hàng đã từng đặt phòng với Tổng Tiền thanh toán trong năm 2021 là lớn hơn 1.000.000 VNĐ ---
 UPDATE khach_hang kh 
 SET 
-    kh.ma_loai_khach = 3
+    kh.ma_loai_khach = 1
 WHERE
     kh.ma_khach_hang IN (SELECT
     b.mkh
@@ -304,8 +303,8 @@ WHERE
                 JOIN
             khach_hang kh ON a.mkh = kh.ma_khach_hang
         WHERE
-            ma_loai_khach = 4
-        GROUP BY mkh)b WHERE tong>3000000);
+            ma_loai_khach = 2
+        GROUP BY mkh)b WHERE tong>1000000);
 --- Task 18 ---
 --- Xóa những khách hàng có hợp đồng trước năm 2021 (chú ý ràng buộc giữa các bảng). ---
 DELETE FROM hop_dong , hop_dong_chi_tiet USING hop_dong
@@ -338,4 +337,9 @@ WHERE
 --- Hiển thị thông tin của tất cả các nhân viên và khách hàng có trong hệ thống, thông tin hiển thị bao gồm id (ma_nhan_vien, ma_khach_hang), ho_ten, email, so_dien_thoai, ngay_sinh, dia_chi ---
 SELECT nv.ma_nhan_vien id,nv.ho_ten,nv.email,nv.so_dien_thoai,nv.ngay_sinh,nv.dia_chi FROM nhan_vien nv
 UNION
-SELECT kh.ma_khach_hang,kh.ho_ten,kh.email,kh.so_dien_thoai,kh.ngay_sinh,kh.dia_chi FROM khach_hang kh
+SELECT kh.ma_khach_hang,kh.ho_ten,kh.email,kh.so_dien_thoai,kh.ngay_sinh,kh.dia_chi FROM khach_hang kh;
+
+--- Task 21 ---
+--- Tạo khung nhìn có tên là v_nhan_vien để lấy được thông tin của tất cả các nhân viên có địa chỉ là “Hải Châu” và đã từng lập hợp đồng cho một hoặc nhiều khách hàng bất kì với ngày lập hợp đồng là “12/12/2019” ---
+CREATE VIEW v_nhan_vien AS
+SELECT * 
