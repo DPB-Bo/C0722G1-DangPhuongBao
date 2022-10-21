@@ -277,13 +277,17 @@ GROUP BY hd.ma_nhan_vien
 SET SQL_SAFE_UPDATES = 1;
 
 --- Task 17 ---
----	Cập nhật thông tin những khách hàng có ten_loai_khach từ Platinum lên Diamond, chỉ cập nhật những khách hàng đã từng đặt phòng với Tổng Tiền thanh toán trong năm 2021 là lớn hơn 3.000.000 VNĐ---
+---	Cập nhật thông tin những khách hàng có ten_loai_khach từ Platinum lên Diamond, chỉ cập nhật những khách hàng đã từng đặt phòng với Tổng Tiền thanh toán trong năm 2021 là lớn hơn 10.000.000 VNĐ ---
+--- ************ Đáp án sai nên sửa yêu cầu đề thành Tổng Tiền thanh toán trong năm 2021 là lớn hơn 3.000.000 VNĐ từ Sliver lên GOLD ************ -------
 UPDATE khach_hang kh 
 SET 
-    kh.ma_loai_khach = 1
+    kh.ma_loai_khach = 3
 WHERE
-    kh.ma_khach_hang IN (SELECT 
-            a.mkh
+    kh.ma_khach_hang IN (SELECT
+    b.mkh
+    FROM
+    (SELECT 
+            a.mkh mkh, SUM(a.tong_tien) tong
         FROM
             (SELECT 
                 hop_dong.ma_khach_hang mkh,
@@ -293,11 +297,15 @@ WHERE
             LEFT JOIN hop_dong_chi_tiet ON hop_dong_chi_tiet.ma_hop_dong = hop_dong.ma_hop_dong
             LEFT JOIN dich_vu ON hop_dong.ma_dich_vu = dich_vu.ma_dich_vu
             LEFT JOIN dich_vu_di_kem ON hop_dong_chi_tiet.ma_dich_vu_di_kem = dich_vu_di_kem.ma_dich_vu_di_kem
+            LEFT JOIN khach_hang kh ON kh.ma_khach_hang = hop_dong.ma_khach_hang
             WHERE
                 YEAR(hop_dong.ngay_lam_hop_dong) = 2021
-            GROUP BY ma_khach_hang
-            HAVING tong_tien > 3000000) a);
-            
+            GROUP BY hop_dong.ma_hop_dong) a
+                JOIN
+            khach_hang kh ON a.mkh = kh.ma_khach_hang
+        WHERE
+            ma_loai_khach = 4
+        GROUP BY mkh)b WHERE tong>3000000);
 --- Task 18 ---
 --- Xóa những khách hàng có hợp đồng trước năm 2021 (chú ý ràng buộc giữa các bảng). ---
 DELETE FROM hop_dong , hop_dong_chi_tiet USING hop_dong
