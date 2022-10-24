@@ -398,11 +398,11 @@ IN hd_mdv INT
 BEGIN
 	-- CHỈ MỚI KIỂM TRA CÁC KHOÁ, CHƯA KIỂM TRA TÍNH ĐÚNG ĐẮN CỦA CÁC TRƯỜNG KHÁC @@!
 	IF EXISTS (SELECT * FROM v_ma_hop_dong WHERE ma_hop_dong = hd_id) THEN 
-    INSERT INTO error_log (el_log) VALUE ('ma hop dong da ton tai');
+    INSERT INTO error_log (el_log,el_date) VALUE ('ma hop dong da ton tai',NOW());
     ELSEIF NOT EXISTS(SELECT * FROM v_ma_nhan_vien WHERE ma_nhan_vien = hd_mnv) THEN 
-    INSERT INTO error_log (el_log) VALUE ('khong tim thay ma nhan vien');
+    INSERT INTO error_log (el_log,el_date) VALUE ('khong tim thay ma nhan vien',NOW());
     ELSEIF NOT EXISTS(SELECT * FROM v_ma_khach_hang WHERE ma_khach_hang = hd_mkh) THEN
-    INSERT INTO error_log (el_log) VALUE ('khong tim thay ma khach hang');
+    INSERT INTO error_log (el_log,el_date) VALUE ('khong tim thay ma khach hang',NOW());
     ELSE
     INSERT INTO hop_dong (ma_hop_dong,ngay_lam_hop_dong,ngay_ket_thuc,tien_dat_coc,ma_nhan_vien,ma_khach_hang,ma_dich_vu) VALUE(hd_id,hd_nlhd,hd_nkt,hd_tdc,hd_mnv,hd_mkh,hd_mdv);
     INSERT INTO history_detail (his_log,his_date) VALUE(CONCAT('Thêm mới thành công hợp đồng có mã ',hd_id),NOW());
@@ -434,3 +434,110 @@ BEGIN
 INSERT INTO history_detail (his_log,his_date) VALUE(CONCAT('Số lượng hợp đồng còn lại sau khi xoá là ',(SELECT count(ma_hop_dong) FROM hop_dong)),NOW());
 END //
 DELIMITER ;
+;
+
+--- TASK 26 ---
+-- Tạo Trigger có tên tr_cap_nhat_hop_dong khi cập nhật ngày kết thúc hợp đồng, cần kiểm tra xem thời gian cập nhật có phù hợp hay không, ---
+-- với quy tắc sau: Ngày kết thúc hợp đồng phải lớn hơn ngày làm hợp đồng ít nhất là 2 ngày. Nếu dữ liệu hợp lệ thì cho phép cập nhật
+-- nếu dữ liệu không hợp lệ thì in ra thông báo “Ngày kết thúc hợp đồng phải lớn hơn ngày làm hợp đồng ít nhất là 2 ngày” trên console của database
+DROP TRIGGER IF EXISTS tr_cap_nhat_hop_dong;
+DELIMITER //
+CREATE TRIGGER tr_cap_nhat_hop_dong BEFORE UPDATE ON hop_dong FOR EACH ROW
+BEGIN
+IF TIMESTAMPDIFF(DATE,OLD.ngay_lam_hop_dong,NEW.ngay_ket_thuc) <2 THEN
+INSERT INTO error_log (el_log,el_date) VALUE ('Ngày kết thúc hợp đồng phải lớn hơn ngày làm hợp đồng ít nhất là 2 ngày',NOW());
+SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Ngày kết thúc hợp đồng phải lớn hơn ngày làm hợp đồng ít nhất là 2 ngày';
+END IF;
+END //
+DELIMITER ;
+;
+
+--- TASK 27 ---
+-- Tạo Function thực hiện yêu cầu sau:
+-- 1. Tạo Function func_dem_dich_vu: Đếm các dịch vụ đã được sử dụng với tổng tiền là > 2.000.000 VNĐ
+-- 2. Tạo Function func_tinh_thoi_gian_hop_dong: Tính khoảng thời gian dài nhất tính từ lúc bắt đầu làm hợp đồng đến lúc kết thúc hợp đồng mà khách hàng đã thực hiện thuê dịch vụ 
+-- (lưu ý chỉ xét các khoảng thời gian dựa vào từng lần làm hợp đồng thuê dịch vụ, không xét trên toàn bộ các lần làm hợp đồng). Mã của khách hàng được truyền vào như là 1 tham số của function này
+CREATE OR REPLACE VIEW v_tong_tien AS
+    SELECT 
+        hop_dong.ma_hop_dong mhd,
+        (IFNULL(dich_vu.chi_phi_thue, 0) + IFNULL(SUM(IFNULL(hop_dong_chi_tiet.so_luong, 0) * IFNULL(dich_vu_di_kem.gia, 0)),
+                0)) AS tong_tien
+    FROM
+        hop_dong
+            LEFT JOIN
+        hop_dong_chi_tiet ON hop_dong_chi_tiet.ma_hop_dong = hop_dong.ma_hop_dong
+            LEFT JOIN
+        dich_vu ON hop_dong.ma_dich_vu = dich_vu.ma_dich_vu
+            LEFT JOIN
+        dich_vu_di_kem ON hop_dong_chi_tiet.ma_dich_vu_di_kem = dich_vu_di_kem.ma_dich_vu_di_kem
+    GROUP BY hop_dong.ma_hop_dong
+;
+
+CREATE OR REPLACE VIEW v_hop_dong_co_dich_vu_di_kem AS
+    SELECT 
+        hop_dong.ma_hop_dong mhd,
+        khach_hang.ma_khach_hang mkh,
+        hop_dong.ngay_lam_hop_dong nlhd,
+        hop_dong.ngay_ket_thuc nkt
+    FROM
+        hop_dong
+            JOIN
+        hop_dong_chi_tiet ON hop_dong_chi_tiet.ma_hop_dong = hop_dong.ma_hop_dong
+            JOIN
+            khach_hang ON hop_dong.ma_khach_hang = khach_hang.ma_khach_hang
+    GROUP BY hop_dong.ma_hop_dong
+;
+
+SELECT * FROM v_tong_tien;
+SELECT * FROM v_hop_dong_co_dich_vu_di_kem;
+
+DROP FUNCTION IF EXISTS func_dem_dich_vu;
+DELIMITER //
+CREATE FUNCTION func_dem_dich_vu ()
+RETURNS INT
+DETERMINISTIC
+READS SQL DATA
+BEGIN
+DECLARE count_sl INT DEFAULT 0;
+SET count_sl = (SELECT count(mhd) FROM v_tong_tien WHERE tong_tien >2000000);
+RETURN count_sl;
+END //
+DELIMITER ; 
+;
+
+SELECT func_dem_dich_vu() AS dem_tong_tien;
+
+DROP FUNCTION IF EXISTS func_tinh_thoi_gian_hop_dong;
+DELIMITER //
+CREATE FUNCTION func_tinh_thoi_gian_hop_dong (ma_kh INT)
+RETURNS INT
+DETERMINISTIC
+READS SQL DATA
+BEGIN
+DECLARE start_date DATE;
+DECLARE end_date DATE;
+DECLARE result INT;
+IF NOT EXISTS (SELECT mkh FROM v_hop_dong_co_dich_vu_di_kem WHERE mkh=ma_kh) THEN
+INSERT INTO error_log (el_log,el_date) VALUE ('ma_hop_dong_khong_hop_le',NOW());
+SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'KHÔNG TỒN TẠI MÃ HỢP ĐỒNG';
+RETURN -1;
+END IF;
+SET start_date = (SELECT nlhd FROM v_hop_dong_co_dich_vu_di_kem WHERE mkh=ma_kh);
+SET end_date = (SELECT nkt FROM v_hop_dong_co_dich_vu_di_kem WHERE mkh=ma_kh) ;
+SET result = DATEDIFF(end_date,start_date);
+RETURN result;
+END //
+DELIMITER ;
+
+SELECT func_tinh_thoi_gian_hop_dong(3);
+
+--- TASK 28 ---
+--- Tạo Stored Procedure sp_xoa_dich_vu_va_hd_room để tìm các dịch vụ được thuê bởi khách hàng với loại dịch vụ là “Room” từ đầu năm 2015 đến hết năm 2019 để xóa thông tin của các dịch vụ đó 
+--- (tức là xóa các bảng ghi trong bảng dich_vu) và xóa những hop_dong sử dụng dịch vụ liên quan (tức là phải xóa những bản gi trong bảng hop_dong) và những bản liên quan khác
+
+-- SỬ DỤNG DELETE ON CASADE SẼ DỄ HƠNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNN RẤT NHIỀUUUUUUUUUUUUUUUUUUUUUUUUUUU BUT IDGAF
+
+-- THÊM CỘT IS_DEL ĐỂ THAY ĐỔI VALUE KHI "XOÁ" 
+UPDATE dich_vu dv
+SET is_del = 1
+WHERE dv.ma_loai_dich_vu = 3 AND dv.ma_dich_vu IN (SELECT dv.ma_dv FROM dich_vu dv JOIN hop_dong hd ON dv.ma_dich_vu = hd.ma_dich_vu WHERE YEAR(hd.ngay_lam_hop_dong) IN (2015,2016,2017,2018,2019))

@@ -39,6 +39,7 @@ dia_chi VARCHAR(45) DEFAULT("(chưa có)"),
 ma_vi_tri INT NOT NULL,
 ma_trinh_do INT NOT NULL,
 ma_bo_phan INT NOT NULL,
+is_del BIT(1) DEFAULT 0,
 PRIMARY KEY(ma_nhan_vien),
 FOREIGN KEY(ma_vi_tri) REFERENCES vi_tri(ma_vi_tri),
 FOREIGN KEY(ma_trinh_do) REFERENCES trinh_do(ma_trinh_do),
@@ -63,6 +64,7 @@ so_cmnd VARCHAR(45) UNIQUE NOT NULL,
 so_dien_thoai VARCHAR(45) DEFAULT("(chưa có)"),
 email VARCHAR(45) UNIQUE NOT NULL,
 dia_chi VARCHAR(45),
+is_del BIT(1) DEFAULT 0,
 PRIMARY KEY (ma_khach_hang),
 FOREIGN KEY(ma_loai_khach) REFERENCES loai_khach(ma_loai_khach)
 );
@@ -95,6 +97,7 @@ mo_ta_tien_nghi_khac VARCHAR(45) DEFAULT("(Chưa có)"),
 dien_tich_ho_boi DOUBLE DEFAULT(0),
 so_tang INT DEFAULT(1),
 dich_vu_mien_phi_di_kem TEXT DEFAULT("(Không có)"),
+is_del BIT(1) DEFAULT 0,
 PRIMARY KEY(ma_dich_vu),
 FOREIGN KEY(ma_kieu_thue) REFERENCES kieu_thue(ma_kieu_thue),
 FOREIGN KEY(ma_loai_dich_vu) REFERENCES loai_dich_vu(ma_loai_dich_vu)
@@ -119,6 +122,7 @@ tien_dat_coc DOUBLE DEFAULT(0),
 ma_nhan_vien INT NOT NULL,
 ma_khach_hang INT NOT NULL,
 ma_dich_vu INT NOT NULL,
+is_del BIT(1) DEFAULT 0,
 PRIMARY KEY(ma_hop_dong),
 FOREIGN KEY(ma_nhan_vien) REFERENCES nhan_vien(ma_nhan_vien),
 FOREIGN KEY(ma_khach_hang) REFERENCES khach_hang(ma_khach_hang),
@@ -131,6 +135,7 @@ ma_hop_dong_chi_tiet INT AUTO_INCREMENT,
 ma_hop_dong INT NOT NULL,
 ma_dich_vu_di_kem INT NOT NULL,
 so_luong INT NOT NULL,
+is_del BIT(1) DEFAULT 0,
 PRIMARY KEY(ma_hop_dong_chi_tiet),
 FOREIGN KEY(ma_hop_dong) REFERENCES hop_dong(ma_hop_dong),
 FOREIGN KEY(ma_dich_vu_di_kem) REFERENCES dich_vu_di_kem(ma_dich_vu_di_kem)
@@ -139,7 +144,8 @@ FOREIGN KEY(ma_dich_vu_di_kem) REFERENCES dich_vu_di_kem(ma_dich_vu_di_kem)
 --- Tạo bảng chứa Error Log ---
 CREATE TABLE error_log(
 el_id INT AUTO_INCREMENT PRIMARY KEY,
-el_log VARCHAR(100)
+el_log VARCHAR(100),
+el_date DATE NOT NULL
 );
 
 --- Tạo bảng history_detail chứa Success Action detail ---
