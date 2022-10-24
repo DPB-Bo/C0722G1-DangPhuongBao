@@ -384,6 +384,7 @@ SET SQL_SAFE_UPDATES = 1;
 SELECT * FROM hop_dong;
 --- Task 24 ---
 --- Tạo Stored Procedure sp_them_moi_hop_dong dùng để thêm mới vào bảng hop_dong với yêu cầu sp_them_moi_hop_dong phải thực hiện kiểm tra tính hợp lệ của dữ liệu bổ sung, với nguyên tắc không được trùng khóa chính và đảm bảo toàn vẹn tham chiếu đến các bảng liên quan. ---
+DROP PROCEDURE IF EXISTS sp_them_moi_hop_dong;
 DELIMITER // 
 CREATE PROCEDURE sp_them_moi_hop_dong(
 IN hd_id INT,
@@ -396,21 +397,20 @@ IN hd_mdv INT
 )
 BEGIN
 	-- CHỈ MỚI KIỂM TRA CÁC KHOÁ, CHƯA KIỂM TRA TÍNH ĐÚNG ĐẮN CỦA CÁC TRƯỜNG KHÁC @@!
-	IF NOT EXISTS (SELECT * FROM v_ma_hop_dong WHERE ma_hop_dong = hd_id) THEN 
+	IF EXISTS (SELECT * FROM v_ma_hop_dong WHERE ma_hop_dong = hd_id) THEN 
     INSERT INTO error_log (el_log) VALUE ('ma hop dong da ton tai');
     ELSEIF NOT EXISTS(SELECT * FROM v_ma_nhan_vien WHERE ma_nhan_vien = hd_mnv) THEN 
     INSERT INTO error_log (el_log) VALUE ('khong tim thay ma nhan vien');
-    ELSEIF EXISTS(SELECT * FROM v_khach_hang WHERE ma_khach_hang = hd_mkh) THEN
+    ELSEIF NOT EXISTS(SELECT * FROM v_ma_khach_hang WHERE ma_khach_hang = hd_mkh) THEN
     INSERT INTO error_log (el_log) VALUE ('khong tim thay ma khach hang');
     ELSE
     INSERT INTO hop_dong (ma_hop_dong,ngay_lam_hop_dong,ngay_ket_thuc,tien_dat_coc,ma_nhan_vien,ma_khach_hang,ma_dich_vu) VALUE(hd_id,hd_nlhd,hd_nkt,hd_tdc,hd_mnv,hd_mkh,hd_mdv);
-    INSERT INTO history_detail (his_log,his_date) VALUE('Thêm mới hợp đồng thành công',NOW()); -- Muốn thêm câu thêm thành công hợp đồng với mã ... nhưng chưa biết dùng nhét chuỗi có biến trong value
+    INSERT INTO history_detail (his_log,his_date) VALUE(CONCAT('Thêm mới thành công hợp đồng có mã ',hd_id),NOW());
     END IF;
 END //
 DELIMITER ;
 ;
 
--- Có idea tạo 1 function tự tạo các view lấy ra ID vì viết 3 cái view lười quá nhưng viết function lười hơn --
 CREATE VIEW v_ma_hop_dong AS
 SELECT hd.ma_hop_dong
 FROM hop_dong hd;
@@ -423,4 +423,14 @@ CREATE VIEW v_ma_khach_hang AS
 SELECT kh.ma_khach_hang
 FROM khach_hang kh;
 
-CALL sp_them_moi_hop_dong(1,'1999-06-15','1999-06-15',0,100,100,100);
+CALL sp_them_moi_hop_dong(13,'1999-06-15','1999-06-15',0,1,1,1); --- THỬ THÊM LỖI
+
+--- TASK 25 ---
+-- Tạo Trigger có tên tr_xoa_hop_dong khi xóa bản ghi trong bảng hop_dong thì hiển thị tổng số lượng bản ghi còn lại có trong bảng hop_dong ra giao diện console của database --
+DROP TRIGGER IF EXISTS tr_xoa_hop_dong;
+DELIMITER //
+CREATE TRIGGER tr_xoa_hop_dong AFTER DELETE ON hop_dong FOR EACH ROW
+BEGIN
+INSERT INTO history_detail (his_log,his_date) VALUE(CONCAT('Số lượng hợp đồng còn lại sau khi xoá là ',(SELECT count(ma_hop_dong) FROM hop_dong)),NOW());
+END //
+DELIMITER ;
