@@ -540,4 +540,4 @@ SELECT func_tinh_thoi_gian_hop_dong(3);
 -- THÊM CỘT IS_DEL ĐỂ THAY ĐỔI VALUE KHI "XOÁ" 
 UPDATE dich_vu dv
 SET is_del = 1
-WHERE dv.ma_loai_dich_vu = 3 AND dv.ma_dich_vu IN (SELECT dv.ma_dv FROM dich_vu dv JOIN hop_dong hd ON dv.ma_dich_vu = hd.ma_dich_vu WHERE YEAR(hd.ngay_lam_hop_dong) IN (2015,2016,2017,2018,2019))
+WHERE dv.ma_loai_dich_vu = 3 AND dv.ma_dich_vu IN (SELECT dv.ma_dv FROM dich_vu dv JOIN hop_dong hd ON dv.ma_dich_vu = hd.ma_dich_vu WHERE YEAR(hd.ngay_lam_hop_dong) IN (2015,2016,2017,2018,2019));

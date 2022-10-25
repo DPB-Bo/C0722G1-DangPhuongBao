@@ -1,0 +1,12 @@
+#header_id {
+  color: green;
+}
+#body_id {
+  color: blue;
+}
+.header_class {
+  color: green;
+}
+.body_class {
+  color: blue;
+}
