@@ -15,18 +15,18 @@ public class CalculateDiscountServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        float list_pr = Float.parseFloat(request.getParameter("list_pr"));
-        float dis_per = Float.parseFloat(request.getParameter("dis_per"));
-        String pro_de = request.getParameter("pro_de");
+        float listPr = Float.parseFloat(request.getParameter("listPr"));
+        float disPer = Float.parseFloat(request.getParameter("disPer"));
+        String proDe = request.getParameter("pro_de");
 
-        float dis_amount = (float) (list_pr*dis_per*0.01);
-        float dis_pr = list_pr-dis_amount;
+        float disAmount = (float) (listPr*dis_per*0.01);
+        float disPr = listPr-disAmount;
 
-        request.setAttribute("dis_amount", dis_amount);
-        request.setAttribute("dis_pr", dis_pr);
-        request.setAttribute("pro_de", pro_de);
-        request.setAttribute("list_pr", list_pr);
-        request.setAttribute("dis_per", dis_per);
+        request.setAttribute("dis_amount", disAmount);
+        request.setAttribute("dis_pr", disPr);
+        request.setAttribute("pro_de", proDe);
+        request.setAttribute("list_pr", listPr);
+        request.setAttribute("dis_per", disPer);
 
         request.getRequestDispatcher("result.jsp").forward(request, response);
     }

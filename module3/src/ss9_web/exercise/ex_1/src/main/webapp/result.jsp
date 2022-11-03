@@ -11,14 +11,14 @@
     <title>Title</title>
 </head>
 <body>
-Product Description: ${pro_de}
+Product Description: ${proDe}
 <br>
-List Price: ${list_pr}
+List Price: ${listPr}
 <br>
-Discount Percent: ${dis_per}
+Discount Percent: ${disPer}
 <br>
-Discount Amount: ${dis_amount}
+Discount Amount: ${disAmount}
 <br>
-Discount Price: ${dis_pr}
+Discount Price: ${disPr}
 </body>
 </html>
