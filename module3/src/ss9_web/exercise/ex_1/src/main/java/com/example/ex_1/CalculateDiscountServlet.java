@@ -19,7 +19,7 @@ public class CalculateDiscountServlet extends HttpServlet {
         float disPer = Float.parseFloat(request.getParameter("disPer"));
         String proDe = request.getParameter("pro_de");
 
-        float disAmount = (float) (listPr*dis_per*0.01);
+        float disAmount = (float) (listPr*disPer*0.01);
         float disPr = listPr-disAmount;
 
         request.setAttribute("dis_amount", disAmount);
