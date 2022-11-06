@@ -9,7 +9,7 @@ import java.util.List;
 
 public class ProductService implements IProductService {
 
-    IProductRepository productRepository = new ProductRepository();
+    private IProductRepository productRepository = new ProductRepository();
 
 
     @Override
