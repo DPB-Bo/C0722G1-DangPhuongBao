@@ -109,12 +109,11 @@ CREATE TABLE facility (
     facility_free TEXT,
     rent_type_id INT,
     facility_type_id INT,
+    is_delete BIT(1) DEFAULT(0),
     FOREIGN KEY (rent_type_id)
-        REFERENCES rent_type (id)
-        ON DELETE CASCADE,
+        REFERENCES rent_type (id),
     FOREIGN KEY (facility_type_id)
         REFERENCES facility_type (id)
-        ON DELETE CASCADE
 );
 
 CREATE TABLE attach_facility (

@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
 <html lang="en">
@@ -14,45 +15,7 @@
 
 </head>
 <body>
-<header>
-    <div class="container">
-        <div class="d-flex flex-wrap align-items-center
-                    justify-content-center justify-content-md-between py-3">
-            <a href="/" class="d-flex align-items-center col-md-3 mb-2
-                        mb-md-0 text-dark text-decoration-none">
-                <img
-                        src="https://furamavietnam.com/wp-content/uploads/2018/08/logo.png"
-                        alt="LOGO">
-            </a>
-            <p class="nav col-12 col-md-auto mb-2 justify-content-center
-                        mb-md-0 h1">
-                FURAMA RESORTS
-            </p>
-            <div class="col-md-3 text-end">
-                <p class="text-center text-decoration-underline
-                            text-bg-warning">ĐẶNG PHƯƠNG BẢO</p>
-            </div>
-        </div>
-    </div>
-
-</header>
-<div class="p-3 bg-dark text-white sticky-top">
-    <div class="container">
-        <div class="d-flex flex-wrap align-it ems-center
-                    justify-content-center justify-content-lg-start">
-            <ul class="nav col-12 col-lg-auto me-lg-auto mb-2
-                        justify-content-center mb-md-0">
-                <li><a href="#" class="nav-link px-2 fs-6
-                                text-secondary">HOME</a></li>
-                <li><a href="#" class="nav-link px-2 text-white">EMPLOYEE</a></li>
-                <li><a href="/customers" class="nav-link px-2 text-white">CUSTOMER</a></li>
-                <li><a href="/facility/display_facility.html"
-                       class="nav-link px-2 text-white">SERVICE</a></li>
-                <li><a href="#" class="nav-link px-2 text-white">CONTRACT</a></li>
-            </ul>
-        </div>
-    </div>
-</div>
+<c:import url="header.jsp"></c:import>
 
 
 <div class="container-fluid" style="padding: 0;">
@@ -152,30 +115,6 @@
         </div>
     </div>
 </div>
-<div class="container">
-    <footer class="d-flex flex-wrap justify-content-between
-                align-items-center py-3 my-4 border-top">
-        <div class="col-md-4 d-flex align-items-center">
-            <a href="/" class="mb-3 me-2 mb-md-0 text-muted
-                        text-decoration-none lh-1">
-                <img
-                        src="https://furamavietnam.com/wp-content/uploads/2018/08/logo.png"
-                        alt="LOGO">
-            </a>
-            <span class="mb-3 mb-md-0 text-muted">© FURAMA RESORTS</span>
-        </div>
-
-        <ul class="nav col-md-4 justify-content-end">
-            <li class="nav-item"><a href="#" class="nav-link px-2
-                            text-muted">TRANG CHỦ</a></li>
-            <li class="nav-item"><a href="#" class="nav-link px-2
-                            text-muted">GIỚI THIỆU</a></li>
-            <li class="nav-item"><a href="#" class="nav-link px-2
-                            text-muted">LIÊN HỆ</a></li>
-            <li class="nav-item"><a href="#" class="nav-link px-2
-                            text-muted">FAQS</a></li>
-        </ul>
-    </footer>
-</div>
+<c:import url="/footer.jsp"></c:import>
 </body>
 </html>

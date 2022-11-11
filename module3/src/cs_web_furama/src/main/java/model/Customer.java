@@ -10,7 +10,6 @@ public class Customer {
     private String email;
     private String address;
     private int customerTypeId;
-
     private boolean is_delete;
 
     public Customer() {
@@ -38,6 +37,18 @@ public class Customer {
         this.address = address;
         this.customerTypeId = customerTypeId;
         this.is_delete = isDelete;
+    }
+
+    public Customer(int id, String name, String birthday, boolean gender, String idCard, String phoneNumber, String email, String address, int customerTypeId) {
+        this.id = id;
+        this.name = name;
+        this.birthday = birthday;
+        this.gender = gender;
+        this.idCard = idCard;
+        this.phoneNumber = phoneNumber;
+        this.email = email;
+        this.address = address;
+        this.customerTypeId = customerTypeId;
     }
 
     public int getId() {

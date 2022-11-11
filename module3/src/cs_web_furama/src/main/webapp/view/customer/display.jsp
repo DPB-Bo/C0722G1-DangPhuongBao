@@ -31,15 +31,21 @@
     }else {
       document.getElementById("updateCustomerGenderFemale").checked = true;
     }
+    document.getElementById("updateConfirm").value= id;
   }
 
   $(document).ready(function() {
       $('#tableCustomer').dataTable( {
         "dom": 'lrtip',
         "lengthChange": false,
-        "pageLength": 5
+        "pageLength": 5,
       } );
     } );
+
+    function deleteCustomer(id,name){
+      document.getElementById("deleteName").innerText=name;
+      document.getElementById("deleteConfirm").value= id;
+    }
   </script>
   <link
           href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"
@@ -53,44 +59,13 @@
           crossorigin="anonymous"></script>
 </head>
 <body>
-<header>
-  <div class="container">
-    <div class="d-flex flex-wrap align-items-center
-                    justify-content-center justify-content-md-between py-3">
-      <a href="/" class="d-flex align-items-center col-md-3 mb-2
-                        mb-md-0 text-dark text-decoration-none">
-        <img
-                src="https://furamavietnam.com/wp-content/uploads/2018/08/logo.png"
-                alt="LOGO">
-      </a>
-      <p class="nav col-12 col-md-auto mb-2 justify-content-center
-                        mb-md-0 h1">
-        FURAMA RESORTS
-      </p>
-      <div class="col-md-3 text-end">
-        <p class="text-center text-decoration-underline
-                            text-bg-warning">ĐẶNG PHƯƠNG BẢO</p>
-      </div>
-    </div>
-  </div>
-</header>
-<div class="p-3 bg-dark text-white sticky-top">
-  <div class="container">
-    <div class="d-flex flex-wrap align-it ems-center
-                    justify-content-center justify-content-lg-start">
-      <ul class="nav col-12 col-lg-auto me-lg-auto mb-2
-                        justify-content-center mb-md-0">
-        <li><a href="#" class="nav-link px-2 fs-6 text-secondary">TRANG CHỦ</a></li>
-        <li><a href="#" class="nav-link px-2 text-white">NHÂN VIÊN</a></li>
-        <li><a href="#" class="nav-link px-2 text-white">KHÁCH HÀNG</a></li>
-        <li><a href="#" class="nav-link px-2 text-white">DỊCH VỤ</a></li>
-        <li><a href="#" class="nav-link px-2 text-white">HỢP ĐỒNG</a></li>
-      </ul>
-    </div>
-  </div>
-</div>
+<c:import url="/header.jsp"></c:import>
 <div class="container mt-4 content">
-
+  <form class="d-flex" action="/customer?action=search" method="post">
+    <input class="form-control me-2" type="search" name="search" placeholder="Bảo Đại Ca"
+           aria-label="Search">
+    <button class="btn btn-dark" type="submit">Tìm kiếm</button>
+  </form>
   <div class="row">
     <h1 class="text-center text-decoration-underline
                     col">DANH SÁCH KHÁCH HÀNG</h1>
@@ -132,48 +107,23 @@
       <td><button type="button" class="btn btn-success"
                   data-bs-toggle="modal"
                   data-bs-target="#modalUpdate"
-      onclick="updateCustomer('${customer.getId()}','${customer.getName()}','${customer.getBirthday()}','${customer.isGender()}','${customer.getIdCard()}','${customer.getPhoneNumber()}','${customer.getEmail()}','${customer.getAddress()}','${customer.getCustomerTypeId()}')">Update</button></td>
+      onclick="updateCustomer('${customer.getId()}','${customer.getName()}','${customer.getBirthday()}','${customer.isGender()}','${customer.getIdCard()}','${customer.getPhoneNumber()}','${customer.getEmail()}','${customer.getAddress()}','${customer.getCustomerTypeId()}')">Sửa</button></td>
       <td>
         <button type="button" class="btn btn-danger"
                 data-bs-toggle="modal"
-                data-bs-target="#modalDelete">
-          Delete
-        </button>
+                data-bs-target="#modalAlertDelete" onclick="deleteCustomer('${customer.getId()}','${customer.getName()}')">Xoá</button>
       </td>
     </tr>
     </c:forEach>
     </tbody>
   </table>
 </div>
-<div class="container">
-  <footer class="d-flex flex-wrap justify-content-between
-                align-items-center py-3 my-4 border-top">
-    <div class="col-md-4 d-flex align-items-center">
-      <a href="/" class="mb-3 me-2 mb-md-0 text-muted
-                        text-decoration-none lh-1">
-        <img
-                src="https://furamavietnam.com/wp-content/uploads/2018/08/logo.png"
-                alt="LOGO">
-      </a>
-      <span class="mb-3 mb-md-0 text-muted">© FURAMA RESORTS</span>
-    </div>
 
-    <ul class="nav col-md-4 justify-content-end">
-      <li class="nav-item"><a href="#" class="nav-link px-2
-                            text-muted">TRANG CHỦ</a></li>
-      <li class="nav-item"><a href="#" class="nav-link px-2
-                            text-muted">GIỚI THIỆU</a></li>
-      <li class="nav-item"><a href="#" class="nav-link px-2
-                            text-muted">LIÊN HỆ</a></li>
-      <li class="nav-item"><a href="#" class="nav-link px-2
-                            text-muted">FAQS</a></li>
-    </ul>
-  </footer>
-</div>
 <div class="modal fade" id="modalUpdate" tabindex="-1"
      aria-labelledby="exampleModalLabel" aria-hidden="true"
      data-bs-backdrop="static">
   <div class="modal-dialog">
+    <form action="/customers?action=update" method="post">
     <div class="modal-content">
       <div class="modal-header">
         <h1 class="modal-title fs-5">Chỉnh sửa</h1>
@@ -191,8 +141,8 @@
                 <div>
                   <input type="text"
                          class="form-control form-control-sm"
-                         value=""
-                         id="updateCustomerName">
+                         id="updateCustomerName"
+                  name="updateCustomerName">
                 </div>
               </div>
             </div>
@@ -204,8 +154,8 @@
                 <div class="">
                   <input type="date"
                          class="form-control form-control-sm"
-                         value=""
-                  id="updateCustomerBirth">
+                  id="updateCustomerBirth"
+                  name="updateCustomerBirth">
                 </div>
               </div>
             </div>
@@ -233,8 +183,8 @@
                 <div class="">
                   <input type="text"
                          class="form-control form-control-sm"
-                         value=""
-                  id="updateCustomerIdCard">
+                  id="updateCustomerIdCard"
+                  name="updateCustomerIdCard">
                 </div>
               </div>
             </div>
@@ -246,8 +196,8 @@
                 <div class="">
                   <input type="text"
                          class="form-control form-control-sm"
-                         value=""
-                  id="updateCustomerPhone">
+                  id="updateCustomerPhone"
+                  name="updateCustomerPhone">
                 </div>
               </div>
             </div>
@@ -258,8 +208,8 @@
                 <div class="">
                   <input type="text"
                          class="form-control form-control-sm"
-                         value=""
-                  id="updateCustomerEmail">
+                  id="updateCustomerEmail"
+                  name="updateCustomerEmail">
                 </div>
               </div>
             </div>
@@ -270,8 +220,8 @@
                 <div class="">
                   <input type="text"
                          class="form-control form-control-sm"
-                         value=""
-                  id="updateCustomerAddress">
+                  id="updateCustomerAddress"
+                  name="updateCustomerAddress">
                 </div>
               </div>
             </div>
@@ -282,12 +232,10 @@
                 </label>
                 <div class="">
                   <select class="form-select form-control-sm"
-                          aria-label="Default select example" id="updateCustomerRank">
-                    <option value="1">Diamond</option>
-                    <option value="2">Platinium</option>
-                    <option value="3">Gold</option>
-                    <option value="4">Sliver</option>
-                    <option value="5">Member</option>
+                          aria-label="Default select example" id="updateCustomerRank" name="updateCustomerRank">
+                    <c:forEach var="customerRank" items="${customerRanks}">
+                      <option value="${customerRank.getId()}">${customerRank.getName()}</option>
+                    </c:forEach>
                   </select>
                 </div>
               </div>
@@ -299,9 +247,10 @@
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary"
                 data-bs-dismiss="modal">Đóng</button>
-        <button type="button" class="btn btn-primary">Lưu</button>
+        <button type="submit" id="updateConfirm" class="btn btn-primary" name="updateConfirm">Lưu</button>
       </div>
     </div>
+    </form>
   </div>
 </div>
 <div class="modal fade" id="modalAdd" tabindex="-1"
@@ -423,13 +372,9 @@
                     <select class="form-select form-control-sm"
                             aria-label="Default select example"
                             name="addCustomerRank">
-                      <option selected >-- Chọn
-                        --</option>
-                      <option value="1">Diamond</option>
-                      <option value="2">Platinium</option>
-                      <option value="3">Gold</option>
-                      <option value="4">Sliver</option>
-                      <option value="5">Member</option>
+                      <c:forEach var="customerRank" items="${customerRanks}">
+                        <option value="${customerRank.getId()}">${customerRank.getName()}</option>
+                      </c:forEach>
                     </select>
                   </div>
                 </div>
@@ -444,27 +389,24 @@
     </form>
   </div>
 </div>
-<div class="modal fade" id="modalDelete" tabindex="-1"
-     aria-labelledby="exampleModalLabel" aria-hidden="true">
+</div>
+<div class="modal fade" id="modalAlertDelete" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h1 class="modal-title fs-5" id="exampleModalLabel">CẢNH
-          BÁO</h1>
-        <button type="button" class="btn-close"
-                data-bs-dismiss="modal" aria-label="Close"></button>
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Xoá khách hàng</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        XÁC NHẬN XOÁ ?
+        <div id="deleteName"></div>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary"
-                data-bs-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">SUBMIT</button>
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Huỷ</button>
+        <form action="/customers?action=delete" method="post"><button type="submit" class="btn btn-primary" id="deleteConfirm" name="deleteConfirm">Xoá</button></form>
       </div>
     </div>
   </div>
 </div>
-</div>
+<c:import url="/footer.jsp"></c:import>
 </body>
 </html>
