@@ -30,9 +30,6 @@ public class FacilityServlet extends HttpServlet {
             action = "";
         }
         switch (action){
-            case "add":
-                addFacility(request, response);
-                break;
             default:
                 showFacility(request, response);
                 break;
@@ -40,6 +37,19 @@ public class FacilityServlet extends HttpServlet {
     }
 
     private void addFacility(HttpServletRequest request, HttpServletResponse response) {
+        String name = request.getParameter("addFacilityName");
+        int area = Integer.parseInt(request.getParameter("addFacilityArea"));
+        double cost = Double.parseDouble(request.getParameter("addFacilityPrice"));
+        int maxUsers = Integer.parseInt(request.getParameter("addFacilityMaxUsers"));
+        String standardRoom = request.getParameter("addFacilityRoomStandard");
+        String description = request.getParameter("addFacilityOtherDescription");
+        Double poolArea = Double.parseDouble(request.getParameter("addFacilityPoolArea"));
+        Integer numberFloor = Integer.parseInt(request.getParameter("addFacilityFloors"));
+        String facilityFree = request.getParameter("addFacilityFreeServices");
+        int rentTypeId = Integer.parseInt(request.getParameter("addFacilityRentalType"));
+        int facilityTypeId = Integer.parseInt(request.getParameter("addFacilityType"));
+        facilityService.addFacility(new Facility(name,area,cost,maxUsers,standardRoom,description,poolArea,numberFloor,facilityFree,rentTypeId,facilityTypeId));
+        showFacility(request,response);
     }
 
     private void showFacility(HttpServletRequest request, HttpServletResponse response) {
@@ -68,11 +78,40 @@ public class FacilityServlet extends HttpServlet {
             case "add":
                 addFacility(request, response);
                 break;
+                case "update":
+                    updateFacility(request, response);
+                    break;
+                    case "delete":
+                        deleteFacility(request, response);
+                        break;
             default:
                 showFacility(request, response);
                 break;
         }
     }
-    
-    
+
+    private void deleteFacility(HttpServletRequest request, HttpServletResponse response) {
+        int id = Integer.parseInt(request.getParameter("confirmDelete"));
+        facilityService.removeFacility(id);
+        showFacility(request, response);
+    }
+
+    private void updateFacility(HttpServletRequest request, HttpServletResponse response) {
+        String name = request.getParameter("editFacilityName");
+        int area = Integer.parseInt(request.getParameter("editFacilityArea"));
+        double cost = Double.parseDouble(request.getParameter("editFacilityPrice"));
+        int maxUsers = Integer.parseInt(request.getParameter("editFacilityMaxUsers"));
+        String standardRoom = request.getParameter("editFacilityRoomStandard");
+        String description = request.getParameter("editFacilityOtherDescription");
+        Double poolArea = Double.parseDouble(request.getParameter("editFacilityPoolArea"));
+        Integer numberFloor = Integer.parseInt(request.getParameter("editFacilityFloors"));
+        String facilityFree = request.getParameter("editFacilityFreeServices");
+        int rentTypeId = Integer.parseInt(request.getParameter("editFacilityRentalType"));
+        int facilityTypeId = Integer.parseInt(request.getParameter("editFacilityType"));
+        int id = Integer.parseInt(request.getParameter("confirmUpdate"));
+        facilityService.editFacility(id,new Facility(name,area,cost,maxUsers,standardRoom,description,poolArea,numberFloor,facilityFree,rentTypeId,facilityTypeId));
+        showFacility(request,response);
+    }
+
+
 }

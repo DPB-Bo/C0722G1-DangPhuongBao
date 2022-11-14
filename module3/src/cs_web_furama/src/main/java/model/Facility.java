@@ -8,15 +8,15 @@ public class Facility {
     private int maxPeople;
     private String standardRoom;
     private String descriptionOtherConvenience;
-    private double poolArea;
-    private int numberOfFloors;
+    private Double poolArea;
+    private Integer numberOfFloors;
     private String facilityFree;
     private int rentTypeId;
     private int facilityTypeId;
     private String rentTypeName;
     private String facilityTyeName;
 
-    public Facility(int id, String name, int area, double cost, int maxPeople, String standardRoom, String descriptionOtherConvenience, double poolArea, int numberOfFloors, String facilityFree, int rentTypeId, int facilityTypeId, String rentTypeName, String facilityTyeName) {
+    public Facility(int id, String name, int area, double cost, int maxPeople, String standardRoom, String descriptionOtherConvenience, Double poolArea, Integer numberOfFloors, String facilityFree, int rentTypeId, int facilityTypeId, String rentTypeName, String facilityTyeName) {
         this.id = id;
         this.name = name;
         this.area = area;
@@ -33,7 +33,7 @@ public class Facility {
         this.facilityTyeName = facilityTyeName;
     }
 
-    public Facility(String name, int area, double cost, int maxPeople, String standardRoom, String descriptionOtherConvenience, double poolArea, int numberOfFloors, String facilityFree, int rentTypeId, int facilityTypeId) {
+    public Facility(String name, int area, double cost, int maxPeople, String standardRoom, String descriptionOtherConvenience, Double poolArea, Integer numberOfFloors, String facilityFree, int rentTypeId, int facilityTypeId) {
         this.name = name;
         this.area = area;
         this.cost = cost;
@@ -107,7 +107,7 @@ public class Facility {
         return poolArea;
     }
 
-    public void setPoolArea(double poolArea) {
+    public void setPoolArea(Double poolArea) {
         this.poolArea = poolArea;
     }
 
@@ -115,7 +115,7 @@ public class Facility {
         return numberOfFloors;
     }
 
-    public void setNumberOfFloors(int numberOfFloors) {
+    public void setNumberOfFloors(Integer numberOfFloors) {
         this.numberOfFloors = numberOfFloors;
     }
 

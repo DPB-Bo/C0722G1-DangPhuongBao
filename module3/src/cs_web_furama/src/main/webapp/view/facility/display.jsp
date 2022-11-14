@@ -20,9 +20,63 @@
             src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"
             integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3"
             crossorigin="anonymous"></script>
+    <script>
+        function displayAdd(value) {
+            if(value == 1){
+                document.getElementById("inputVilla").style.display="block";
+                document.getElementById("inputPoolAreaAndLabel").style.display="block";
+                document.getElementById("inputRoom").style.display="none";
+            }
+            if(value == 2){
+                document.getElementById("inputVilla").style.display="block";
+                document.getElementById("inputPoolAreaAndLabel").style.display="none";
+                document.getElementById("inputRoom").style.display="none";
+            }
+            if (value == 3){
+                document.getElementById("inputVilla").style.display="none";
+                document.getElementById("inputRoom").style.display="block";
+            }
+        }
+        function displayUpdate(id, name,area,cost,maxPeople,standardRoom,description,poolArea,floors,free,rentType,facilityType,facilityTypeName){
+            document.getElementById("editFacilityType").value = facilityTypeName;
+            document.getElementById("hiddenFacilityType").value = facilityType;
+            document.getElementById("hiddenFacilityType").style.display = "none";
+            document.getElementById("confirmUpdate").value = id;
+            document.getElementById("editFacilityName").value = name;
+            document.getElementById("editFacilityArea").value = area;
+            document.getElementById("editFacilityPrice").value = cost;
+            document.getElementById("editFacilityMaxUsers").value = maxPeople;
+            document.getElementById("editFacilityRoomStandard").value = standardRoom;
+            document.getElementById("editFacilityPoolArea").value = poolArea;
+            document.getElementById("editFacilityOtherDescription").value = description;
+            document.getElementById("editFacilityFloors").value = floors;
+            document.getElementById("editFacilityFreeServices").value = free;
+            document.getElementById("editFacilityRentalType").value = rentType;
+            if(facilityType == 1){
+                document.getElementById("editVilla").style.display="block";
+                document.getElementById("editPoolAreaAndLabel").style.display="block";
+                document.getElementById("editRoom").style.display="none";
+            }
+            if(facilityType == 2){
+                document.getElementById("editVilla").style.display="block";
+                document.getElementById("editPoolAreaAndLabel").style.display="none";
+                document.getElementById("editRoom").style.display="none";
+            }
+            if (facilityType == 3){
+                document.getElementById("editVilla").style.display="none";
+                document.getElementById("editRoom").style.display="block";
+            }
+
+        }
+
+        function getIdDelete(id){
+            document.getElementById("confirmDelete").value=id;
+        }
+    </script>
 </head>
 <body>
-<c:import url="/header.jsp"></c:import>
+<c:import url="/header.jsp">
+</c:import>
 <div class="container mt-4 content">
     <div class="row">
         <h1 class="text-center text-decoration-underline
@@ -69,11 +123,13 @@
             <td>${facility.getFacilityTyeName()}</td>
             <td><button type="button" class="btn btn-success"
                         data-bs-toggle="modal"
-                        data-bs-target="#modalUpdate">Sửa</button></td>
+                        data-bs-target="#modalUpdate"
+                        onclick="displayUpdate('${facility.getId()}','${facility.getName()}','${facility.getArea()}','${facility.getCost()}','${facility.getMaxPeople()}','${facility.getStandardRoom()}','${facility.getDescriptionOtherConvenience()}','${facility.getPoolArea()}','${facility.getNumberOfFloors()}','${facility.getFacilityFree()}','${facility.getRentTypeId()}','${facility.getFacilityTypeId()}','${facility.getFacilityTyeName()}')" >
+                Sửa</button></td>
             <td>
                 <button type="button" class="btn btn-danger"
                         data-bs-toggle="modal"
-                        data-bs-target="#modalDelete">Xoá</button>
+                        data-bs-target="#modalDelete" onclick="getIdDelete('${facility.getId()}')">Xoá</button>
             </td>
         </tr>
         </c:forEach>
@@ -85,386 +141,364 @@
      aria-labelledby="exampleModalLabel" aria-hidden="true"
      data-bs-backdrop="static">
     <div class="modal-dialog">
+        <form action="/facility?action=update" method="post">
         <div class="modal-content">
             <div class="modal-header">
-                <h1 class="modal-title fs-5">UPDATE</h1>
+                <h1 class="modal-title fs-5">CHỈNH SỬA</h1>
                 <button type="button" class="btn-close"
                         data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
                 <div class="container">
-                    <form>
+                    <div class="mb-3 ">
+                        <div class="d-flex gap-3">
+                            <label for="editFacilityType"
+                                   class="form-label">Loại dịch vụ:
+                            </label>
+                            <div class="">
+                                <input type="text" readonly class="form-control form-control-sm" id="editFacilityType">
+                                <input type="text" class="form-control form-control-sm" id="hiddenFacilityType" name="editFacilityType">
+                            </div>
+                        </div>
+                    </div>
                         <div class="mb-3">
                             <div class="d-flex gap-3">
-                                <label for="FacilityName"
-                                       class="form-label">Facility
-                                    Name: </label>
+                                <label for="editFacilityName"
+                                       class="form-label">Tên dịch vụ: </label>
                                 <div>
                                     <input type="text"
                                            class="form-control
                                                 form-control-sm"
-                                           value=""
-                                           id="FacilityName">
+                                           id="editFacilityName"
+                                    name="editFacilityName">
                                 </div>
                             </div>
                         </div>
                         <div class="mb-3 ">
                             <div class="d-flex gap-3">
-                                <label for="exampleInputEmail1"
-                                       class="form-label">Area:
+                                <label for="editFacilityArea"
+                                       class="form-label">Diện tích:
                                 </label>
                                 <div class="">
                                     <input type="text"
                                            class="form-control
                                                 form-control-sm"
-                                           value="">
+                                           id="editFacilityArea" name="editFacilityArea">
                                 </div>
                             </div>
                         </div>
                         <div class="mb-3 ">
                             <div class="d-flex gap-3">
-                                <label for="exampleInputEmail1"
-                                       class="form-label">Service
-                                    Price: </label>
+                                <label for="editFacilityPrice"
+                                       class="form-label">Giá dịch vụ: </label>
                                 <div class="">
                                     <input type="text"
                                            class="form-control
                                                 form-control-sm"
-                                           value="">
+                                    name="editFacilityPrice"
+                                    id="editFacilityPrice">
                                 </div>
                             </div>
                         </div>
                         <div class="mb-3 ">
                             <div class="d-flex gap-3">
-                                <label for="exampleInputEmail1"
-                                       class="form-label">Max User:
+                                <label for="editFacilityMaxUsers"
+                                       class="form-label">Số lượng người tối đa:
                                 </label>
                                 <div class="">
                                     <input type="text"
                                            class="form-control
                                                 form-control-sm"
-                                           value="">
+                                           id="editFacilityMaxUsers"
+                                    name="editFacilityMaxUsers">
                                 </div>
                             </div>
                         </div>
-                        <div class="mb-3 ">
-                            <div class="d-flex gap-3">
-                                <label for="exampleInputEmail1"
-                                       class="form-label">Room
-                                    Standard: </label>
-                                <div class="">
-                                    <select class="form-select
-                                                form-control-sm"
-                                            aria-label="Default
-                                                select example">
-                                        <option selected>-- Room
-                                            Standard --</option>
-                                        <option value="1">VIP</option>
-                                        <option value="2">NORMAL</option>
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="mb-3 ">
-                            <div class="d-flex gap-3">
-                                <label for="exampleInputEmail1"
-                                       class="form-label">Floor
-                                    Numbers: </label>
-                                <div class="">
-                                    <input type="text"
-                                           class="form-control
-                                                form-control-sm"
-                                           value="">
-                                </div>
-                            </div>
-                        </div>
-                        <div class="mb-3 ">
-                            <div class="d-flex gap-3">
-                                <label for="exampleInputEmail1"
-                                       class="form-label">Free
-                                    Service: </label>
-                                <div class="">
-                                    <input type="text"
-                                           class="form-control
-                                                form-control-sm"
-                                           value="">
-                                </div>
-                            </div>
-                        </div>
-                        <div class="mb-3 ">
-                            <div class="d-flex gap-3">
-                                <label for="exampleInputEmail1"
-                                       class="form-label">Rental
-                                    Type Name:
-                                </label>
-                                <div class="">
-                                    <select class="form-select
-                                                form-control-sm"
-                                            aria-label="Default
-                                                select example">
-                                        <option selected>--
-                                            RENTAL TYPE --</option>
-                                        <option value="1">YEAR</option>
-                                        <option value="2">MONTH</option>
-                                        <option value="3">DAY</option>
-                                        <option value="4">HOUR</option>
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="mb-3 ">
-                            <div class="d-flex gap-3">
-                                <label for="exampleInputEmail1"
-                                       class="form-label">Facility
-                                    Type Name:
-                                </label>
-                                <div class="">
-                                    <select class="form-select
-                                                form-control-sm"
-                                            aria-label="Default
-                                                select example">
-                                        <option selected>--
-                                            FACILITY TYPE --</option>
-                                        <option value="1">VILLA</option>
-                                        <option value="2">HOUSE</option>
-                                        <option value="3">ROOM</option>
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="mb-3 ">
-                            <div class="d-flex gap-3">
-                                <label for="exampleInputEmail1"
-                                       class="form-label">Pool
-                                    Area: </label>
-                                <div class="">
-                                    <input type="text"
-                                           class="form-control
-                                                form-control-sm"
-                                           value="">
-                                </div>
-                            </div>
-                        </div>
-                        <div class="">
-                            <div class="d-flex gap-3">
-                                <label for="exampleInputEmail1"
-                                       class="form-label">Other
-                                    Description:
-                                </label>
-                                <div class="">
-                                    <input type="text"
-                                           class="form-control
-                                                form-control-sm"
-                                           value="">
-                                </div>
-                            </div>
 
+                    <div id="editRoom">
+                        <div class="mb-3 ">
+                            <div class="d-flex gap-3">
+                                <label for="editFacilityFreeServices"
+                                       class="form-label">Dịch vụ miễn phí đi kèm: </label>
+                                <div class="">
+                                    <input type="text"
+                                           class="form-control
+                                                form-control-sm"
+                                           id="editFacilityFreeServices"
+                                    name="editFacilityFreeServices">
+                                </div>
+                            </div>
+                        </div>
+                        </div>
+                        <div class="mb-3 ">
+                            <div class="d-flex gap-3">
+                                <label for="editFacilityRentalType"
+                                       class="form-label">Kiểu thuê:
+                                </label>
+                                <div class="">
+                                    <select class="form-select
+                                                form-control-sm"
+                                            aria-label="Default
+                                                select example"
+                                    id="editFacilityRentalType"
+                                    name="editFacilityRentalType">
+                                        <c:forEach var="type" items="${rentTypeList}">
+                                            <option value="${type.getId()}">${type.getName()}</option>
+                                        </c:forEach>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                    <div id="editVilla">
+                    <div class="mb-3 ">
+                        <div class="d-flex gap-3">
+                            <label for="editFacilityRoomStandard"
+                                   class="form-label">Tiêu chuẩn phòng: </label>
+                            <div class="">
+                                <input type="text" class="form-control form-control-sm"
+                                       id="editFacilityRoomStandard" name="editFacilityRoomStandard">
+                            </div>
+                        </div>
+                    </div>
+                    <div id="editPoolAreaAndLabel">
+                        <div class="mb-3 ">
+                            <div class="d-flex gap-3">
+                                <label for="editFacilityPoolArea"
+                                       class="form-label">Diện tích hồ bơi: </label>
+                                <div class="">
+                                    <input type="text"
+                                           class="form-control
+                                                form-control-sm"
+                                           id="editFacilityPoolArea"
+                                           name="editFacilityPoolArea">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mb-3 ">
+                        <div class="d-flex gap-3">
+                            <label for="editFacilityFloors"
+                                   class="form-label">Số tầng: </label>
+                            <div class="">
+                                <input type="text"
+                                       class="form-control
+                                                form-control-sm"
+                                       name="editFacilityFloors"
+                                       id="editFacilityFloors">
+                        </div>
+                    </div>
+                        <div class="mb-3">
+                            <div class="d-flex gap-3">
+                                <label for="editFacilityOtherDescription"
+                                       class="form-label">Mô tả tiện nghi khác:
+                                </label>
+                                <div class="">
+                                    <input type="text"
+                                           class="form-control
+                                                form-control-sm"
+                                           id="editFacilityOtherDescription"
+                                    name="editFacilityOtherDescription">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                         </div>
                 </div>
-                </form>
-
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary"
-                        data-bs-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Save</button>
+                        data-bs-dismiss="modal">Đóng</button>
+                <button type="submit" id="confirmUpdate" name="confirmUpdate" class="btn btn-primary">Lưu</button>
             </div>
         </div>
+        </form>
     </div>
 </div>
 <div class="modal fade" id="modalAdd" tabindex="-1"
      aria-labelledby="exampleModalLabel" aria-hidden="true"
      data-bs-backdrop="static">
     <div class="modal-dialog">
+        <form method="post" action="/facility?action=add">
         <div class="modal-content">
             <div class="modal-header">
-                <h1 class="modal-title fs-5">ADD</h1>
+                <h1 class="modal-title fs-5">THÊM MỚI</h1>
                 <button type="button" class="btn-close"
                         data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
                 <div class="container">
-                    <form>
+
+                        <div class="mb-3 ">
+                            <div class="d-flex gap-3">
+                                <label for="addFacilityType"
+                                       class="form-label">Loại dịch vụ:
+                                </label>
+                                <div class="">
+                                    <select onchange="displayAdd(this.value)" class="form-select
+                                                form-control-sm"
+                                            aria-label="Default
+                                                select example" id="addFacilityType" required
+                                    name="addFacilityType">
+                                        <option selected disabled value="">
+                                            --- CHỌN DỊCH VỤ ---
+                                        </option>
+                                        <c:forEach var="type" items="${facilityTypeList}">
+                                            <option value="${type.getId()}">${type.getName()}</option>
+                                        </c:forEach>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
                         <div class="mb-3">
                             <div class="d-flex gap-3">
-                                <label for="FacilityName"
-                                       class="form-label">Facility
-                                    Name: </label>
+                                <label for="addFacilityName"
+                                       class="form-label">Tên dịch vụ: </label>
                                 <div>
                                     <input type="text"
                                            class="form-control
                                                 form-control-sm"
-                                           value=""
-                                           id="FacilityName">
+                                           id="addFacilityName" name="addFacilityName">
                                 </div>
                             </div>
                         </div>
                         <div class="mb-3 ">
                             <div class="d-flex gap-3">
-                                <label for="exampleInputEmail1"
-                                       class="form-label">Area:
+                                <label for="addFacilityArea"
+                                       class="form-label">Diện tích:
                                 </label>
                                 <div class="">
                                     <input type="text"
                                            class="form-control
                                                 form-control-sm"
-                                           value="">
+                                    id="addFacilityArea" name="addFacilityArea">
                                 </div>
                             </div>
                         </div>
                         <div class="mb-3 ">
                             <div class="d-flex gap-3">
-                                <label for="exampleInputEmail1"
-                                       class="form-label">Service
-                                    Price: </label>
+                                <label for="addFacilityPrice"
+                                       class="form-label">Giá dịch vụ: </label>
                                 <div class="">
                                     <input type="text"
                                            class="form-control
                                                 form-control-sm"
-                                           value="">
+                                           id="addFacilityPrice" name="addFacilityPrice">
                                 </div>
                             </div>
                         </div>
                         <div class="mb-3 ">
                             <div class="d-flex gap-3">
-                                <label for="exampleInputEmail1"
-                                       class="form-label">Max User:
+                                <label for="addFacilityMaxUsers"
+                                       class="form-label">Số người tối đa:
                                 </label>
                                 <div class="">
                                     <input type="text"
                                            class="form-control
                                                 form-control-sm"
-                                           value="">
+                                           id="addFacilityMaxUsers" name="addFacilityMaxUsers">
                                 </div>
                             </div>
                         </div>
-                        <div class="mb-3 ">
-                            <div class="d-flex gap-3">
-                                <label for="exampleInputEmail1"
-                                       class="form-label">Room
-                                    Standard: </label>
-                                <div class="">
-                                    <select class="form-select
-                                                form-control-sm"
-                                            aria-label="Default
-                                                select example">
-                                        <option selected>-- Room
-                                            Standard --</option>
-                                        <option value="1">VIP</option>
-                                        <option value="2">NORMAL</option>
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="mb-3 ">
-                            <div class="d-flex gap-3">
-                                <label for="exampleInputEmail1"
-                                       class="form-label">Floor
-                                    Numbers: </label>
-                                <div class="">
-                                    <input type="text"
-                                           class="form-control
-                                                form-control-sm"
-                                           value="">
-                                </div>
-                            </div>
-                        </div>
-                        <div class="mb-3 ">
-                            <div class="d-flex gap-3">
-                                <label for="exampleInputEmail1"
-                                       class="form-label">Free
-                                    Service: </label>
-                                <div class="">
-                                    <input type="text"
-                                           class="form-control
-                                                form-control-sm"
-                                           value="">
-                                </div>
-                            </div>
-                        </div>
-                        <div class="mb-3 ">
-                            <div class="d-flex gap-3">
-                                <label for="exampleInputEmail1"
-                                       class="form-label">Rental
-                                    Type Name:
-                                </label>
-                                <div class="">
-                                    <select class="form-select
-                                                form-control-sm"
-                                            aria-label="Default
-                                                select example">
-                                        <option selected>--
-                                            RENTAL TYPE --</option>
-                                        <option value="1">YEAR</option>
-                                        <option value="2">MONTH</option>
-                                        <option value="3">DAY</option>
-                                        <option value="4">HOUR</option>
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="mb-3 ">
-                            <div class="d-flex gap-3">
-                                <label for="exampleInputEmail1"
-                                       class="form-label">Facility
-                                    Type Name:
-                                </label>
-                                <div class="">
-                                    <select class="form-select
-                                                form-control-sm"
-                                            aria-label="Default
-                                                select example">
-                                        <option selected>--
-                                            FACILITY TYPE --</option>
-                                        <option value="1">VILLA</option>
-                                        <option value="2">HOUSE</option>
-                                        <option value="3">ROOM</option>
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="mb-3 ">
-                            <div class="d-flex gap-3">
-                                <label for="exampleInputEmail1"
-                                       class="form-label">Pool
-                                    Area: </label>
-                                <div class="">
-                                    <input type="text"
-                                           class="form-control
-                                                form-control-sm"
-                                           value="">
-                                </div>
-                            </div>
-                        </div>
-                        <div class="">
-                            <div class="d-flex gap-3">
-                                <label for="exampleInputEmail1"
-                                       class="form-label">Other
-                                    Description:
-                                </label>
-                                <div class="">
-                                    <input type="text"
-                                           class="form-control
-                                                form-control-sm"
-                                           value="">
-                                </div>
-                            </div>
 
+                        <div class="mb-3 ">
+                            <div class="d-flex gap-3">
+                                <label for="addFacilityRentalType"
+                                       class="form-label">Kiểu thuê:
+                                </label>
+                                <div class="">
+                                    <select class="form-select
+                                                form-control-sm"
+                                            aria-label="Default
+                                                select example" id="addFacilityRentalType" name="addFacilityRentalType">
+                                        <c:forEach var="type" items="${rentTypeList}">
+                                            <option value="${type.getId()}">${type.getName()}</option>
+                                        </c:forEach>
+                                    </select>
+                                </div>
+                            </div>
                         </div>
-                    </form>
+                        <div id="inputRoom">
+                        <div class="mb-3 ">
+                            <div class="d-flex gap-3">
+                                <label for="addFacilityFreeServices"
+                                       class="form-label">Dịch vụ miễn phí đi kèm: </label>
+                                <div class="">
+                                    <input type="text"
+                                           class="form-control
+                                                form-control-sm"
+                                           id="addFacilityFreeServices" name="addFacilityFreeServices">
+                                </div>
+                            </div>
+                        </div>
+                        </div>
+                        <div id="inputVilla">
+                            <div id="inputPoolAreaAndLabel">
+                        <div class="mb-3 ">
+                            <div class="d-flex gap-3">
+                                <label for="addFacilityPoolArea"
+                                       class="form-label">Diện tích hồ bơi: </label>
+                                <div class="">
+                                    <input type="text"
+                                           class="form-control
+                                                form-control-sm"
+                                           id="addFacilityPoolArea" name="addFacilityPoolArea">
+                                </div>
+                            </div>
+                        </div>
+                            </div>
+                        <div class="mb-3 ">
+                            <div class="d-flex gap-3">
+                                <label for="addFacilityRoomStandard"
+                                       class="form-label">Tiêu chuẩn phòng: </label>
+                                <div class="">
+                                    <input type="text"
+                                           class="form-control form-control-sm"
+                                           id="addFacilityRoomStandard" name="addFacilityRoomStandard">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mb-3 ">
+                            <div class="d-flex gap-3">
+                                <label for="addFacilityFloors"
+                                       class="form-label">Số tầng: </label>
+                                <div class="">
+                                    <input type="text"
+                                           class="form-control
+                                                form-control-sm"
+                                           id="addFacilityFloors" name="addFacilityFloors">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <div class="d-flex gap-3">
+                                <label for="addFacilityOtherDescription"
+                                       class="form-label">Mô tả tiện nghi khác :
+                                </label>
+                                <div class="">
+                                    <input type="text"
+                                           class="form-control
+                                                form-control-sm"
+                                           id="addFacilityOtherDescription" name="addFacilityOtherDescription">
+                                </div>
+                            </div>
+                        </div>
+                        </div>
                 </div>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary"
-                        data-bs-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Save</button>
+                        data-bs-dismiss="modal">Đóng</button>
+                <button type="submit" class="btn btn-primary">Xác nhận</button>
             </div>
         </div>
+        </form>
     </div>
 </div>
 <div class="modal fade" id="modalDelete" tabindex="-1"
      aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
+        <form action="/facility?action=delete" method="post">
         <div class="modal-content">
             <div class="modal-header">
                 <h1 class="modal-title fs-5" id="exampleModalLabel">CẢNH
@@ -477,12 +511,14 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary"
-                        data-bs-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">SUBMIT</button>
+                        data-bs-dismiss="modal">Huỷ</button>
+                <button type="submit" class="btn btn-primary" id="confirmDelete" name="confirmDelete">Xác nhận</button>
             </div>
         </div>
+        </form>
     </div>
 </div>
-<c:import url="/footer.jsp"></c:import>
+<c:import url="/footer.jsp">
+</c:import>
 </body>
 </html>

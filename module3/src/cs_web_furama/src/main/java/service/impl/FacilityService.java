@@ -17,17 +17,17 @@ public class FacilityService implements IFacilityService {
 
     @Override
     public boolean addFacility(Facility facility) {
-        return false;
+        return facilityRepository.addFacility(facility);
     }
 
     @Override
     public boolean removeFacility(int id) {
-        return false;
+        return facilityRepository.removeFacility(id);
     }
 
     @Override
     public boolean editFacility(int id, Facility facility) {
-        return false;
+        return facilityRepository.editFacility(id, facility);
     }
 
     @Override
