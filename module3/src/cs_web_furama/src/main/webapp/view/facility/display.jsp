@@ -10,6 +10,10 @@
 <html>
 <head>
     <title>Title</title>
+    <link rel="stylesheet" href="/datatables/css/dataTables.bootstrap5.min.css">
+    <script src="/jquery/jquery-3.5.1.min.js"></script>
+    <script src="/datatables/js/jquery.dataTables.min.js"></script>
+    <script src="/datatables/js/dataTables.bootstrap5.min.js"></script>
     <link
             href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"
             rel="stylesheet"
@@ -21,6 +25,13 @@
             integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3"
             crossorigin="anonymous"></script>
     <script>
+        $(document).ready(function() {
+            $('#tableFacility').dataTable( {
+                "dom": 'lrtip',
+                "lengthChange": false,
+                "pageLength": 3,
+            } );
+        } );
         function displayAdd(value) {
             if(value == 1){
                 document.getElementById("inputVilla").style.display="block";
@@ -81,12 +92,15 @@
     <div class="row">
         <h1 class="text-center text-decoration-underline
                     col">DANH SÁCH DỊCH VỤ</h1>
+        <h2 style="text-align: center;color: red"><c:if test="${mess!=null}">
+            <span>${mess}</span>
+        </c:if></h2>
         <button type="button" class="btn btn-primary
                     col-sm-1 ms-auto mb-4"
                 data-bs-toggle="modal"
                 data-bs-target="#modalAdd">THÊM MỚI</button>
     </div>
-    <table class="table mb-5 table-striped table-borderless
+    <table id="tableFacility" class="table mb-5 table-striped table-borderless
                 table-hover text-center">
         <thead>
         <tr>

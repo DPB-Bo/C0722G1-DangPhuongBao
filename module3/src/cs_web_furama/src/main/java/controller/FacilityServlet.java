@@ -48,7 +48,12 @@ public class FacilityServlet extends HttpServlet {
         String facilityFree = request.getParameter("addFacilityFreeServices");
         int rentTypeId = Integer.parseInt(request.getParameter("addFacilityRentalType"));
         int facilityTypeId = Integer.parseInt(request.getParameter("addFacilityType"));
-        facilityService.addFacility(new Facility(name,area,cost,maxUsers,standardRoom,description,poolArea,numberFloor,facilityFree,rentTypeId,facilityTypeId));
+        boolean check = facilityService.addFacility(new Facility(name,area,cost,maxUsers,standardRoom,description,poolArea,numberFloor,facilityFree,rentTypeId,facilityTypeId));
+        String mess = "Thêm mới không thành công";
+        if (check) {
+            mess = "Thêm mới thành công";
+        }
+        request.setAttribute("mess", mess);
         showFacility(request,response);
     }
 
@@ -92,7 +97,12 @@ public class FacilityServlet extends HttpServlet {
 
     private void deleteFacility(HttpServletRequest request, HttpServletResponse response) {
         int id = Integer.parseInt(request.getParameter("confirmDelete"));
-        facilityService.removeFacility(id);
+        boolean check = facilityService.removeFacility(id);
+        String mess = "Xoá không thành công";
+        if (check) {
+            mess = "Xoá thành công";
+        }
+        request.setAttribute("mess", mess);
         showFacility(request, response);
     }
 
@@ -109,7 +119,12 @@ public class FacilityServlet extends HttpServlet {
         int rentTypeId = Integer.parseInt(request.getParameter("editFacilityRentalType"));
         int facilityTypeId = Integer.parseInt(request.getParameter("editFacilityType"));
         int id = Integer.parseInt(request.getParameter("confirmUpdate"));
-        facilityService.editFacility(id,new Facility(name,area,cost,maxUsers,standardRoom,description,poolArea,numberFloor,facilityFree,rentTypeId,facilityTypeId));
+        boolean check = facilityService.editFacility(id,new Facility(name,area,cost,maxUsers,standardRoom,description,poolArea,numberFloor,facilityFree,rentTypeId,facilityTypeId));
+        String mess = "Sửa không thành công";
+        if (check) {
+            mess = "Sửa thành công";
+        }
+        request.setAttribute("mess", mess);
         showFacility(request,response);
     }
 

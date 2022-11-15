@@ -13,7 +13,7 @@ public class CustomerRepository implements ICustomerRepository {
     private final String SELECT_CUSTOMER_SQL = "SELECT * FROM customer WHERE customer.is_delete = 0;";
     private final String DELETE_USERS_SQL = "UPDATE customer SET is_delete = 1 WHERE id = ?;";
     private final String UPDATE_CUSTOMER_SQL = "UPDATE CUSTOMER SET name = ? ,day_of_birth = ?, gender = ?, id_card = ?, phone_number = ?, email = ?, address = ?, customer_type_id = ? WHERE id = ?;";
-    private final String SEARCH_CUSTOMER_BY_NAME = "SELECT * FROM customer WHERE is_delete =0 and (name LIKE ? OR  address like ? );";
+    private final String SEARCH_CUSTOMER_BY_NAME = "SELECT * FROM customer WHERE is_delete =0 and (name LIKE ?  );";
 
     @Override
     public List<Customer> getCustomers() {
@@ -104,7 +104,7 @@ public class CustomerRepository implements ICustomerRepository {
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(SEARCH_CUSTOMER_BY_NAME);
             preparedStatement.setString(1, "%" + name + "%");
-            preparedStatement.setString(2, "%" + name + "%");
+//            preparedStatement.setString(2, "%" + name + "%");
             ResultSet resultSet = preparedStatement.executeQuery();
 
             while (resultSet.next()) {

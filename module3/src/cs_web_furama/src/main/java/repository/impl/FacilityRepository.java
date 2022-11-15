@@ -3,7 +3,6 @@ package repository.impl;
 import model.Facility;
 import repository.BaseRepository;
 import repository.IFacilityRepository;
-
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -47,7 +46,6 @@ public class FacilityRepository implements IFacilityRepository {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-
         return facilityList;
     }
 

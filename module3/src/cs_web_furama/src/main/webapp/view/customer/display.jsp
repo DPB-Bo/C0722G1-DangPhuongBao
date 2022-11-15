@@ -61,9 +61,9 @@
 <body>
 <c:import url="/header.jsp"></c:import>
 <div class="container mt-4 content">
-  <form class="d-flex" action="/customer?action=search" method="post">
+  <form class="d-flex" action="/customers?action=search" method="post">
     <input class="form-control me-2" type="search" name="search" placeholder="Bảo Đại Ca"
-           aria-label="Search">
+           aria-label="Search" value="${search}">
     <button class="btn btn-dark" type="submit">Tìm kiếm</button>
   </form>
   <div class="row">
