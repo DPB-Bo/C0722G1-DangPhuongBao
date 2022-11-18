@@ -24,14 +24,14 @@
 </head>
 <body>
 <div class="container">
-<form method="post" action="/display">
+<form method="post" action="/display/find">
   <div class="mb-3">
     <label for="enWord" class="form-label">Tiếng anh:</label>
     <input type="text" class="form-control" placeholder="ex:Chicken" id="enWord" name="enWord" value="${enWord}">
   </div>
   <button type="submit" class="btn btn-primary">Submit</button>
   <div class="mb-3">
-    <label for="viWord" class="form-label">VND:</label>
+    <label for="viWord" class="form-label">Tiếng Việt:</label>
     <input type="text" class="form-control" id="viWord" name="viWord" value="${viWord}" readonly>
   </div>
 </form>
