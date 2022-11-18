@@ -4,6 +4,10 @@ compileOnly group: 'javax.servlet', name: 'javax.servlet-api', version: '4.0.1'
 // SQL
 implementation group: 'mysql', name: 'mysql-connector-java', version: '8.0.28'
 
+// Spring MVC
+implementation group: 'org.springframework', name: 'spring-webmvc', version: '5.3.23'
+
+
 // JSTL DEPENCIES
 implementation group: 'javax.servlet', name: 'jstl', version: '1.2'
 
@@ -72,3 +76,63 @@ public class FilterUTF8 implements Filter {
         chain.doFilter(req, resp);
     }
 }
+
+// Modal
+
+<div class="modal fade" id="modalAdd" tabindex="-1"
+     aria-labelledby="exampleModalLabel" aria-hidden="true"
+     data-bs-backdrop="static">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5">Thêm mới</h1>
+        <button type="button" class="btn-close"
+                data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <form action="/customers?action=add" method="post">
+      <div class="modal-body">
+        <div class="container">
+              <div class="mb-3">
+                <div class="d-flex gap-3">
+                  <label for="addCustomerName"
+                         class="form-label">Tên khách hàng:
+                  </label>
+                  <div>
+                    <input type="text"
+                           class="form-control form-control-sm"
+                           name="addCustomerName"
+                           id="addCustomerName">
+                  </div>
+                </div>
+              </div>
+              </div>
+        </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary"
+                data-bs-dismiss="modal">Đóng</button>
+        <button type="submit" class="btn btn-primary">Lưu</button>
+      </div>
+    </div>
+    </form>
+  </div>
+</div>
+</div>
+
+// Table
+
+<div class="row">
+    <h1 class="text-center text-decoration-underline
+                    col">DANH SÁCH KHÁCH HÀNG</h1>
+    <button type="button" class="btn btn-primary
+                    col-sm-1 ms-auto mb-4"
+            data-bs-toggle="modal"
+            data-bs-target="#modalAdd">THÊM MỚI</button>
+  </div>
+  <table id="tableCustomer" class="table mb-5 table-striped table-borderless
+                table-hover text-center">
+<thead>
+</thead>
+<tbody>
+
+</tbody>
+</table>

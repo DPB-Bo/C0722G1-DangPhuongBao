@@ -14,7 +14,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Document</title>
   <link rel="stylesheet" href="/datatables/css/dataTables.bootstrap5.min.css">
-  <script src="/jquery/jquery-3.5.1.min.js"></script>
+<%--  <script src="/jquery/jquery-3.5.1.min.js"></script>--%>
+  <script src="https://code.jquery.com/jquery-3.6.1.js" integrity="sha256-3zlB5s2uwoUzrXK3BT7AX3FyvojsraNFxCc2vC/7pNI=" crossorigin="anonymous"></script>
   <script src="/datatables/js/jquery.dataTables.min.js"></script>
   <script src="/datatables/js/dataTables.bootstrap5.min.js"></script>
   <script>
@@ -407,6 +408,37 @@
     </div>
   </div>
 </div>
-<c:import url="/footer.jsp"></c:import>
+
+<%-- Modal show --%>
+<div class="modal fade" id="myModal" tabindex="-1" aria-labelledby="exampleModalLabel1" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel1">Modal title</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        ...
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>>
+
+<c:import url="/footer.jsp">
+</c:import>
+
+<input hidden id="flag" value="${flag}">
+<script>
+  $(document).ready(function() {
+    if ($("#flag").val() == 1){
+      $("#myModal").modal('show');
+    }
+  });
+
+</script>
 </body>
 </html>

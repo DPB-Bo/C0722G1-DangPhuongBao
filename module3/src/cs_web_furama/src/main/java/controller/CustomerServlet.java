@@ -76,6 +76,7 @@ public class CustomerServlet extends HttpServlet {
 
     private void deleteCustomer(HttpServletRequest request, HttpServletResponse response, int id) {
         boolean check = customerService.removeCustomer(id);
+        request.setAttribute("flag",1);
         showCustomers(request, response);
     }
 
@@ -90,7 +91,6 @@ public class CustomerServlet extends HttpServlet {
         int customerTypeId = Integer.parseInt(request.getParameter("addCustomerRank"));
         Customer customer = new Customer(name, birthday, gender, idCard, phoneNumber, email, address, customerTypeId);
         boolean check = customerService.addCustomer(customer);
-
         showCustomers(request, response);
     }
 
