@@ -10,6 +10,8 @@ implementation group: 'javax.servlet', name: 'jstl', version: '1.2'
 // SQL
 implementation group: 'mysql', name: 'mysql-connector-java', version: '8.0.28'
 
+// lombok
+compileOnly 'org.projectlombok:lombok:1.18.24'
 
 // BOOTSTRAP
 <link
