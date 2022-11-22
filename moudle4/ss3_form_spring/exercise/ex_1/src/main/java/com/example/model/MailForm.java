@@ -5,15 +5,15 @@ public class MailForm {
     private Integer id;
     private String languageName;
     private Integer pageSize;
-    private boolean isFilter;
+    private boolean filter;
     private String description;
     private Integer isDelete;
 
-    public MailForm(Integer id, String languageName, Integer pageSize, boolean isFilter, String description, Integer isDelete) {
+    public MailForm(Integer id, String languageName, Integer pageSize, boolean filter, String description, Integer isDelete) {
         this.id = id;
         this.languageName = languageName;
         this.pageSize = pageSize;
-        this.isFilter = isFilter;
+        this.filter = filter;
         this.description = description;
         this.isDelete = isDelete;
     }
@@ -43,11 +43,11 @@ public class MailForm {
     }
 
     public boolean isFilter() {
-        return isFilter;
+        return filter;
     }
 
     public void setFilter(boolean filter) {
-        isFilter = filter;
+        this.filter = filter;
     }
 
     public String getDescription() {

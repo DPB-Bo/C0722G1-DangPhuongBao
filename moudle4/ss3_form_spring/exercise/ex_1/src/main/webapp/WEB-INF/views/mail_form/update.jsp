@@ -37,6 +37,7 @@
         <form:checkbox path="filter" value="true"></form:checkbox> <br>
         <form:label path="description">Signature: </form:label>
         <form:textarea path="description"></form:textarea> <br>
+        <form:hidden path="isDelete"></form:hidden>
         <input type="submit" value="Lưu">
     </form:form>
 </div>
