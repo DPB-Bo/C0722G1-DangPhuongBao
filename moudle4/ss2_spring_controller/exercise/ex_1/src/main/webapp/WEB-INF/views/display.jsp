@@ -24,7 +24,7 @@
 <body>
 <div class="container">
     <h2> Sandwich Condiments</h2>
-    <form method="post" action="/showSeasonings">
+    <form method="post" action="/show-seasonings">
         <div class="d-flex">
 
             <div class="input-group-text">

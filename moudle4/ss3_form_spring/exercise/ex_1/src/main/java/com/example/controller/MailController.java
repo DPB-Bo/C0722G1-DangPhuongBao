@@ -35,7 +35,7 @@ public class MailController {
         return model;
     }
 
-    @PostMapping("update123")
+    @PostMapping("update")
     public String update(MailForm mailForm) {
         mailService.editMailFrom(mailForm);
         return "redirect:/";

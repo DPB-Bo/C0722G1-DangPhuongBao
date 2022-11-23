@@ -18,7 +18,7 @@ public class SandwichController {
         return "display";
     }
 
-    @PostMapping("/showSeasonings")
+    @PostMapping("/show-seasonings")
     public String showSeasonings(RedirectAttributes redirectAttributes, @RequestParam("checkSeasonings") String[] seasonList) {
         redirectAttributes.addFlashAttribute("listSeasonings", seasonList);
         return "redirect:/";

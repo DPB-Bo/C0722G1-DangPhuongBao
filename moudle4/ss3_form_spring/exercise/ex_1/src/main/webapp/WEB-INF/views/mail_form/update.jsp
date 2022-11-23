@@ -27,7 +27,7 @@
 <body>
 <div class="container">
     <h1>Settings Update</h1>
-    <form:form method="post" action="/update123" modelAttribute="mailForm">
+    <form:form method="post" action="/update" modelAttribute="mailForm">
         <form:hidden path="id"></form:hidden>
         <form:label path="languageName">Languages: </form:label>
         <form:select path="languageName" items="${languageNameList}"></form:select> <br>
