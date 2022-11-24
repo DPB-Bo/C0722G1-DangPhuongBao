@@ -35,7 +35,7 @@
         </tr>
         </thead>
         <tbody>
-        <tr th:each="product, status : ${products}">
+        <tr th:each="product,status:${products}">
             <td th:text="${status.count}"></td>
             <td th:text="${product.name}"></td>
             <td th:text="${product.price + ' VNĐ'}"></td>

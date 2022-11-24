@@ -16,13 +16,12 @@ public class ProductController {
 
     @GetMapping("")
     public String showProduct(Model model) {
-
         model.addAttribute("products", productService.getAvailable());
         return "product/display";
     }
 
     @GetMapping("update")
-    public String showUpdateProductPage(Model model, @RequestParam String id) {
+    public String showUpdateProductPage(Model model, @RequestParam int id) {
         model.addAttribute("product", productService.getProductById(id));
         return "product/edit";
     }

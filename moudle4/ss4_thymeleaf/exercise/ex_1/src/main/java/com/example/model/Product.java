@@ -1,26 +1,34 @@
 package com.example.model;
 
 
+//import lombok.AllArgsConstructor;
+//import lombok.Getter;
+//import lombok.NoArgsConstructor;
+//import lombok.Setter;
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+
+@Entity
 public class Product {
-    private String id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id;
     private String name;
     private Double price;
     private String description;
     private String producer;
 
-    public Product(String id, String name, Double price, String description, String producer) {
-        this.id = id;
-        this.name = name;
-        this.price = price;
-        this.description = description;
-        this.producer = producer;
+    public Product() {
     }
 
-    public String getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(int id) {
         this.id = id;
     }
 

@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Map;
 
 @Service
 public class ProductService implements IProductService {
@@ -35,12 +34,12 @@ public class ProductService implements IProductService {
     }
 
     @Override
-    public Product getProductById(String id) {
+    public Product getProductById(int id) {
         return productRepository.getProductById(id);
     }
 
     @Override
-    public Map<String, Product> getAvailableByName(String name) {
+    public List<Product> getAvailableByName(String name) {
         return productRepository.getAvailableByName(name);
     }
 }

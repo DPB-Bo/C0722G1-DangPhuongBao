@@ -3,7 +3,6 @@ package com.example.service;
 import com.example.model.Product;
 
 import java.util.List;
-import java.util.Map;
 
 public interface IProductService {
     List<Product> getAvailable();
@@ -14,7 +13,7 @@ public interface IProductService {
 
     boolean removeProduct(String id);
 
-    Product getProductById(String id);
+    Product getProductById(int id);
 
-    Map<String, Product> getAvailableByName(String name);
+    List<Product> getAvailableByName(String name);
 }
