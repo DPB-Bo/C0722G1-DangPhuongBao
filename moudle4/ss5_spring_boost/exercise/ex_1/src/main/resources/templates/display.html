@@ -15,13 +15,27 @@
             crossorigin="anonymous"></script>
     <link rel="stylesheet"
           href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
+    <script src="ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
     <script>
-        function showDetail(title,author,content,date,id){
+        // $(document).ready(function() {
+        //     if ($("#flag").val() == 1){
+        //         $("#myModal").modal('show');
+        //     }
+        // });
+        function showDetail(title,author,content,date,id,category){
             document.getElementById("detailTitle").value = title;
             document.getElementById("detailAuthor").value = author;
             document.getElementById("detailContent").value = content;
             document.getElementById("detailDate").value = date;
+            document.getElementById("detailCategory").value = category;
+        }
+        function showEdit(title,author,content,date,id,category){
+            document.getElementById("editTitle").value = title;
+            document.getElementById("editAuthor").value = author;
+            document.getElementById("editContent").value = content;
+            document.getElementById("editDate").value = date;
             document.getElementById("id").value = id;
+            document.getElementById("editCategory").value = category;
         }
         function showAlertDelete(id,title,author){
             document.getElementById("deleteAlert").value = "Xác nhận xoá blog chủ đề" + title + " của tác giả " +author+" ?";
@@ -32,30 +46,42 @@
 <body>
 <div class="container">
     <h1 class="text-center">Danh sách blog</h1>
+    <div class="d-flex mb-3">
+        <button type="button" class="btn btn-success me-auto" data-bs-target="#addModal" data-bs-toggle="modal">Thêm mới blog</button>
+        <form class="d-flex">
+            <input type="search" class="form-control form-control-dark text-bg-dark me-2" th:value="${search}" name="search" placeholder="tìm kiếm">
+            <input class="btn btn-dark" type="submit" value="Tìm kiếm">
+        </form>
+    </div>
     <table class="table table-hover table-striped table-dark">
         <thead>
         <tr>
             <td>#</td>
             <td>Chủ đề blog</td>
+            <td>Thể loại</td>
             <td>Tác giả</td>
-            <td>Xem Nội Dung Chi tiết</td>
+            <td>Chi tiết</td>
             <td>Sửa</td>
             <td>Xoá</td>
         </tr>
         </thead>
         <tbody>
         <tr th:each="blog,status:${blogList}">
-            <td th:text="${status.count}"></td>
+            <td th:text="${status.count}+${blogList.number}*${blogList.size}"></td>
             <td th:text="${blog.title}"></td>
+            <td th:text="${blog.category.name}"></td>
             <td th:text="${blog.author}"></td>
             <td>
                 <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#detailModal"
-                        th:attr="onclick=|showDetail('${blog.title}','${blog.author}','${blog.content}','${blog.date}','${blog.id}');|">
+                        th:attr="onclick=|showDetail('${blog.title}','${blog.author}','${blog.content}','${blog.date}','${blog.id}','${blog.category.name}');|">
                     Chi tiết
                 </button>
             </td>
             <td>
-                <a class="btn btn-success" th:href="@{/save(id=${blog.id})}">Sửa</a>
+                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#editModal"
+                        th:attr="onclick=|showEdit('${blog.title}','${blog.author}','${blog.content}','${blog.date}','${blog.id}','${blog.category.id}');|">
+                    Sửa
+                </button>
             </td>
             <td>
                 <button type="button" class="btn btn-danger"
@@ -66,6 +92,43 @@
         </tr>
         </tbody>
     </table>
+    <div>
+        <a th:href="@{'/'(page=${blogList.number - 1})}" th:if="${blogList.hasPrevious()}"><button type="button" class="btn btn-outline-primary">Previous</button></a>
+        <span style="font-size: 20px" th:text="${blogList.number + 1}"></span>/<span style="font-size: 20px" th:text="${blogList.totalPages}"></span>
+        <a th:href="@{'/'(page=${blogList.number + 1})}" th:if="${blogList.hasNext()}"><button type="button" class="btn btn-outline-primary">Next</button></a>
+    </div>
+</div>
+
+<div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5">Chỉnh sửa thông tin</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form th:action="@{/save}" method="post" th:object="${blog}">
+                <div class="modal-body">
+                    <input type="hidden" th:field="*{id}" id="id">
+                    <label for="editTitle">Tiêu đề: </label>
+                    <input type="text" id="editTitle" th:field="*{title}" ><br>
+                    <label for="editCategory">Thể loại: </label>
+                    <select id="editCategory" th:field="*{category}">
+                        <option th:each="category:${categorys}" th:value="${category.id}" th:text="${category.name}"></option>
+                    </select><br>
+                    <label for="editDate">Ngày viết: </label>
+                    <input type="date" id="editDate" th:field="*{date}" ><br>
+                    <label for="editContent">Nội dung Blog: </label>
+                    <input type="text" id="editContent" th:field="*{content}"><br>
+                    <label for="editAuthor">Tác giả: </label>
+                    <input type="text" th:field="*{author}" id="editAuthor">
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary">Sửa</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+                </div>
+            </form>
+        </div>
+    </div>
 </div>
 
 <div class="modal fade" id="detailModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -79,6 +142,8 @@
             <div class="modal-body">
                 <label for="detailTitle">Tiêu đề: </label>
                 <input type="text" readonly id="detailTitle"><br>
+                <label for="detailCategory">Thể loại: </label>
+                <input type="text" readonly id="detailCategory"><br>
                 <label for="detailDate">Ngày viết: </label>
                 <input type="date" readonly id="detailDate"><br>
                 <label for="detailContent">Nội dung Blog: </label>
@@ -87,8 +152,6 @@
                 <input type="text" readonly id="detailAuthor">
             </div>
             <div class="modal-footer">
-                <button type="submit" class="btn btn-primary" id="id" name="id">Sửa
-                </button>
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
             </div>
             </form>
@@ -111,6 +174,37 @@
                     <button type="submit" class="btn btn-primary" id="deleteConfirm" name="deleteConfirm">Xác
                         nhận
                     </button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="addModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5">Thêm sản phẩm</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form th:action="@{/save}" method="post" th:object="${blog}">
+                <div class="modal-body">
+                    <label for="addTitle">Tiêu đề: </label>
+                    <input type="text" id="addTitle" th:field="*{title}" ><br>
+                    <label for="addCategory">Thể loại: </label>
+                    <select id="addCategory" th:field="*{category}">
+                        <option th:each="category:${categorys}" th:value="${category.id}" th:text="${category.name}"></option>
+                    </select><br>
+                    <label for="addDate">Ngày viết: </label>
+                    <input type="date" id="addDate" th:field="*{date}" ><br>
+                    <label for="addContent">Nội dung Blog: </label>
+                    <input type="text" id="addContent" th:field="*{content}"><br>
+                    <label for="addAuthor">Tác giả: </label>
+                    <input type="text" th:field="*{author}" id="addAuthor">
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary">Thêm mới</button>
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
                 </div>
             </form>

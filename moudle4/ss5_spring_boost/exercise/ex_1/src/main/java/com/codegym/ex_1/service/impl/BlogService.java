@@ -4,6 +4,8 @@ import com.codegym.ex_1.model.Blog;
 import com.codegym.ex_1.repository.IBlogRepository;
 import com.codegym.ex_1.service.IBlogService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -15,8 +17,8 @@ public class BlogService implements IBlogService {
 
 
     @Override
-    public List<Blog> findByTitleContainingOrAuthorContaining(String name) {
-        return blogRepository.findByTitleContainingOrAuthorContaining(name,name);
+    public Page<Blog> findByTitleContainingOrAuthorContaining(String name, Pageable pageable) {
+        return blogRepository.findByTitleContainingOrAuthorContaining(name,name,pageable);
     }
 
     @Override
@@ -26,7 +28,7 @@ public class BlogService implements IBlogService {
 
     @Override
     public void deleteById(Integer id) {
-        blogRepository.deleteById(id);
+        blogRepository.softDelete(id);
     }
 
     @Override

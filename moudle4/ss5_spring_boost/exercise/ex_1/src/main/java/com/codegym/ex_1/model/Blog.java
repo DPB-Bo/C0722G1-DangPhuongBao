@@ -1,14 +1,9 @@
 package com.codegym.ex_1.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
+import org.hibernate.annotations.SQLDelete;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.sql.Date;
 
 @Entity
@@ -23,5 +18,8 @@ public class Blog{
     private String title;
     private String content;
     private String author;
-    private Date date;
+    private String date;
+    @ManyToOne
+    private Category category;
+    private boolean deleted;
 }
