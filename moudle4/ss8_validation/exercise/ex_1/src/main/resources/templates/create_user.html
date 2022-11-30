@@ -30,10 +30,10 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h1 class="modal-title fs-5">Chỉnh sửa thông tin</h1>
+                    <h1 class="modal-title fs-5">Tạo user</h1>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <form th:action="@{/save}" method="post" th:object="${user}" class="mb-3">
+                <form th:action="@{/save}" method="post" th:object="${userDto}" class="mb-3">
                     <div class="modal-body">
                         <label for="email">Email: </label>
                         <input th:field="*{email}" id="email" type="text">
@@ -68,34 +68,6 @@
             </div>
         </div>
     </div>
-<!--    <form method="post" th:object="${user}" class="mb-3">-->
-<!--        <label for="email">Email: </label>-->
-<!--        <input th:field="*{email}" id="email" type="text">-->
-<!--        <div class="form-text">Email có thể dùng như tên đăng nhập</div>-->
-<!--        <p th:errors="*{email}" class="text-danger"></p>-->
-
-<!--        <label for="firstName">First Name: </label>-->
-<!--        <input type="text" id="firstName" th:field="*{firstName}">-->
-<!--        <div class="form-text">Email có thể dùng như tên đăng nhập</div>-->
-<!--        <p th:errors="*{firstName}" class="text-danger"></p>-->
-
-<!--        <label for="lastName">Last Name: </label>-->
-<!--        <input type="text" id="lastName" th:field="*{lastName}">-->
-<!--        <div class="form-text">Email có thể dùng như tên đăng nhập</div>-->
-<!--        <p th:errors="*{lastName}" class="text-danger"></p>-->
-
-<!--        <label for="phoneNumber">Phone Number: </label>-->
-<!--        <input type="text" th:field="*{phoneNumber}" id="phoneNumber">-->
-<!--        <div class="form-text">Email có thể dùng như tên đăng nhập</div>-->
-<!--        <p th:errors="*{phoneNumber}" class="text-danger"></p>-->
-
-<!--        <label for="age">Age: </label>-->
-<!--        <input type="number" id="age" th:field="*{age}">-->
-<!--        <div class="form-text">Email có thể dùng như tên đăng nhập</div>-->
-<!--        <p th:errors="*{age}" class="text-danger"></p>-->
-
-<!--        <input type="submit" class="btn btn-primary" value="Đăng ký">-->
-<!--    </form>-->
     <table class="table table-dark table-striped table-striped table-hover">
         <thead>
         <tr>
@@ -108,13 +80,13 @@
         </tr>
         </thead>
         <tbody>
-        <tr th:each="user,status:${userList}">
+        <tr th:each="userDto,status:${userDtoList}">
             <td th:text="${status.count}"></td>
-            <td th:text="${user.firstName}"></td>
-            <td th:text="${user.lastName}"></td>
-            <td th:text="${user.email}"></td>
-            <td th:text="${user.phoneNumber}"></td>
-            <td th:text="${user.age}"></td>
+            <td th:text="${userDto.firstName}"></td>
+            <td th:text="${userDto.lastName}"></td>
+            <td th:text="${userDto.email}"></td>
+            <td th:text="${userDto.phoneNumber}"></td>
+            <td th:text="${userDto.age}"></td>
         </tr>
         </tbody>
     </table>

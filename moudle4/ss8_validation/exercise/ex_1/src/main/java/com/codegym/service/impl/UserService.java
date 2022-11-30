@@ -1,5 +1,6 @@
 package com.codegym.service.impl;
 
+import com.codegym.dto.UserDto;
 import com.codegym.model.User;
 import com.codegym.repository.UserRepository;
 import com.codegym.service.IUserService;
@@ -14,7 +15,7 @@ public class UserService implements IUserService {
     private UserRepository userRepository;
 
     @Override
-    public Page<User> findByEmailContaining(Pageable pageable) {
+    public Page<UserDto> findByEmailContaining(Pageable pageable) {
         return userRepository.findByEmailContaining("",pageable);
     }
 

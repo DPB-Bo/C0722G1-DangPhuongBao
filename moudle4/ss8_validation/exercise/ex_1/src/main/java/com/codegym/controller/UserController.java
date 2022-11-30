@@ -1,7 +1,9 @@
 package com.codegym.controller;
 
+import com.codegym.dto.UserDto;
 import com.codegym.model.User;
 import com.codegym.service.IUserService;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
@@ -24,20 +26,28 @@ public class UserController {
     @Autowired
     private IUserService userService;
 
+    @GetMapping("validList")
+    public String display(@PageableDefault(page = 0,size = 3) Pageable pageable, Model model, @Valid UserDto userDto, BindingResult bindingResult){
+        model.addAttribute("userDto", userDto);
+        model.addAttribute("userDtoList",userService.findByEmailContaining(pageable));
+        return "create_user";
+    }
     @GetMapping("")
-    public String display(@PageableDefault(page = 0,size = 3) Pageable pageable, Model model, @Valid User user, BindingResult bindingResult){
-        model.addAttribute("user", user);
-        model.addAttribute("userList",userService.findByEmailContaining(pageable));
+    public String display(@PageableDefault(page = 0,size = 3) Pageable pageable, Model model, UserDto userDto){
+        model.addAttribute("userDto", userDto);
+        model.addAttribute("userDtoList",userService.findByEmailContaining(pageable));
         return "create_user";
     }
 
     @PostMapping("save")
-    public String validateUser(@Validated @ModelAttribute User user, BindingResult bindingResult, RedirectAttributes redirectAttributes, @PageableDefault(page = 0,size = 3) Pageable pageable, Model model){
+    public String validateUser(@Validated @ModelAttribute UserDto userDto, BindingResult bindingResult, RedirectAttributes redirectAttributes, @PageableDefault(page = 0,size = 3) Pageable pageable, Model model){
         if (bindingResult.hasErrors()) {
             redirectAttributes.addFlashAttribute("hasErrors", true);
-            redirectAttributes.addFlashAttribute("user", user);
-            return "redirect:/";
+            redirectAttributes.addFlashAttribute("userDto", userDto);
+            return "redirect:/validList";
         }
+        User user = User.builder().build();
+        BeanUtils.copyProperties(userDto, user);
         userService.save(user);
         return "redirect:/";
     }
