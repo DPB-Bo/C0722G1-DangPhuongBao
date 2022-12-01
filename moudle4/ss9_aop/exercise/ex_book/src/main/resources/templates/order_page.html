@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link
+            href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"
+            rel="stylesheet"
+            integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi"
+            crossorigin="anonymous">
+
+    <script
+            src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3"
+            crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+    <link rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.2/font/bootstrap-icons.css">
+    <script>
+        function modalOrderBook(id, name) {
+            document.getElementById("dialogOrderBook").innerHTML = "Bạn muốn mượn sách " + name + " ?";
+            document.getElementById("bookId").value = id;
+        }
+
+        function modalReturnBook(id) {
+            document.getElementById("returnBookId").value = id;
+        }
+    </script>
+</head>
+<body>
+<div class="container">
+    <h1 class="text-center">MƯỢN SÁCH</h1>
+    <table class="table table-hover table-striped">
+        <thead>
+        <tr>
+            <th>#</th>
+            <th>Tên sách</th>
+            <th>Số lượng</th>
+            <th>Mượn sách</th>
+            <th>Trả sách</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="book, count: ${bookList}">
+            <td th:text="${count.count}"></td>
+            <td th:text="${book.name}"></td>
+            <td th:text="${book.quantity}"></td>
+            <td th:if="${book.quantity > 0}">
+                <button type="button" class="btn btn-primary" data-bs-target="#orderBook" data-bs-toggle="modal"
+                        th:attr="onclick=|modalOrderBook('${book.id}','${book.name}');|">Mượn sách
+                </button>
+
+                <div class="modal fade " id="orderBook" tabindex="-1" aria-labelledby="exampleModalLabel"
+                     aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h1 class="modal-title fs-5">Mượn sách</h1>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                        aria-label="Close"></button>
+                            </div>
+                            <form th:action="@{/orderBook}" method="post" th:object="${orderb}" class="mb-3">
+                                <div class="modal-body">
+                                    <input type="hidden" th:field="*{book}" id="bookId">
+                                    <p id="dialogOrderBook"></p>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="submit" class="btn btn-primary">Xác nhận</button>
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </td>
+            <td th:if="${book.quantity == 0}">
+                <button class="btn btn-primary" type="button" data-bs-target="#noBookLeft" data-bs-toggle="modal">Mượn
+                    sách
+                </button>
+
+                <div class="modal fade" id="noBookLeft" tabindex="-1" aria-labelledby="exampleModalLabel"
+                     aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h1 class="modal-title fs-5">Mượn sách</h1>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                        aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <p>Hối mấy thằng mượn trả đi rồi mới có mà mượn =)))</p>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+            <td th:if="${book.quantity < book.amount}">
+                <button type="button" class="btn btn-primary me-auto" data-bs-target="#returnBook"
+                        data-bs-toggle="modal"
+                        th:attr="onclick=|modalReturnBook('${book.id}');|">Trả sách
+                </button>
+
+                <div class="modal fade" id="returnBook" tabindex="-1" aria-labelledby="exampleModalLabel"
+                     aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h1 class="modal-title fs-5">Trả sách</h1>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                        aria-label="Close"></button>
+                            </div>
+                            <form th:action="@{/returnBook}" method="post" class="mb-3">
+                                <div class="modal-body">
+                                    <label for="codeBook">Nhập mã trả sách: </label>
+                                    <input th:value="${codeBook}" id="codeBook" name="codeBook" type="text">
+                                    <input id="returnBookId" name="returnBookId" type="hidden">
+                                    <div th:if="${error != null}">
+                                        <p class="text-danger" th:text="${error}"></p>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="submit" class="btn btn-primary">Xác nhận</button>
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </td>
+
+            <td th:if="${book.quantity == book.amount}">
+                <button type="button" class="btn btn-primary me-auto" data-bs-target="#noBookOrder"
+                        data-bs-toggle="modal">Trả sách
+                </button>
+
+                <div class="modal fade" id="noBookOrder" tabindex="-1" aria-labelledby="exampleModalLabel"
+                     aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h1 class="modal-title fs-5">Trả sách</h1>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                        aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <p>Sách này chưa mượn lấy gì trả =)))</p>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+<div class="modal fade" id="showCode" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <script th:inline="javascript" th:if="${orderId != null}">
+        $(document).ready(function () {
+            $("#showCode").modal("show");
+        });
+    </script>
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5">MƯỢN THÀNH CÔNG</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p class="text-danger">ĐÂY LÀ MÃ TRẢ SÁCH. ĐÁNH MẤT NÓ SẼ KHÔNG TRẢ ĐƯỢC SÁCH:</p>
+                <h1 th:text="${orderId}"></h1>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="alertSuccessReturnBook" tabindex="-1" aria-labelledby="exampleModalLabel"
+     aria-hidden="true">
+    <script th:inline="javascript" th:if="${successReturn != null}">
+        $(document).ready(function () {
+            $("#alertSuccessReturnBook").modal("show");
+        });
+    </script>
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5">Thông báo</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <h1 th:text="${successReturn}"></h1>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
