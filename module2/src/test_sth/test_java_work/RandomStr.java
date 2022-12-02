@@ -9,7 +9,7 @@ public class RandomStr {
         SecureRandom random = new SecureRandom();
         StringBuilder str = new StringBuilder(3);
 
-        for (int i = 0; i < 3; i++) {
+        for (int i = 0; i < 5; i++) {
             str.append(rangeID.charAt(random.nextInt(rangeID.length())));
         }
         return str.toString();
