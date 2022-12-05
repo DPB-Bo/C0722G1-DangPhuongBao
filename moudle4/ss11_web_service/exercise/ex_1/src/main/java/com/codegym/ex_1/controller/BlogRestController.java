@@ -11,10 +11,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
 import java.util.List;
@@ -43,8 +40,20 @@ public class BlogRestController {
         Category category = categoryService.findById(idCategory);
         Page<Blog> blogList = blogService.findByCategory(category,pageable);
         if (blogList == null){
-            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
         return new ResponseEntity<>(blogList,HttpStatus.OK);
     }
+
+    @PatchMapping("/delete/{id}")
+    public ResponseEntity<Blog> softDelete(@PathVariable("id") int id){
+        Blog blog = blogService.findById(id);
+        if(blog == null){
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        blogService.deleteById(id);
+        return new ResponseEntity<>(blog,HttpStatus.OK);
+    }
+
+
 }

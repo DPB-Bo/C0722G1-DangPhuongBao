@@ -3,8 +3,10 @@ package com.codegym.ex_1.model;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.*;
 import org.hibernate.annotations.SQLDelete;
+import org.springframework.data.domain.Page;
 
 import javax.persistence.*;
+import java.util.List;
 import java.util.Set;
 
 @Entity

@@ -34,7 +34,7 @@ public class BlogService implements IBlogService {
 
     @Override
     public void deleteById(Integer id) {
-        blogRepository.softDelete(id);
+        blogRepository.deleteById(id);
     }
 
     @Override
