@@ -11,48 +11,60 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletResponse;
-import java.util.List;
 
 @RestController
 @RequestMapping("")
+@CrossOrigin("*")
 public class BlogRestController {
     @Autowired
     private IBlogService blogService;
     @Autowired
     private ICategoryService categoryService;
 
-    @GetMapping("{page}")
-    public ResponseEntity<Page<Blog>> getList(@PathVariable("page") int page) {
-        Pageable pageable = PageRequest.of(page,3);
-        Page<Blog> blogList = blogService.findByDeleted(pageable);
-        if (blogList == null){
+//    @GetMapping("")
+//    public ResponseEntity<Page<Blog>> getList(@PageableDefault(size = 3) Pageable pageable, ModelMap model) {
+//        Page<Blog> blogList = blogService.findByDeleted(pageable);
+//        if (blogList == null) {
+//            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+//        }
+//        return new ResponseEntity<>(blogList, HttpStatus.OK);
+//    }
+
+    @GetMapping("{search}")
+    public ResponseEntity<Page<Blog>> getListSearchEd(@PageableDefault(size = 3) Pageable pageable, @PathVariable String search) {
+        if (search == null) {
+            search = "";
+        }
+        Page<Blog> blogList = blogService.findByTitleContainingOrAuthorContaining(search, pageable);
+        if (blogList == null) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
-        return new ResponseEntity<>(blogList,HttpStatus.OK);
+        return new ResponseEntity<>(blogList, HttpStatus.OK);
     }
 
     @GetMapping("{idCategory}/{page}")
-    public ResponseEntity<Page<Blog>> getListByCategory(@PathVariable("idCategory") int idCategory,@PathVariable("page") int page){
-        Pageable pageable = PageRequest.of(page,3);
+    public ResponseEntity<Page<Blog>> getListByCategory(@PathVariable("idCategory") int idCategory, @PathVariable("page") int page) {
+        Pageable pageable = PageRequest.of(page, 3);
         Category category = categoryService.findById(idCategory);
-        Page<Blog> blogList = blogService.findByCategory(category,pageable);
-        if (blogList == null){
+        Page<Blog> blogList = blogService.findByCategory(category, pageable);
+        if (blogList == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
-        return new ResponseEntity<>(blogList,HttpStatus.OK);
+        return new ResponseEntity<>(blogList, HttpStatus.OK);
     }
 
     @PatchMapping("/delete/{id}")
-    public ResponseEntity<Blog> softDelete(@PathVariable("id") int id){
+    public ResponseEntity<Blog> softDelete(@PathVariable("id") int id) {
         Blog blog = blogService.findById(id);
-        if(blog == null){
+        if (blog == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
         blogService.deleteById(id);
-        return new ResponseEntity<>(blog,HttpStatus.OK);
+        return new ResponseEntity<>(blog, HttpStatus.OK);
     }
 
 
