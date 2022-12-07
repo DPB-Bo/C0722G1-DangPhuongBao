@@ -1,10 +1,8 @@
 package com.codegym.ex_1.model;
 
 import lombok.*;
-import org.hibernate.annotations.SQLDelete;
 
 import javax.persistence.*;
-import java.sql.Date;
 
 @Entity
 @Getter
