@@ -15,6 +15,8 @@ import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 
 @RestController
 @RequestMapping("")
@@ -24,6 +26,11 @@ public class BlogRestController {
     private IBlogService blogService;
     @Autowired
     private ICategoryService categoryService;
+
+    @GetMapping("findAll")
+    public ResponseEntity<List<Blog>> getFindAll(){
+        return new ResponseEntity<>(blogService.findAll(),HttpStatus.OK);
+    }
 
 //    @GetMapping("")
 //    public ResponseEntity<Page<Blog>> getList(@PageableDefault(size = 3) Pageable pageable, ModelMap model) {
@@ -56,6 +63,7 @@ public class BlogRestController {
         }
         return new ResponseEntity<>(blogList, HttpStatus.OK);
     }
+
 
     @PatchMapping("/delete/{id}")
     public ResponseEntity<Blog> softDelete(@PathVariable("id") int id) {
