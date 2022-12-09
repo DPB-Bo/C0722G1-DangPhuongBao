@@ -37,5 +37,6 @@ public class Employee {
     private EducationDegree educationDegree;
     @ManyToOne
     private Division division;
+    @Column(columnDefinition = "boolean default false")
     private boolean deleted = false;
 }

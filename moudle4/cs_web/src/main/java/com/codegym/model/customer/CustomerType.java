@@ -27,5 +27,6 @@ public class CustomerType {
     //@Column(columnDefinition = "boolean default false")
 
     //C2:
+    @Column(columnDefinition = "boolean default false")
     private boolean deleted = false;
 }

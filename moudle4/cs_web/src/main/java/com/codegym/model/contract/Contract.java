@@ -32,5 +32,6 @@ public class Contract {
     private Customer customer;
     @ManyToOne
     private Facility facility;
+    @Column(columnDefinition = "boolean default false")
     private boolean deleted = false;
 }

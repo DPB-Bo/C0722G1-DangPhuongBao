@@ -40,7 +40,7 @@ public class UserController {
     }
 
     @PostMapping("save")
-    public String validateUser(@Validated @ModelAttribute UserDto userDto, BindingResult bindingResult, RedirectAttributes redirectAttributes, @PageableDefault(page = 0,size = 3) Pageable pageable, Model model){
+    public String validateUser(@Validated @ModelAttribute("userDto") UserDto userDto, BindingResult bindingResult, RedirectAttributes redirectAttributes, @PageableDefault(page = 0,size = 3) Pageable pageable, Model model){
         if (bindingResult.hasErrors()) {
             redirectAttributes.addFlashAttribute("hasErrors", true);
             redirectAttributes.addFlashAttribute("userDto", userDto);

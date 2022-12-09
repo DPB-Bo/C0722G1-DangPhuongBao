@@ -20,7 +20,7 @@ public class Facility {
     private Integer id;
     @Column(columnDefinition = "nvarchar(45)")
     private String name;
-    private int age;
+    private int area;
     private double cost;
     private int maxPeople;
     @ManyToOne
@@ -31,9 +31,10 @@ public class Facility {
     private String standardRoom;
     @Column(columnDefinition = "nvarchar(45)")
     private String description_other_convenience;
-    private double poolArea;
-    private int numberOfFloors;
+    private Double poolArea;
+    private Integer numberOfFloors;
     @Column(columnDefinition = "TEXT")
     private String facility_free;
+    @Column(columnDefinition = "boolean default false")
     private boolean deleted = false;
 }

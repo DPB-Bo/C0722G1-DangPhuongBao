@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link
+            href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"
+            rel="stylesheet"
+            integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi"
+            crossorigin="anonymous">
+
+    <script
+            src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3"
+            crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+    <link rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.2/font/bootstrap-icons.css">
+</head>
+<body>
+<div th:insert="fragments/header_footer :: header"></div>
+<div class="p-3 mt-2 bg-dark text-white">
+    <div class="container">
+        <div class="d-flex flex-wrap align-it ems-center
+                    justify-content-center justify-content-lg-start">
+            <form class="ms-auto" th:action="@{/customer}">
+                <ul class="nav col-12 col-lg-auto mb-2
+                        justify-content-center mb-md-0">
+                    <li class="me-2"><input class="form-control" type="text" placeholder="Search Name ...."
+                                            th:value="${searchName}" name="searchName"></li>
+                    <li class="me-2"><input class="form-control" type="text" placeholder="Search Email ...."
+                                            th:value="${searchEmail}" name="searchEmail"></li>
+                    <li class="me-2"><select class="form-select" name="searchCustomerType">
+                        <option value="-1">Select</option>
+                        <option th:each="customerType:${customerTypeList}"
+                                th:selected="${searchCustomerType==customerType.id}" th:value="${customerType.id}"
+                                th:text="${customerType.name}"></option>
+                    </select></li>
+                    <li class="me-2">
+                        <input class="btn btn-primary" type="submit" th:value="SEARCH"></li>
+                </ul>
+            </form>
+        </div>
+    </div>
+</div>
+<div class="container mt-4 content">
+    <div class="row">
+        <h1 class="text-center text-decoration-underline
+                    col">CUSTOMER
+            LIST</h1>
+        <button type="button" class="btn btn-primary
+                    col-sm-1 ms-auto mb-4"
+                data-bs-toggle="modal"
+                data-bs-target="#modalAdd">ADD
+        </button>
+    </div>
+    <table class="table mb-5 table-striped table-borderless
+                table-hover text-center">
+        <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Customer Name</th>
+            <th scope="col">Date of Birth</th>
+            <th scope="col">Gender</th>
+            <th scope="col">Identity Card Number</th>
+            <th scope="col">Phone Number</th>
+            <th scope="col">Email</th>
+            <th scope="col">Address</th>
+            <th scope="col">Customer Rank</th>
+            <th class="" scope="col">UPDATE</th>
+            <th class="" scope="col">DELETE</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="customer,stt:${customerList}">
+            <th scope="row" th:text="${stt.count}+${customerList.number}*${customerList.size}"></th>
+            <td th:text="${customer.name}"></td>
+            <td th:text="${customer.dateOfBirth}"></td>
+            <td th:text="${customer.gender==true?'Nam':'Nữ'}"></td>
+            <td th:text="${customer.idCard}"></td>
+            <td th:text="${customer.phoneNumber}"></td>
+            <td th:text="${customer.email}"></td>
+            <td th:text="${customer.address}"></td>
+            <td th:text="${customer.customerType.name}"></td>
+            <td>
+                <button type="button" class="btn btn-success"
+                        data-bs-toggle="modal"
+                        data-bs-target="#modalUpdate">Update
+                </button>
+            </td>
+            <td>
+                <button type="button" class="btn btn-danger"
+                        data-bs-toggle="modal"
+                        data-bs-target="#modalDelete">
+                    Delete
+                </button>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    <div>
+        <a th:href="@{'/customer'(page=${customerList.number - 1})}" th:if="${customerList.hasPrevious()}">
+            <button type="button" class="btn btn-outline-primary">Previous</button>
+        </a>
+        <span style="font-size: 20px" th:text="${customerList.number + 1}"></span>/<span style="font-size: 20px"
+                                                                                         th:text="${customerList.totalPages}"></span>
+        <a th:href="@{'/customer'(page=${customerList.number + 1})}" th:if="${customerList.hasNext()}">
+            <button type="button" class="btn btn-outline-primary">Next</button>
+        </a>
+    </div>
+</div>
+<div class="modal fade" id="modalUpdate" tabindex="-1"
+     aria-labelledby="exampleModalLabel" aria-hidden="true"
+     data-bs-backdrop="static">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5">UPDATE</h1>
+                <button type="button" class="btn-close"
+                        data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="container">
+                    <form>
+                        <div class="mb-3">
+                            <div class="d-flex gap-3">
+                                <label for="FacilityName"
+                                       class="form-label">Customer Name:
+                                </label>
+                                <div>
+                                    <input type="text"
+                                           class="form-control
+                                                form-control-sm"
+                                           value=""
+                                           id="FacilityName">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mb-3 ">
+                            <div class="d-flex gap-3">
+                                <label for="exampleInputEmail1"
+                                       class="form-label">Date of Birth:
+                                </label>
+                                <div class="">
+                                    <input type="text"
+                                           class="form-control
+                                                form-control-sm"
+                                           value="">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mb-3 ">
+                            <div class="d-flex gap-3">
+                                <label for="exampleInputEmail1"
+                                       class="form-label">Gender: </label>
+                                <div class="">
+                                    <input type="text"
+                                           class="form-control
+                                                form-control-sm"
+                                           value="">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mb-3 ">
+                            <div class="d-flex gap-3">
+                                <label for="exampleInputEmail1"
+                                       class="form-label">Identity Card
+                                    Number:
+                                </label>
+                                <div class="">
+                                    <input type="text"
+                                           class="form-control
+                                                form-control-sm"
+                                           value="">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mb-3 ">
+                            <div class="d-flex gap-3">
+                                <label for="exampleInputEmail1"
+                                       class="form-label">Phone Number:
+                                </label>
+                                <div class="">
+                                    <input type="text"
+                                           class="form-control
+                                                form-control-sm"
+                                           value="">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mb-3 ">
+                            <div class="d-flex gap-3">
+                                <label for="exampleInputEmail1"
+                                       class="form-label">Email: </label>
+                                <div class="">
+                                    <input type="text"
+                                           class="form-control
+                                                form-control-sm"
+                                           value="">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mb-3 ">
+                            <div class="d-flex gap-3">
+                                <label for="exampleInputEmail1"
+                                       class="form-label">Address: </label>
+                                <div class="">
+                                    <input type="text"
+                                           class="form-control
+                                                form-control-sm"
+                                           value="">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mb-3 ">
+                            <div class="d-flex gap-3">
+                                <label for="exampleInputEmail1"
+                                       class="form-label">Customer Rank:
+                                </label>
+                                <div class="">
+                                    <select class="form-select
+                                                form-control-sm"
+                                            aria-label="Default
+                                                select example">
+                                        <option selected>-- CHOOSE --</option>
+                                        <option value="1">Diamond</option>
+                                        <option value="2">Platinium</option>
+                                        <option value="3">Gold</option>
+                                        <option value="4">Sliver</option>
+                                        <option value="5">Member</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary"
+                        data-bs-dismiss="modal">Close
+                </button>
+                <button type="button" class="btn btn-primary">Save</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="modalAdd" tabindex="-1"
+     aria-labelledby="exampleModalLabel" aria-hidden="true"
+     data-bs-backdrop="static">
+    <script th:inline="javascript" th:if="${hasErrors == true}">
+        $(document).ready(function () {
+            $("#modalAdd").modal("show");
+        });
+    </script>
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5">ADD</h1>
+                <button type="button" class="btn-close"
+                        data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form method="post" th:action="@{/customer/save}" th:object="${customerDto}">
+                <div class="modal-body">
+                    <div class="container">
+                        <div class="mb-3">
+                            <div class="d-flex gap-3">
+                                <label for="addCustomerName" class="form-label">Customer Name:</label>
+                                <input type="text" class="form-control form-control-sm" th:field="*{name}"
+                                       id="addCustomerName">
+                            </div>
+                            <p th:errors="*{name}" class="text-danger"></p>
+                        </div>
+                        <div class="mb-3 ">
+                            <div class="d-flex gap-3">
+                                <label for="addCustomerDOB" class="form-label">Date of Birth:</label>
+                                <input type="date" class="form-control form-control-sm" id="addCustomerDOB"
+                                       th:field="*{dateOfBirth}">
+                            </div>
+                        </div>
+                        <div class="mb-3 ">
+                            <div class="d-flex gap-3">
+                                <label for="addCustomerGender" class="form-label">Gender:</label>
+                                <select id="addCustomerGender" th:field="*{gender}">
+                                    <option value="true">Male</option>
+                                    <option value="false">Female</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="mb-3 ">
+                            <div class="d-flex gap-3">
+                                <label for="addCustomerIdCard" class="form-label">Identity Card Number:</label>
+                                <input type="text" class="form-control form-control-sm" id="addCustomerIdCard"
+                                       th:field="*{idCard}">
+                            </div>
+                            <p th:errors="*{idCard}" class="text-danger"></p>
+                        </div>
+                        <div class="mb-3 ">
+                            <div class="d-flex gap-3">
+                                <label for="addPhoneNumber" class="form-label">Phone Number:</label>
+                                <input type="text" class="form-control form-control-sm" id="addPhoneNumber"
+                                       th:field="*{phoneNumber}">
+                            </div>
+                            <p th:errors="*{phoneNumber}" class="text-danger"></p>
+                        </div>
+                        <div class="mb-3 ">
+                            <div class="d-flex gap-3">
+                                <label for="addCustomerEmail" class="form-label">Email:</label>
+                                <input type="text" class="form-control form-control-sm" id="addCustomerEmail"
+                                       th:field="*{email}">
+                            </div>
+                            <p th:errors="*{email}" class="text-danger"></p>
+                        </div>
+                        <div class="mb-3 ">
+                            <div class="d-flex gap-3">
+                                <label for="addCustomerAddress" class="form-label">Address:</label>
+                                <input type="text" class="form-control form-control-sm" id="addCustomerAddress"
+                                       th:field="*{address}">
+                            </div>
+                            <p th:errors="*{address}" class="text-danger"></p>
+                        </div>
+                        <div class="mb-3 ">
+                            <div class="d-flex gap-3">
+                                <label for="addCustomerRank" class="form-label">Customer Rank:</label>
+                                <select id="addCustomerRank" class="form-select form-control-sm"
+                                        aria-label="Default select example" th:field="*{customerType}">
+                                    <option th:each="customerType:${customerTypeList}" th:value="${customerType.id}"
+                                            th:text="${customerType.name}"></option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" id="clearData" class="btn btn-secondary" data-bs-dismiss="modal">Close
+                    </button>
+                    <button type="submit" class="btn btn-primary">Create</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="modalDelete" tabindex="-1"
+     aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">CẢNH
+                    BÁO</h1>
+                <button type="button" class="btn-close"
+                        data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                XÁC NHẬN XOÁ ?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary"
+                        data-bs-dismiss="modal">Close
+                </button>
+                <button type="button" class="btn btn-primary">SUBMIT</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div th:insert="fragments/header_footer :: footer"></div>
+</body>
+<script>
+    $("#clearData").click(function () {
+        $.ajax({})
+    })
+</script>
+</html>

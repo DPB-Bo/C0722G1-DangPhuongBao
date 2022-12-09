@@ -38,7 +38,7 @@
                         <label for="email">Email: </label>
                         <input th:field="*{email}" id="email" type="text">
                         <div class="form-text">Email có thể dùng như tên đăng nhập</div>
-                        <p th:errors="*{email}" class="text-danger"></p>
+                        <p th:errors="*{email}"></p>
 
                         <label for="firstName">First Name: </label>
                         <input type="text" id="firstName" th:field="*{firstName}">

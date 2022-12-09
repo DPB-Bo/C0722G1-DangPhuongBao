@@ -23,5 +23,6 @@ public class ContractDetail {
     @ManyToOne
     private AttachFacility attachFacility;
     private int quantity;
+    @Column(columnDefinition = "boolean default false")
     private boolean deleted = false;
 }

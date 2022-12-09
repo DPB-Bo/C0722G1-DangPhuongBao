@@ -11,12 +11,12 @@ import javax.validation.constraints.*;
 @Builder
 @AllArgsConstructor
 @Getter
-public class UserDto implements Validator {
+public class UserDto implements Validator{
     @NotNull(message = "{error_name_blank}")
-    @Pattern(regexp="[a-zA-z]+",message = "{error_name_regex}")
+    @Pattern(regexp="^[\\p{L}'][ \\p{L}'-]*\\p{L}$",message = "{error_name_regex}")
     @NotBlank(message = "{error_name_blank}")
     @NotEmpty(message = "{error_name_blank}")
-    @Size(min = 2,message = "{error_name_size}",max = 45)
+    @Size(min = 5,message = "{error_name_size}",max = 45)
     private String firstName;
 
     @NotNull(message = "{error_name_blank}")

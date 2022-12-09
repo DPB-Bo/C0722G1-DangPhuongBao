@@ -34,5 +34,6 @@ public class Customer {
     private String email;
     @Column(columnDefinition = "nvarchar(45)")
     private String address;
+    @Column(columnDefinition = "boolean default false")
     private boolean deleted = false;
 }

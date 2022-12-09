@@ -25,5 +25,6 @@ public class AttachFacility {
     private String unit;
     @Column(columnDefinition = "nvarchar(45)")
     private String status;
+    @Column(columnDefinition = "boolean default false")
     private boolean deleted = false;
 }

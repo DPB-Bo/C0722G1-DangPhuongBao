@@ -20,5 +20,6 @@ public class Position {
     private Integer id;
     @Column(columnDefinition = "nvarchar(45)")
     private String name;
+    @Column(columnDefinition = "boolean default false")
     private boolean deleted = false;
 }

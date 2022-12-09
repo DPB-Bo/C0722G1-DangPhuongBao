@@ -1,21 +1,21 @@
-USE furama_db;
-INSERT INTO furama_db.position (name)
+USE cs_m4;
+INSERT INTO cs_m4.position (name)
 VALUE ('Quản Lý'),
 	  ('Nhân Viên');
 
-INSERT INTO furama_db.education_degree (name)
+INSERT INTO cs_m4.education_degree (name)
 VALUE ('Trung Cấp'),
       ('Cao Đẳng'),  
       ('Đại Học'), 
       ('Sau Đại Học');
       
-INSERT INTO furama_db.division (name)
+INSERT INTO cs_m4.division (name)
 VALUE ('Sale-Marketing'),
 	  ('Hành Chính'),
       ('Phục vụ'),
       ('Quản lý');
       
-INSERT INTO furama_db.employee ( name, day_of_birth, id_card, salary, phone_number, email, address, position_id, education_degree_id, division_id) 
+INSERT INTO cs_m4.employee ( name, date_of_birth, id_card, salary, phone_number, email, address, position_id, education_degree_id, division_id) 
 VALUE
 ('Nguyễn Văn An', '1970-11-07', '456231786', 10000000, '0901234121', 'annguyen@gmail.com', '295 Nguyễn Tất Thành, Đà Nẵng', 1, 3, 1),
 ('Lê Văn Bình', '1997-04-09', '654231234', 7000000, '0934212314', 'binhlv@gmail.com', '22 Yên Bái, Đà Nẵng', 1, 2, 2),
@@ -28,14 +28,14 @@ VALUE
 ('Tòng Hoang', '1982-09-03', '256781231', 6000000, '0245144444', 'hoangtong@gmail.com', '213 Hàm Nghi, Đà Nẵng', 2, 4, 4),
 ('Nguyễn Công Đạo', '1994-01-08', '755434343', 8000000, '0988767111', 'nguyencongdao12@gmail.com', '6 Hoà Khánh, Đồng Nai', 2, 3, 2);
 
-INSERT INTO furama_db.customer_type(name)
+INSERT INTO cs_m4.customer_type(name)
 VALUE ('Diamond'),
 	  ('Platinium'),
       ('Gold'),
       ('Silver'),
       ('Member');
 
-INSERT INTO furama_db.customer (name, day_of_birth, gender, id_card, phone_number, email, address, customer_type_id) 
+INSERT INTO cs_m4.customer (name, date_of_birth, gender, id_card, phone_number, email, address, customer_type_id) 
 VALUE
 ('Nguyễn Thị Hào', '1970-11-07', 0, '643431213', '0945423362', 'thihao07@gmail.com', '23 Nguyễn Hoàng, Đà Nẵng', 5),
 ('Phạm Xuân Diệu', '1992-08-08', 1, '865342123', '0954333333', 'xuandieu92@gmail.com', 'K77/22 Thái Phiên, Quảng Trị', 3),
@@ -48,18 +48,18 @@ VALUE
 ('Trần Đại Danh', '1994-07-01', 1, '432341235', '0643343433', 'danhhai99@gmaIl.com', '24 Lý Thường Kiệt, Quảng Ngãi', 1),
 ('Nguyễn Tâm Đắc', '1989-07-01', 1, '344343432', '0987654321', 'dactam@gmail.com', '22 Ngô Quyền, Đà Nẵng', 2);
 
-INSERT INTO furama_db.facility_type (name)
+INSERT INTO cs_m4.facility_type (name)
  VALUE ('Villa'),
        ('House'),
        ('Room');     
       
-INSERT INTO furama_db.rent_type (name)
+INSERT INTO cs_m4.rent_type (name)
 VALUE ('year'),
 	  ('month'),
       ('day'),
       ('hour');
       
-INSERT INTO furama_db.facility (name, area, cost, max_people, standard_room, description_other_convenience, pool_area, number_of_floors, facility_free, rent_type_id, facility_type_id)
+INSERT INTO cs_m4.facility (name, area, cost, max_people, standard_room, description_other_convenience, pool_area, number_of_floors, facility_free, rent_type_id, facility_type_id)
 VALUE
 ('Villa Beach Front', 25000, 1000000, 10, 'vip', 'Có hồ bơi', 500, 4, null, 3, 1),
 ('House Princess 01', 14000, 5000000, 7, 'vip', 'Có thêm bếp nướng', null, 3, null, 2, 2),
@@ -68,7 +68,7 @@ VALUE
 ('House Princess 02', 10000, 4000000, 5, 'normal', 'Có thêm bếp nướng', null, 2, null, 3, 2),
 ('Room Twin 02', 3000, 900000, 2, 'normal', 'Có tivi', null, null, '1 Xe máy', 4, 3);
 
-INSERT INTO furama_db.attach_facility (name, cost, unit, status) 
+INSERT INTO cs_m4.attach_facility (name, cost, unit, status) 
 VALUE
 ('Karaoke', 10000, 'giờ', 'tiện nghi, hiện tại'),
 ('Thuê xe máy', 10000, 'chiếc', 'hỏng 1 xe'),
@@ -77,7 +77,7 @@ VALUE
 ('Buffet buổi trưa', 90000, 'suất', 'đầy đủ đồ ăn, tráng miệng'),
 ('Buffet buổi tối', 16000, 'suất', 'đầy đủ đồ ăn, tráng miệng');
 
-INSERT INTO furama_db.contract (start_day, end_day, deposit, employee_id, customer_id, facility_id) 
+INSERT INTO cs_m4.contract (start_date, end_date, deposit, employee_id, customer_id, facility_id) 
 VALUE
 ('2020-12-08', '2020-12-08', 0, 3, 1, 3),
 ('2020-07-14', '2020-07-21', 200000, 7, 3, 1),
@@ -92,7 +92,7 @@ VALUE
 ('2021-04-25', '2021-04-25', 0, 2, 2, 1),
 ('2021-05-25', '2021-05-27', 0, 7, 10, 1);
 
-INSERT INTO furama_db.contract_detail (quantity, contract_id, attach_facility_id) 
+INSERT INTO cs_m4.contract_detail (quantity, contract_id, attach_facility_id) 
 VALUE
 (5, 2, 4),
 (8, 2, 5),
