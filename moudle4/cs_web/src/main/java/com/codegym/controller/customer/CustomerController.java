@@ -17,7 +17,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
 
-@RestController
+@Controller
 @RequestMapping("customer")
 public class CustomerController {
     private final ICustomerService customerService;
@@ -29,7 +29,7 @@ public class CustomerController {
     }
 
     @GetMapping("")
-    public String display(@PageableDefault(size = 5) Pageable pageable, CustomerDto customerDto, Model model, @RequestParam(defaultValue = "") String searchName, @RequestParam(defaultValue = "") String searchEmail, @RequestParam(defaultValue = "-1") int searchCustomerType) {
+    public String display(@Validated CustomerDto tempCustomerDto, BindingResult bindingResultTemp, @Validated CustomerDto editCustomerDto, BindingResult bindingResultEdit, Model model, @RequestParam(defaultValue = "") String searchName, @RequestParam(defaultValue = "") String searchEmail, @RequestParam(defaultValue = "-1") int searchCustomerType, @PageableDefault(size = 5) Pageable pageable) {
         if (searchCustomerType != -1) {
             CustomerType customerType = customerTypeService.findById(searchCustomerType);
             model.addAttribute("customerList", customerService.findByNameContainingAndEmailContainingAndCustomerType(searchName, searchEmail, customerType, pageable));
@@ -40,38 +40,54 @@ public class CustomerController {
         model.addAttribute("searchEmail", searchEmail);
         model.addAttribute("searchCustomerType", searchCustomerType);
         model.addAttribute("customerTypeList", customerTypeService.findAll());
-        model.addAttribute("customerDto", customerDto);
+        model.addAttribute("tempCustomerDto", tempCustomerDto);
+        model.addAttribute("editCustomerDto", editCustomerDto);
         return "customer/display";
     }
 
-    @GetMapping("save/errors")
-    public String display(@PageableDefault(size = 5) Pageable pageable, Model model, @RequestParam(defaultValue = "") String searchName, @RequestParam(defaultValue = "") String searchEmail, @RequestParam(defaultValue = "-1") int searchCustomerType, @Valid CustomerDto customerDto, BindingResult bindingResult) {
-        if (searchCustomerType != -1) {
-            CustomerType customerType = customerTypeService.findById(searchCustomerType);
-            model.addAttribute("customerList", customerService.findByNameContainingAndEmailContainingAndCustomerType(searchName, searchEmail, customerType, pageable));
-        } else {
-            model.addAttribute("customerList", customerService.findByNameContainingAndEmailContaining(searchName, searchEmail, pageable));
-        }
-        model.addAttribute("searchName", searchName);
-        model.addAttribute("searchEmail", searchEmail);
-        model.addAttribute("searchCustomerType", searchCustomerType);
-        model.addAttribute("customerTypeList", customerTypeService.findAll());
-        model.addAttribute("customerDto", customerDto);
-        return "customer/display";
-    }
-
-    @PostMapping("/save")
-    public String save(@Validated @ModelAttribute("customerDto") CustomerDto customerDto, BindingResult bindingResult, RedirectAttributes redirectAttributes) {
-        if (bindingResult.hasErrors()) {
-            redirectAttributes.addFlashAttribute("customerDto", customerDto);
-            redirectAttributes.addFlashAttribute("hasErrors", true);
-            return "redirect:/customer/save/errors";
-        }
+    @PostMapping("save/{save_code}")
+    public String save(@Validated @ModelAttribute("tempCustomerDto") CustomerDto tempCustomerDto, BindingResult bindingResultTemp, @Validated @ModelAttribute("editCustomerDto") CustomerDto editCustomerDto, BindingResult bindingResultEdit, @PathVariable String save_code, Model model, @RequestParam(defaultValue = "") String searchName, @RequestParam(defaultValue = "") String searchEmail, @RequestParam(defaultValue = "-1") int searchCustomerType, @PageableDefault(size = 5) Pageable pageable) {
         Customer customer = Customer.builder().build();
-        BeanUtils.copyProperties(customerDto, customer);
-        customerService.save(customer);
+        if (searchCustomerType != -1) {
+            CustomerType customerType = customerTypeService.findById(searchCustomerType);
+            model.addAttribute("customerList", customerService.findByNameContainingAndEmailContainingAndCustomerType(searchName, searchEmail, customerType, pageable));
+        } else {
+            model.addAttribute("customerList", customerService.findByNameContainingAndEmailContaining(searchName, searchEmail, pageable));
+        }
+        model.addAttribute("searchName", searchName);
+        model.addAttribute("searchEmail", searchEmail);
+        model.addAttribute("searchCustomerType", searchCustomerType);
+        model.addAttribute("customerTypeList", customerTypeService.findAll());
+        switch (save_code) {
+            case "1":
+                if (bindingResultTemp.hasErrors()) {
+                    model.addAttribute("tempCustomerDto", tempCustomerDto);
+                    model.addAttribute("hasErrorsAdd", true);
+                    model.addAttribute("statusCode", 1);
+                    model.addAttribute("editCustomerDto", CustomerDto.builder().build());
+                    return "customer/display";
+                }
+                BeanUtils.copyProperties(tempCustomerDto, customer);
+                customerService.save(customer);
+                return "redirect:/customer";
+            case "2":
+                if (bindingResultEdit.hasErrors()) {
+                    model.addAttribute("editCustomerDto", editCustomerDto);
+                    model.addAttribute("hasErrorsEdit", true);
+                    model.addAttribute("statusCode", 2);
+                    model.addAttribute("tempCustomerDto", CustomerDto.builder().build());
+                    return "customer/display";
+                }
+                BeanUtils.copyProperties(tempCustomerDto, customer);
+                customerService.save(customer);
+                return "redirect:/customer";
+        }
+        return "customer/display";
+    }
+
+    @PostMapping("delete")
+    public String deleteCustomer(@RequestParam("deleteId") String deleteId) {
+        customerService.deleteById(Integer.parseInt(deleteId));
         return "redirect:/customer";
     }
-
-    
 }

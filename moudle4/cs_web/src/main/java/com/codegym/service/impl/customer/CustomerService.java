@@ -24,7 +24,7 @@ public class CustomerService implements ICustomerService {
 
     @Override
     public Page<CustomerDto> findByNameContainingAndEmailContaining(String name, String email, Pageable pageable) {
-        return customerRepository.findByNameContainingAndEmailContaining(name, email,pageable);
+        return customerRepository.findByNameContainingAndEmailContaining(name, email, pageable);
     }
 
     @Override
@@ -39,6 +39,6 @@ public class CustomerService implements ICustomerService {
 
     @Override
     public void deleteById(int id) {
-
+        customerRepository.deleteById(id);
     }
 }
