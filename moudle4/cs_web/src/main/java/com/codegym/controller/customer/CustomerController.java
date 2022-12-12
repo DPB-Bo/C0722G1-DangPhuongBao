@@ -78,7 +78,7 @@ public class CustomerController {
                     model.addAttribute("tempCustomerDto", CustomerDto.builder().build());
                     return "customer/display";
                 }
-                BeanUtils.copyProperties(tempCustomerDto, customer);
+                BeanUtils.copyProperties(editCustomerDto, customer);
                 customerService.save(customer);
                 return "redirect:/customer";
         }

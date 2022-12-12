@@ -30,11 +30,11 @@ public class Facility {
     @Column(columnDefinition = "nvarchar(45)")
     private String standardRoom;
     @Column(columnDefinition = "nvarchar(45)")
-    private String description_other_convenience;
+    private String descriptionOtherConvenience;
     private Double poolArea;
     private Integer numberOfFloors;
     @Column(columnDefinition = "TEXT")
-    private String facility_free;
+    private String facilityFree;
     @Column(columnDefinition = "boolean default false")
     private boolean deleted = false;
 }

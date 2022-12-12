@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link
+            href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"
+            rel="stylesheet"
+            integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi"
+            crossorigin="anonymous">
+
+    <script
+            src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3"
+            crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+    <link rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.2/font/bootstrap-icons.css">
+    <script>
+        function editFacility(id, name, area, cost, maxPeople, standardRoom, description, poolArea, floors, free, rentType, facilityType, facilityTypeName) {
+            document.getElementById("editFacilityType").value = facilityTypeName;
+            document.getElementById("hiddenFacilityType").value = facilityType;
+            document.getElementById("editFacilityId").value = id;
+            document.getElementById("editFacilityName").value = name;
+            document.getElementById("editFacilityArea").value = area;
+            document.getElementById("editFacilityPrice").value = cost;
+            document.getElementById("editFacilityMaxUsers").value = maxPeople;
+            // if (standardRoom != null) {
+            document.getElementById("editFacilityRoomStandard").value = standardRoom;
+            // }
+            // if (poolArea != null) {
+            document.getElementById("editFacilityPoolArea").value = poolArea;
+            // }
+            // if (description != null) {
+            document.getElementById("editFacilityOtherDescription").value = description;
+            // }
+            // if (floors != null) {
+            document.getElementById("editFacilityFloors").value = floors;
+            // }
+            // if (free != null) {
+            document.getElementById("editFacilityFreeServices").value = free;
+            // }
+            document.getElementById("editFacilityRentalType").value = rentType;
+            if (facilityType == 1) {
+                document.getElementById("editVilla").style.display = "block";
+                document.getElementById("editPoolAreaAndLabel").style.display = "block";
+                document.getElementById("editRoom").style.display = "none";
+            }
+
+            if (facilityType == 2) {
+                document.getElementById("editVilla").style.display = "block";
+                document.getElementById("editPoolAreaAndLabel").style.display = "none";
+                document.getElementById("editRoom").style.display = "none";
+
+            }
+
+            if (facilityType == 3) {
+                document.getElementById("editVilla").style.display = "none";
+                document.getElementById("editRoom").style.display = "block";
+
+            }
+
+        }
+    </script>
+</head>
+<body>
+<div th:insert="fragments/header_footer :: header"></div>
+
+<div class="p-3 mt-2 bg-dark text-white">
+    <div class="container">
+        <div class="d-flex flex-wrap align-it ems-center
+                    justify-content-center justify-content-lg-start">
+            <form class="ms-auto" th:action="@{/facility}">
+                <ul class="nav col-12 col-lg-auto mb-2
+                        justify-content-center mb-md-0">
+                    <li class="me-2"><input class="form-control" type="text" placeholder="Search Name ...."
+                                            th:value="${searchName}" name="searchName"></li>
+                    <li class="me-2">
+                        <select class="form-select" name="searchFacilityType">
+                            <option value="-1">Select</option>
+                            <option th:each="facilityType:${facilityTypeList}"
+                                    th:selected="${searchFacilityType==facilityType.id}" th:value="${facilityType.id}"
+                                    th:text="${facilityType.name}"></option>
+                        </select></li>
+                    <li class="me-2">
+                        <input class="btn btn-primary" type="submit" th:value="SEARCH"></li>
+                </ul>
+            </form>
+        </div>
+    </div>
+</div>
+<div class="container mt-4 content">
+    <div class="row">
+        <h1 class="text-center text-decoration-underline
+                    col">Facility List</h1>
+        <button type="button" class="btn btn-primary
+                    col-sm-1 ms-auto mb-4"
+                data-bs-toggle="modal"
+                data-bs-target="#modalAdd">ADD
+        </button>
+    </div>
+    <table class="table mb-5 table-striped table-borderless
+                table-hover text-center">
+        <thead>
+        <tr>
+            <th>#</th>
+            <th>Facility Name</th>
+            <th>Area(m<sup>2</sup>)</th>
+            <th>Cost</th>
+            <th>MaxPeople</th>
+            <th>Standard Room</th>
+            <th>Other Convenience</th>
+            <th>Pool Area</th>
+            <th>Number Floors</th>
+            <th>Facility Free</th>
+            <th>Rent Type</th>
+            <th>Facility Type</th>
+            <th>Update</th>
+            <th>Delete</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="facility,stt:${facilityList}">
+            <th scope="row" th:text="${stt.count}+${facilityList.number}*${facilityList.size}"></th>
+            <td th:text="${facility.name}"></td>
+            <td th:text="${facility.area}"></td>
+            <td th:text="${facility.cost}"></td>
+            <td th:text="${facility.maxPeople}"></td>
+            <td th:text="${facility.standardRoom}"></td>
+            <td th:text="${facility.descriptionOtherConvenience}"></td>
+            <td th:text="${facility.poolArea}"></td>
+            <td th:text="${facility.numberOfFloors}"></td>
+            <td th:text="${facility.facilityFree}"></td>
+            <td th:text="${facility.rentType.name}"></td>
+            <td th:text="${facility.facilityType.name}"></td>
+            <td>
+                <button type="button" class="btn btn-success"
+                        data-bs-toggle="modal"
+                        data-bs-target="#modalUpdate"
+                        th:attr="onclick=|editFacility('${facility.id}','${facility.name}','${facility.area}','${facility.cost}','${facility.maxPeople}','${facility.standardRoom}','${facility.descriptionOtherConvenience}','${facility.poolArea}','${facility.numberOfFloors}','${facility.facilityFree}','${facility.rentType.id}','${facility.facilityType.id}','${facility.facilityType.name}');|">
+                    Update
+                </button>
+            </td>
+            <td>
+                <button type="button" class="btn btn-danger"
+                        data-bs-toggle="modal"
+                        data-bs-target="#modalDelete"
+                        th:attr="onclick=|deleteFacility('${facility.id}','${facility.name}');|">
+                    Delete
+                </button>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    <div>
+        <a th:href="@{'/facility'(page=${facilityList.number - 1})}" th:if="${facilityList.hasPrevious()}">
+            <button type="button" class="btn btn-outline-primary">Previous</button>
+        </a>
+        <span style="font-size: 20px" th:text="${facilityList.number + 1}"></span>/<span style="font-size: 20px"
+                                                                                         th:text="${facilityList.totalPages}"></span>
+        <a th:href="@{'/facility'(page=${facilityList.number + 1})}" th:if="${facilityList.hasNext()}">
+            <button type="button" class="btn btn-outline-primary">Next</button>
+        </a>
+    </div>
+</div>
+<div class="modal fade" id="modalUpdate" tabindex="-1"
+     aria-labelledby="exampleModalLabel" aria-hidden="true"
+     data-bs-backdrop="static">
+    <script th:inline="javascript" th:if="${hasErrorsEdit == true}">
+        $(document).ready(function () {
+            $("#modalUpdate").modal("show");
+        });
+    </script>
+    <div class="modal-dialog">
+        <form th:action="@{/facility/save/2}" method="post" th:object="${editFacilityDto}">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5">UPDATE</h1>
+                    <button type="button" class="btn-close"
+                            data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="container">
+                        <input th:field="*{id}" id="editFacilityId" type="hidden">
+                        <div class="mb-3 ">
+                            <div class="d-flex gap-3">
+                                <label for="editFacilityType"
+                                       class="form-label">Facility Type:
+                                </label>
+                                <input type="text" readonly class="form-control form-control-sm"
+                                       id="editFacilityType">
+                                <input type="hidden" hidden class="form-control form-control-sm" id="hiddenFacilityType"
+                                       th:field="*{facilityType}">
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <div class="d-flex gap-3">
+                                <label for="editFacilityName" class="form-label">Facility Name: </label>
+                                <input type="text" class="form-control form-control-sm" id="editFacilityName"
+                                       th:field="*{name}">
+                            </div>
+                        </div>
+                        <div class="mb-3 ">
+                            <div class="d-flex gap-3">
+                                <label for="editFacilityArea" class="form-label">Area:
+                                </label>
+                                <input type="number" class="form-control form-control-sm" id="editFacilityArea"
+                                       th:field="*{area}">
+                            </div>
+                        </div>
+                        <div class="mb-3 ">
+                            <div class="d-flex gap-3">
+                                <label for="editFacilityPrice"
+                                       class="form-label">Cost: </label>
+                                <div class="">
+                                    <input type="number"
+                                           class="form-control form-control-sm" id="editFacilityPrice"
+                                           th:field="*{cost}">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mb-3 ">
+                            <div class="d-flex gap-3">
+                                <label for="editFacilityMaxUsers"
+                                       class="form-label">Max people:
+                                </label>
+                                <div class="">
+                                    <input type="number"
+                                           class="form-control
+                                                form-control-sm"
+                                           id="editFacilityMaxUsers"
+                                           th:field="*{maxPeople}">
+                                </div>
+                            </div>
+                        </div>
+                        <div id="editRoom">
+                            <div class="mb-3 ">
+                                <div class="d-flex gap-3">
+                                    <label for="editFacilityFreeServices"
+                                           class="form-label">FacilityFree: </label>
+                                    <div class="">
+                                        <input type="text"
+                                               class="form-control
+                                                form-control-sm"
+                                               id="editFacilityFreeServices"
+                                               th:field="*{facilityFree}">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mb-3 ">
+                            <div class="d-flex gap-3">
+                                <label for="editFacilityRentalType"
+                                       class="form-label">Rent Type:
+                                </label>
+                                <div class="">
+                                    <select class="form-select
+                                                form-control-sm"
+                                            aria-label="Default
+                                                select example"
+                                            id="editFacilityRentalType"
+                                            th:field="*{rentType}">
+                                        <option th:each="rentType:${rentTypeList}" th:text="${rentType.name}"
+                                                th:value="${rentType.id}">
+                                        </option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="editVilla">
+                            <div class="mb-3 ">
+                                <div class="d-flex gap-3">
+                                    <label for="editFacilityRoomStandard"
+                                           class="form-label">Room Standard: </label>
+                                    <div class="">
+                                        <input type="text" class="form-control form-control-sm"
+                                               id="editFacilityRoomStandard" th:field="*{standardRoom}">
+                                    </div>
+                                </div>
+                            </div>
+                            <div id="editPoolAreaAndLabel">
+                                <div class="mb-3 ">
+                                    <div class="d-flex gap-3">
+                                        <label for="editFacilityPoolArea"
+                                               class="form-label">Pool Area: </label>
+                                        <div class="">
+                                            <input type="number"
+                                                   class="form-control
+                                                form-control-sm"
+                                                   id="editFacilityPoolArea"
+                                                   th:field="*{poolArea}">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="mb-3 ">
+                                <div class="d-flex gap-3">
+                                    <label for="editFacilityFloors"
+                                           class="form-label">Number of Floors: </label>
+                                    <div class="">
+                                        <input type="number"
+                                               class="form-control
+                                                form-control-sm"
+                                               id="editFacilityFloors" th:field="*{numberOfFloors}">
+                                    </div>
+                                </div>
+                                <div class="mb-3">
+                                    <div class="d-flex gap-3">
+                                        <label for="editFacilityOtherDescription"
+                                               class="form-label">Description:
+                                        </label>
+                                        <div class="">
+                                            <input type="text"
+                                                   class="form-control
+                                                form-control-sm"
+                                                   id="editFacilityOtherDescription"
+                                                   th:field="*{descriptionOtherConvenience}">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary"
+                            data-bs-dismiss="modal">Close
+                    </button>
+                    <button type="submit" class="btn btn-primary">Update
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div th:insert="fragments/header_footer :: footer"></div>
+</body>
+</html>
