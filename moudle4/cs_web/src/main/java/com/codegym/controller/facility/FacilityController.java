@@ -29,7 +29,7 @@ public class FacilityController {
     }
 
     @GetMapping("")
-    public String display(@Validated FacilityDto tempFacilityDto, BindingResult bindingResultTemp, @Validated FacilityDto editFacilityDto, BindingResult bindingResultEdit, Model model, @RequestParam(defaultValue = "") String searchName, @RequestParam(defaultValue = "-1") int searchFacilityType, @PageableDefault(size = 5) Pageable pageable) {
+    public String display(@Validated FacilityDto tempFacilityDto, BindingResult bindingResultTemp, @Validated FacilityDto editFacilityDto, BindingResult bindingResultEdit, Model model, @RequestParam(defaultValue = "") String searchName, @RequestParam(defaultValue = "-1") int searchFacilityType, @PageableDefault(size = 2) Pageable pageable) {
         if (searchFacilityType != -1) {
             FacilityType facilityType = facilityTypeService.findById(searchFacilityType);
             model.addAttribute("facilityList", facilityService.findByNameContainingAndFacilityType(searchName, facilityType, pageable));
@@ -48,7 +48,7 @@ public class FacilityController {
     }
 
     @PostMapping("save/{saveCode}")
-    public String save(@PathVariable String saveCode, @Validated @ModelAttribute("tempFacilityDto") FacilityDto tempFacilityDto, BindingResult bindingResultTemp, @Validated @ModelAttribute("editFacilityDto") FacilityDto editFacilityDto, BindingResult bindingResultEdit, Model model, @RequestParam(defaultValue = "") String searchName, @RequestParam(defaultValue = "-1") int searchFacilityType, @PageableDefault(size = 5) Pageable pageable) {
+    public String save(@PathVariable String saveCode, @Validated @ModelAttribute("tempFacilityDto") FacilityDto tempFacilityDto, BindingResult bindingResultTemp, @Validated @ModelAttribute("editFacilityDto") FacilityDto editFacilityDto, BindingResult bindingResultEdit, Model model, @RequestParam(defaultValue = "") String searchName, @RequestParam(defaultValue = "-1") int searchFacilityType, @PageableDefault(size = 2) Pageable pageable) {
         Facility facility = Facility.builder().build();
         if (searchFacilityType != -1) {
             FacilityType facilityType = facilityTypeService.findById(searchFacilityType);
@@ -65,6 +65,7 @@ public class FacilityController {
         switch (saveCode) {
             case "1":
                 if (bindingResultTemp.hasErrors()) {
+                    model.addAttribute("selectType",tempFacilityDto.getFacilityType().getId());
                     model.addAttribute("tempFacilityDto", tempFacilityDto);
                     model.addAttribute("hasErrorsAdd", true);
                     model.addAttribute("statusCode", 1);
@@ -87,5 +88,11 @@ public class FacilityController {
                 return "redirect:/facility";
         }
         return "facility/display";
+    }
+
+    @PostMapping("delete")
+    public String deleteFacility(@ModelAttribute("confirmDelete") int confirmDeleteId){
+        facilityService.deleteById(confirmDeleteId);
+        return "redirect:/facility";
     }
 }

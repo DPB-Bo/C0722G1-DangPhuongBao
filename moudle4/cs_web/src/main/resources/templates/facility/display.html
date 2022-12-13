@@ -25,21 +25,11 @@
             document.getElementById("editFacilityArea").value = area;
             document.getElementById("editFacilityPrice").value = cost;
             document.getElementById("editFacilityMaxUsers").value = maxPeople;
-            // if (standardRoom != null) {
             document.getElementById("editFacilityRoomStandard").value = standardRoom;
-            // }
-            // if (poolArea != null) {
             document.getElementById("editFacilityPoolArea").value = poolArea;
-            // }
-            // if (description != null) {
             document.getElementById("editFacilityOtherDescription").value = description;
-            // }
-            // if (floors != null) {
             document.getElementById("editFacilityFloors").value = floors;
-            // }
-            // if (free != null) {
             document.getElementById("editFacilityFreeServices").value = free;
-            // }
             document.getElementById("editFacilityRentalType").value = rentType;
             if (facilityType == 1) {
                 document.getElementById("editVilla").style.display = "block";
@@ -60,6 +50,35 @@
 
             }
 
+        }
+
+        function displayAdd(value) {
+            document.getElementById("addAllAttr").style.display = "block";
+            if(value == 1){
+                document.getElementById("addVilla").style.display="block";
+                document.getElementById("addPoolAreaAndLabel").style.display="block";
+                document.getElementById("addRoom").style.display="none";
+                document.getElementById("addFacilityFreeServices").value=null;
+            }
+            if(value == 2){
+                document.getElementById("addVilla").style.display="block";
+                document.getElementById("addPoolAreaAndLabel").style.display="none";
+                document.getElementById("addRoom").style.display="none";
+                document.getElementById("addFacilityPoolArea").value=null;
+                document.getElementById("addFacilityFreeServices").value=null;
+            }
+            if (value == 3){
+                document.getElementById("addVilla").style.display="none";
+                document.getElementById("addRoom").style.display="block";
+                document.getElementById("addFacilityPoolArea").value=null;
+                document.getElementById("addFacilityFreeServices").value=null;
+                document.getElementById("addFacilityFloors").value=null;
+                document.getElementById("addFacilityOtherDescription").value=null;
+            }
+        }
+
+        function deleteFacility(id,name){
+            document.getElementById("confirmDelete").value=id;
         }
     </script>
 </head>
@@ -153,12 +172,12 @@
         </tbody>
     </table>
     <div>
-        <a th:href="@{'/facility'(page=${facilityList.number - 1})}" th:if="${facilityList.hasPrevious()}">
+        <a th:href="@{'/facility'(page=${facilityList.number - 1},searchName=${searchName},searchFacilityType=${searchFacilityType})}" th:if="${facilityList.hasPrevious()}">
             <button type="button" class="btn btn-outline-primary">Previous</button>
         </a>
         <span style="font-size: 20px" th:text="${facilityList.number + 1}"></span>/<span style="font-size: 20px"
                                                                                          th:text="${facilityList.totalPages}"></span>
-        <a th:href="@{'/facility'(page=${facilityList.number + 1})}" th:if="${facilityList.hasNext()}">
+        <a th:href="@{'/facility'(page=${facilityList.number + 1},searchName=${searchName},searchFacilityType=${searchFacilityType})}" th:if="${facilityList.hasNext()}">
             <button type="button" class="btn btn-outline-primary">Next</button>
         </a>
     </div>
@@ -328,6 +347,215 @@
                     </button>
                     <button type="submit" class="btn btn-primary">Update
                     </button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class="modal fade" id="modalAdd" tabindex="-1"
+     aria-labelledby="exampleModalLabel" aria-hidden="true"
+     data-bs-backdrop="static">
+    <script th:inline="javascript" th:if="${hasErrorsAdd == true}">
+        $(document).ready(function () {
+            $("#modalAdd").modal("show");
+        });
+        </script>
+    <script th:inline="javascript" th:if="${selectType != null}">
+        $(document).ready(function () {
+            displayAdd(/*[[${selectType}]]*/)
+        });
+    </script>
+    <div class="modal-dialog">
+
+        <form method="post" th:action="@{/facility/save/1}" th:object="${tempFacilityDto}">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5">CREATE</h1>
+                    <button type="button" class="btn-close"
+                            data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="container">
+                        <div class="mb-3 ">
+                            <div class="d-flex gap-3">
+                                <label for="addFacilityType"
+                                       class="form-label">FACILITY TYPE:
+                                </label>
+                                <div class="mb-3">
+                                    <select th:attr="onchange=|displayAdd(this.value);|"
+                                            th:field="*{facilityType}" class="form-select" id="addFacilityType">
+                                        <option id="optionAddSelect" value="-1">Select</option>
+                                        <option th:each="facilityType:${facilityTypeList}"
+                                                th:value="${facilityType.id}"
+                                                th:text="${facilityType.name}"></option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="addAllAttr" style="display: none">
+                        <div class="mb-3">
+                            <div class="d-flex gap-3">
+                                <label for="addFacilityName" class="form-label">Facility Name: </label>
+                                <input type="text" class="form-control form-control-sm" id="addFacilityName"
+                                       th:field="*{name}">
+                                <p th:if="${#fields.hasErrors('name')&&statusCode==1}" th:errors="*{name}"
+                                   class="text-danger"></p>
+                            </div>
+                        </div>
+                        <div class="mb-3 ">
+                            <div class="d-flex gap-3">
+                                <label for="addFacilityArea" class="form-label">Area:
+                                </label>
+                                <input type="number" class="form-control form-control-sm" id="addFacilityArea"
+                                       th:field="*{area}">
+                                <p th:if="${#fields.hasErrors('area')&&statusCode==1}" th:errors="*{area}"
+                                   class="text-danger"></p>
+                            </div>
+                        </div>
+                        <div class="mb-3 ">
+                            <div class="d-flex gap-3">
+                                <label for="addFacilityPrice"
+                                       class="form-label">Cost: </label>
+                                <div class="">
+                                    <input type="number"
+                                           class="form-control form-control-sm" id="addFacilityPrice"
+                                           th:field="*{cost}">
+                                    <p th:if="${#fields.hasErrors('cost')&&statusCode==1}" th:errors="*{cost}"
+                                       class="text-danger"></p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mb-3 ">
+                            <div class="d-flex gap-3">
+                                <label for="addFacilityMaxUsers"
+                                       class="form-label">Max people:
+                                </label>
+                                <div class="">
+                                    <input type="number" class="form-control form-control-sm" id="addFacilityMaxUsers" th:field="*{maxPeople}">
+                                    <p th:if="${#fields.hasErrors('maxPeople')&&statusCode==1}" th:errors="*{maxPeople}"
+                                       class="text-danger"></p>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="addRoom">
+                            <div class="mb-3 ">
+                                <div class="d-flex gap-3">
+                                    <label for="addFacilityFreeServices"
+                                           class="form-label">FacilityFree: </label>
+                                    <div class="">
+                                        <input type="text"
+                                               class="form-control
+                                                form-control-sm"
+                                               id="addFacilityFreeServices" th:field="*{facilityFree}">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mb-3 ">
+                            <div class="d-flex gap-3">
+                                <label for="addFacilityRentalType"
+                                       class="form-label">Rent Type:
+                                </label>
+                                <div class="">
+                                    <select class="form-select
+                                                form-control-sm"
+                                            aria-label="Default
+                                                select example"
+                                            id="addFacilityRentalType"
+                                            th:field="*{rentType}">
+                                        <option th:each="rentType:${rentTypeList}" th:text="${rentType.name}"
+                                                th:value="${rentType.id}">
+                                        </option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="addVilla">
+                            <div class="mb-3 ">
+                                <div class="d-flex gap-3">
+                                    <label for="addFacilityRoomStandard"
+                                           class="form-label">Room Standard: </label>
+                                    <div class="">
+                                        <input type="text" class="form-control form-control-sm"
+                                               id="addFacilityRoomStandard" th:field="*{standardRoom}">
+                                    </div>
+                                </div>
+                            </div>
+                            <div id="addPoolAreaAndLabel">
+                                <div class="mb-3 ">
+                                    <div class="d-flex gap-3">
+                                        <label for="addFacilityPoolArea"
+                                               class="form-label">Pool Area: </label>
+                                        <div class="">
+                                            <input type="number"
+                                                   class="form-control
+                                                form-control-sm"
+                                                   id="addFacilityPoolArea"
+                                                   th:field="*{poolArea}">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="mb-3 ">
+                                <div class="d-flex gap-3">
+                                    <label for="addFacilityFloors"
+                                           class="form-label">Number of Floors: </label>
+                                    <div class="">
+                                        <input type="number"
+                                               class="form-control
+                                                form-control-sm"
+                                               id="addFacilityFloors" th:field="*{numberOfFloors}">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <div class="d-flex gap-3">
+                                    <label for="addFacilityOtherDescription"
+                                           class="form-label">Description:
+                                    </label>
+                                    <div class="">
+                                        <input type="text"
+                                               class="form-control
+                                                form-control-sm"
+                                               id="addFacilityOtherDescription"
+                                               th:field="*{descriptionOtherConvenience}">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary"
+                            data-bs-dismiss="modal">Close
+                    </button>
+                    <button type="submit" class="btn btn-primary">Save</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class="modal fade" id="modalDelete" tabindex="-1"
+     aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <form th:action="@{/facility/delete}" method="post">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Alert</h1>
+                    <button type="button" class="btn-close"
+                            data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    Confirm Delete ?
+                </div>
+                <input type="hidden" id="confirmDelete" name="confirmDelete">
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary"
+                            data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Confirm</button>
                 </div>
             </div>
         </form>
