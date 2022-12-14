@@ -1,5 +1,6 @@
 package com.codegym.model.employee;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.*;
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Where;
@@ -36,6 +37,7 @@ public class Employee {
     @ManyToOne
     private EducationDegree educationDegree;
     @ManyToOne
+    @JsonBackReference
     private Division division;
     @Column(columnDefinition = "boolean default false")
     private boolean deleted = false;

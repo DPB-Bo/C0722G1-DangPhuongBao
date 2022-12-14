@@ -27,4 +27,6 @@ public class AttachFacility {
     private String status;
     @Column(columnDefinition = "boolean default false")
     private boolean deleted = false;
+
+
 }

@@ -11,8 +11,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.ui.Model;
-import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -28,8 +26,8 @@ public class BlogRestController {
     private ICategoryService categoryService;
 
     @GetMapping("findAll")
-    public ResponseEntity<List<Blog>> getFindAll(){
-        return new ResponseEntity<>(blogService.findAll(),HttpStatus.OK);
+    public ResponseEntity<List<Blog>> getFindAll() {
+        return new ResponseEntity<>(blogService.findAll(), HttpStatus.OK);
     }
 
 //    @GetMapping("")

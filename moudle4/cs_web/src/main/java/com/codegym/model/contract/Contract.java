@@ -3,11 +3,13 @@ package com.codegym.model.contract;
 import com.codegym.model.customer.Customer;
 import com.codegym.model.employee.Employee;
 import com.codegym.model.facility.Facility;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.*;
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Where;
 
 import javax.persistence.*;
+import java.util.Set;
 
 @Entity
 @Builder
@@ -34,4 +36,7 @@ public class Contract {
     private Facility facility;
     @Column(columnDefinition = "boolean default false")
     private boolean deleted = false;
+    @OneToMany(mappedBy = "contract")
+    @JsonBackReference
+    private Set<ContractDetail> contractDetails;
 }
