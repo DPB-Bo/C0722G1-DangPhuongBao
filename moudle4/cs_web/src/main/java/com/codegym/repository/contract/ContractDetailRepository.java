@@ -13,7 +13,7 @@ import java.util.List;
 
 @Repository
 public interface ContractDetailRepository extends JpaRepository<ContractDetail, Integer> {
-    Page<ContractDetailDto> findByDeleted(Pageable pageable, boolean deleted);
+    List<ContractDetailDto> findByDeleted(boolean deleted);
 
     List<ContractDetailDto> findContractDetailsByContract(Contract contract);
 }

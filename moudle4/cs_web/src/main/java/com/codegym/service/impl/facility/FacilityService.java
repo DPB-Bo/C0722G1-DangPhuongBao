@@ -14,6 +14,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class FacilityService implements IFacilityService {
     private final FacilityRepository facilityRepository;
@@ -51,5 +53,10 @@ public class FacilityService implements IFacilityService {
     @Override
     public Page<FacilityDto> findByNameContaining(String name, Pageable pageable) {
         return facilityRepository.findByNameContaining(name,pageable);
+    }
+
+    @Override
+    public List<FacilityDto> findByDeleted() {
+        return facilityRepository.findByDeleted(false);
     }
 }

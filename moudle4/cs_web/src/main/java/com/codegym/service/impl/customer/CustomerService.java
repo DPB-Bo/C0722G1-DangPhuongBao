@@ -9,6 +9,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class CustomerService implements ICustomerService {
     private final CustomerRepository customerRepository;
@@ -40,5 +42,10 @@ public class CustomerService implements ICustomerService {
     @Override
     public void deleteById(int id) {
         customerRepository.deleteById(id);
+    }
+
+    @Override
+    public List<CustomerDto> findByDeleted() {
+        return customerRepository.findByDeleted(false);
     }
 }

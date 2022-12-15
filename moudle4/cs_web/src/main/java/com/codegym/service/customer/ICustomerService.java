@@ -7,10 +7,13 @@ import com.codegym.service.Service;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
+import java.util.List;
+
 public interface ICustomerService {
     Page<CustomerDto> findByNameContainingAndEmailContainingAndCustomerType(String name, String email, CustomerType customerType, Pageable pageable);
     Page<CustomerDto> findByNameContainingAndEmailContaining(String name, String email, Pageable pageable);
     void save (Customer customer);
     CustomerDto findById(int id);
     void deleteById(int id);
+    List<CustomerDto> findByDeleted();
 }

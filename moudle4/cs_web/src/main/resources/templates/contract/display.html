@@ -26,6 +26,7 @@
                     col">CONTRACT LIST</h1>
         <button type="button" class="btn btn-primary
                     col-sm-1 ms-auto mb-4"
+                id="btnAddContract"
                 data-bs-toggle="modal"
                 data-bs-target="#addContract">ADD
         </button>
@@ -37,7 +38,6 @@
             <th scope="col">#</th>
             <th scope="col">Facility Name</th>
             <th scope="col">Customer Name</th>
-            <th scope="col">Employee Name</th>
             <th scope="col">Start Date</th>
             <th scope="col">End Date</th>
             <th scope="col">Deposit</th>
@@ -46,23 +46,129 @@
         </tr>
         </thead>
         <tbody id="tbodyDisplay">
-        <!--        <tr>-->
-        <!--            <th scope="row"></th>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td></td>-->
-        <!--            <td><button type="button" class="btn btn-primary"-->
-        <!--                        data-bs-toggle="modal"-->
-        <!--                        data-bs-target="#addFreeService">+</button></td>-->
-        <!--            <td><button type="button" class="btn btn-primary"-->
-        <!--                        data-bs-toggle="modal"-->
-        <!--                        data-bs-target="#showFreeService">List Attach Facilities</button></td>-->
-        <!--        </tr>-->
         </tbody>
     </table>
+</div>
+
+<div class="modal fade" id="addContract" tabindex="-1"
+     aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel11223">Alert</h1>
+                <button type="button" class="btn-close"
+                        data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <label class="form-label" for="facility">Facility :</label>
+                <select class="form-select" id="facility"></select><br>
+                <label class="form-label" for="customer">Customer :</label>
+                <select class="form-select" id="customer"></select><br>
+                <label class="form-label" for="employee">Employee :</label>
+                <select class="form-select" id="employee"></select><br>
+                <label class="form-label" for="startDate">Start Date :</label>
+                <input type="date" id="startDate"><br>
+                <label class="form-label" for="endDate">End Date :</label>
+                <input type="date" id="endDate"><br>
+                <label class="form-label" for="deposit">Deposit :</label>
+                <input type="number" id="deposit"><br>
+                <button class="btn btn-primary" type="button" onclick="addContractDetailForNew()">+ ATTACH FACILITY</button>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary"
+                        data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn-primary btn" id="btnCreateContract">CREATE</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal fade" id="contractDetailModal" tabindex="-1"
+     aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Alert</h1>
+                    <button type="button" class="btn-close"
+                            data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                        <table class="table mb-5 table-striped table-borderless table-hover text-center">
+                            <thead>
+                            <tr>
+                                <th scope="col">Contract Detail Name</th>
+                                <th scope="col">Quantity</th>
+                            </tr>
+                            </thead>
+                            <tbody id="showContractDetail">
+                            </tbody>
+                        </table>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary"
+                            data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+    </div>
+</div>
+
+<div class="modal fade" id="addContractDetail" tabindex="-1"
+     aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel123">Alert</h1>
+                <button type="button" class="btn-close"
+                        data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <table class="table mb-5 table-striped table-borderless table-hover text-center">
+                    <thead>
+                    <tr>
+                        <th scope="col">Contract Detail Name</th>
+                        <th scope="col">Quantity</th>
+                    </tr>
+                    </thead>
+                    <tbody id="showAddContractDetail">
+                    </tbody>
+                </table>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary"
+                        data-bs-dismiss="modal">Close</button>
+                <button type="button" data-bs-dismiss="modal" class="btn btn-primary" id="btnSendToServer">Save</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="addContractDetailForNew" tabindex="-1"
+     aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel112423">Alert</h1>
+                <button type="button" class="btn-close"
+                        data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <table class="table mb-5 table-striped table-borderless table-hover text-center">
+                    <thead>
+                    <tr>
+                        <th scope="col">Contract Detail Name</th>
+                        <th scope="col">Quantity</th>
+                    </tr>
+                    </thead>
+                    <tbody id="showAddContractDetailForNew">
+                    </tbody>
+                </table>
+            </div>
+            <div class="modal-footer">
+                <button id="btnSaveCD" type="button" class="btn btn-primary">Save</button>
+            </div>
+        </div>
+    </div>
 </div>
 
 <div th:insert="fragments/header_footer :: footer"></div>
@@ -71,6 +177,131 @@
     let mainView = 'http://localhost:8080/contract';
     let pageURL = "?page="
     let pageNumber = 0;
+    let tempMapFc=[];
+
+    $('#btnCreateContract').click(function () {
+        let startDate = $("#startDate").val();
+        let endDate=$("#endDate").val();
+        let deposit =$("#deposit").val();
+        let employee =$("#employee").val();
+        let customer =$("#customer").val();
+        let facility =$("#facility").val();
+        let deleted = false;
+        let attachFacilityIds=tempMapFc[0];
+        let attachFacilityQuantities = tempMapFc[1];
+        let contractCreateDto ={
+            startDate: startDate,
+            endDate: endDate,
+            deposit: deposit,
+            employee: employee,
+            customer: customer,
+            facility: facility,
+            deleted: deleted,
+            attachFacilityIds: attachFacilityIds,
+            attachFacilityQuantities : attachFacilityQuantities
+        }
+        console.log(contractCreateDto);
+        let url="/createContract";
+        $.ajax({
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            type:"POST",
+            url:mainView+url,
+            data:JSON.stringify(contractCreateDto),
+        })
+    })
+
+    $("#btnSaveCD").click(function(){
+        let mapFC=[];
+        let urlPlus = "/getAllAF";
+        $.ajax({
+            type: "GET",
+            url: mainView + urlPlus,
+            dataType: "json",
+            success: function(data) {
+                let list = data;
+                let mapIdFC=[];
+                let mapQuantity=[];
+                for (let i = 0; i < list.length; i++) {
+                    mapIdFC[i]=list[i].id;
+                    let idQuantity = "#add"+list[i].id;
+                    if ($(idQuantity).val()!=null) {
+                        mapQuantity[i] = $(idQuantity).val();
+                    }else {
+                        mapQuantity[i] = 0;
+                    }
+                }
+                tempMapFc[0]=mapIdFC;
+                tempMapFc[1]=mapQuantity;
+            }
+        })
+        $('#addContractDetailForNew').modal('hide');
+    })
+
+    $("#btnAddContract").click(function (){
+        loadCustomer();
+        loadFacility();
+        loadEmployee();
+    })
+
+    function loadCustomer(){
+        let url = "/getCustomer"
+        $('#customer').empty();
+        $.ajax({
+            type: "GET",
+            url: mainView + url,
+            dataType: "json",
+            success: function(data){
+                let viewData="";
+                for (let i=0; i<data.length; i++){
+                    viewData+=`
+                    <option value=${data[i].id}>${data[i].name}</option>;
+                    `
+                }
+                $('#customer').append(viewData);
+            }
+        })
+    }
+
+    function loadFacility(){
+        let url = "/getFacility"
+        $('#facility').empty();
+        $.ajax({
+            type: "GET",
+            url: mainView + url,
+            dataType: "json",
+            success: function(data){
+                let viewData="";
+                for (let i=0; i<data.length; i++){
+                    viewData+=`
+                    <option value=${data[i].id}>${data[i].name}</option>;
+                    `
+                }
+                $('#facility').append(viewData);
+            }
+        })
+    }
+
+    function loadEmployee(){
+        let url = "/getEmployee"
+        $('#employee').empty();
+        $.ajax({
+            type: "GET",
+            url: mainView + url,
+            dataType: "json",
+            success: function(data){
+                let viewData="";
+                for (let i=0; i<data.length; i++){
+                    viewData+=`
+                    <option value=${data[i].id}>${data[i].name}</option>;
+                    `
+                }
+                $('#employee').append(viewData);
+            }
+        })
+    }
 
     function loadDataContract(page) {
         $.ajax({
@@ -85,19 +316,133 @@
                         `
                             <tr>
                             <td>${i + 1}</td>
-                            <td>${list[i].facility.name}</td>
-                            <td>${list[i].customer.name}</td>
-                            <td>${list[i].employee.name}</td>
+                            <td>${list[i].nameFacility}</td>
+                            <td>${list[i].nameCustomer}</td>
                             <td>${list[i].startDate}</td>
                             <td>${list[i].endDate}</td>
                             <td>${list[i].deposit}</td>
-                            <td>a</td>
-                            <td>a</td>
-                            <td>a</td>
+                            <td>${list[i].totalValue}</td>
+                            <td><button class="btn btn-primary" type="button" onclick="addContractDetail('${list[i].id}')">+</button></td>
+                            <td><button class="btn btn-primary" type="button" onclick="currentContractDetail('${list[i].id}')">Current Contract Detail</button></td>
                             </tr>
                             `
                 }
                 $("#tbodyDisplay").append(viewData);
+            }
+        })
+    }
+
+    function addContractDetailForNew() {
+        let urlPlus = "/getAllAF";
+        $('#showAddContractDetailForNew').empty();
+        $.ajax({
+            type: "GET",
+            url: mainView + urlPlus,
+            dataType: "json",
+            success: function(data) {
+                let list = data;
+                let viewData = "";
+                for (let i = 0; i < list.length; i++) {
+                    viewData +=
+                        `
+                            <tr>
+                            <td><label for="add${list[i].id}">${list[i].name} :</label></td>
+                            <td><input id="add${list[i].id}" value=0 type="number"></td>
+                            </tr>
+                            `
+                }
+                $('#showAddContractDetailForNew').append(viewData);
+                $('#addContractDetailForNew').modal('show');
+            }
+        })
+    }
+
+    function addContractDetail(id) {
+        let urlPlus = "/getAllAF";
+        $('#btnSendToServer').val(id);
+        $('#showAddContractDetail').empty();
+        $.ajax({
+            type: "GET",
+            url: mainView + urlPlus,
+            dataType: "json",
+            success: function(data) {
+                let list = data;
+                let viewData = "";
+                for (let i = 0; i < list.length; i++) {
+                    viewData +=
+                        `
+                            <tr>
+                            <td><label for="${list[i].id}">${list[i].name} :</label></td>
+                            <td><input id="${list[i].id}" value=0 type="number"></td>
+                            </tr>
+                            `
+                }
+                $('#showAddContractDetail').append(viewData);
+                $('#addContractDetail').modal('show');
+            }
+        })
+    }
+
+    $("#btnSendToServer").click(function(){
+        let urlPlus = "/getAllAF";
+        let id = $('#btnSendToServer').val();
+        $.ajax({
+            type: "GET",
+            url: mainView + urlPlus,
+            dataType: "json",
+            success: function(data) {
+                let list = data;
+                let mapIdFC=[];
+                let mapQuantity=[];
+                let mapFC=[];
+                for (let i = 0; i < list.length; i++) {
+                    mapIdFC[i]=list[i].id;
+                    let idQuantity = "#"+list[i].id;
+                    if ($(idQuantity).val()!=null) {
+                        mapQuantity[i] = $(idQuantity).val();
+                    }else {
+                        mapQuantity[i] = 0;
+                    }
+                }
+                mapFC[0]=mapIdFC;
+                mapFC[1]=mapQuantity;
+                mapFC[2]=[id];
+                let urlSaveFC="/saveCD";
+                $.ajax({
+                    headers: {
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/json'
+                    },
+                    type: 'POST',
+                    url: mainView + urlSaveFC,
+                    data: JSON.stringify(mapFC),
+                    dataType: 'json'
+                })
+            }
+        })
+    })
+
+    function currentContractDetail(id) {
+        let urlCurrentContractDetail = "/getCD/"+id
+        $('#showContractDetail').empty();
+        $.ajax({
+            type: "GET",
+            url: mainView+urlCurrentContractDetail,
+            dataType: "json",
+            success: function(data){
+                let list = data;
+                let viewData = "";
+                for (let i = 0; i < list.length; i++) {
+                    viewData +=
+                        `
+                            <tr>
+                            <td>${list[i].attachFacility.name}</td>
+                            <td>${list[i].quantity}</td>
+                            </tr>
+                            `
+                }
+                $('#showContractDetail').append(viewData);
+                $('#contractDetailModal').modal('show');
             }
         })
     }
