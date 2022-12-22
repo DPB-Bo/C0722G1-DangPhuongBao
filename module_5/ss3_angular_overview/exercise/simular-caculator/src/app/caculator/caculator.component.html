@@ -1,0 +1,14 @@
+
+<p>caculator works!</p>
+<h1>WEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEA</h1>
+<label for="number1">Number1:</label>
+<input [(ngModel)]="caculator.number1" id="number1" type="text"><br>
+<label for="number2">Number2:</label>
+<input [(ngModel)]="caculator.number2" id="number2" type="text"><br>
+<input #plus type="button" value="+" (click)="getResult(plus.value)">
+<input #minus type="button" value="-" (click)="getResult(minus.value)">
+<input #mutiple type="button" value="*" (click)="getResult(mutiple.value)">
+<input #divide type="button" value="/" (click)="getResult(divide.value)">
+<br>
+<label for="result">Result:</label>
+<input type="text" id="result" [(ngModel)]="caculator.result">

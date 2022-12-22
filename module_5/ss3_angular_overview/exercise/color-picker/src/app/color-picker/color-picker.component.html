@@ -1,0 +1,11 @@
+<p>color-picker works!</p>
+
+<input #red type="button" value="red" (click)="changeColor(red.value)">
+<input #yellow type="button" value="yellow" (click)="changeColor(yellow.value)">
+<input #blue type="button" value="blue" (click)="changeColor(blue.value)">
+<input #green type="button" value="green" (click)="changeColor(green.value)">
+<input #orange type="button" value="orange" (click)="changeColor(orange.value)">
+<input #black type="button" value="black" (click)="changeColor(black.value)">
+<br><br>
+<div style="height: 100px;width: 100px;border: solid 1px;"
+    [style.background-color]="bgColor"></div>
