@@ -1,19 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ColorPickerComponent } from './color-picker.component';
+import { NavbarComponent } from './navbar.component';
 
-describe('ColorPickerComponent', () => {
-  let component: ColorPickerComponent;
-  let fixture: ComponentFixture<ColorPickerComponent>;
+describe('NavbarComponent', () => {
+  let component: NavbarComponent;
+  let fixture: ComponentFixture<NavbarComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ ColorPickerComponent ]
+      declarations: [ NavbarComponent ]
     })
     .compileComponents();
   });
+
   beforeEach(() => {
-    fixture = TestBed.createComponent(ColorPickerComponent);
+    fixture = TestBed.createComponent(NavbarComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
