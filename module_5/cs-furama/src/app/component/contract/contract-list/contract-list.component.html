@@ -10,12 +10,12 @@
     </button>
   </div>
   <table class="table mb-5 table-striped table-borderless table-hover text-center">
-    <caption>ÁDAS</caption>
     <thead>
     <tr>
       <th scope="col">#</th>
       <th scope="col">Facility Name</th>
       <th scope="col">Customer Name</th>
+      <th scope="col">Employee Name</th>
       <th scope="col">Start Date</th>
       <th scope="col">End Date</th>
       <th scope="col">Deposit</th>
@@ -24,14 +24,15 @@
     </tr>
     </thead>
     <tbody id="tbodyDisplay">
-    <tr>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
+    <tr *ngFor="let contract of contractList">
+      <td>{{contractList.indexOf(contract) + 1}}</td>
+      <td>{{contract.facility?.name}}</td>
+      <td>{{contract.customer?.name}}</td>
+      <td>{{contract.employee?.name}}</td>
+      <td>{{contract.startDate}}</td>
+      <td>{{contract.endDate}}</td>
+      <td>{{contract.deposit}}</td>
+      <td>Chưa tính</td>
       <td>
         <button class="btn btn-primary" type="button"
                 onclick="addContractDetail()">+
