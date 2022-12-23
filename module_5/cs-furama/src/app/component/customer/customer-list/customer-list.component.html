@@ -1,5 +1,4 @@
-<table class="table mb-5 table-striped table-borderless
-                table-hover text-center">
+<table class="table mb-5 table-striped table-borderless table-hover text-center">
   <thead>
   <tr>
     <th scope="col">#</th>
@@ -16,16 +15,16 @@
   </tr>
   </thead>
   <tbody>
-  <tr>
-    <th scope="row">1</th>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
+  <tr *ngFor="let cus of customerList">
+    <th scope="row">{{customerList.indexOf(cus)}}</th>
+    <td>{{cus.name}}</td>
+    <td>{{cus.dateOfBirth}}</td>
+    <td>{{cus.gender ? 'Male' : 'Female'}}</td>
+    <td>{{cus.idCard}}</td>
+    <td>{{cus.phoneNumber}}</td>
+    <td>{{cus.email}}</td>
+    <td>{{cus.address}}</td>
+    <td>{{cus.customerType?.name}}</td>
     <td>
       <button type="button" class="btn btn-success"
               data-bs-toggle="modal"
