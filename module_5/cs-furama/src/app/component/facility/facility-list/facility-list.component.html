@@ -1,32 +1,52 @@
-<div class="card" style="width: 18rem;">
-  <img src="assets/img/facility/cat1.jpg"
-       class="card-img-top" alt="Cat">
-  <div class="card-body">
-    <h5 class="card-title text-center">Facility Name</h5>
-    <p class="card-text">
-    <div class="clearfix mb-3">
-                        <span class="float-start rounded-pill badge"
-                              style="color: white;background: orange;">
-                            Villa
-                        </span>
-      <span class="float-end text-muted badge">Price $$</span>
-    </div>
-    <ul class="list-group list-group-flush">
-      <li class="list-group-item">
-        <span class="float-start">Max People :</span>
-        <span class="float-end">1</span>
-      </li>
-      <li class="list-group-item">
-        <span class="float-start">Area :</span>
-        <span class="float-end">1m2</span>
-      </li>
-      <li class="list-group-item">
-      </li>
-    </ul>
-    </p>
-    <div class="text-center">
-      <a href="#" class="btn btn-warning" style="font-size:
-                        small;">CHECK OFFER</a>
+<div class="d-flex gap-3">
+  <div *ngFor="let faci of facilityList" class="card" style="width: 18rem;">
+    <img src="assets/img/facility/cat1.jpg"
+         class="card-img-top" alt="Cat">
+    <div class="card-body">
+      <h5 class="card-title text-center">{{faci.name}}</h5>
+      <p class="card-text">
+      <div class="clearfix mb-3">
+      <span class="float-start rounded-pill badge"
+            style="color: white;background: orange;">{{faci.facilityType?.name}}</span>
+        <span class="float-end text-muted badge">{{faci.cost|currency:'VND'}}</span>
+      </div>
+      <ul class="list-group list-group-flush">
+        <li class="list-group-item">
+          <span class="float-start">Max People :</span>
+          <span class="float-end">{{faci.maxPeople}}</span>
+        </li>
+        <li class="list-group-item">
+          <span class="float-start">Area :</span>
+          <span class="float-end">{{faci.area}}</span>
+        </li>
+        <li class="list-group-item">
+          <span class="float-start">Rent Type :</span>
+          <span class="float-end">{{faci.rentType?.name}}</span>
+        </li>
+        <li *ngIf="faci.standardRoom!=null" class="list-group-item">
+          <span class="float-start">Standard Room :</span>
+          <span class="float-end">{{faci.standardRoom}}</span>
+        </li>
+        <li *ngIf="faci.descriptionOtherConvenience!=null" class="list-group-item">
+          <span class="float-start">Description Other Convenience :</span>
+          <span class="float-end">{{faci.descriptionOtherConvenience}}</span>
+        </li>
+        <li *ngIf="faci.poolArea!=null" class="list-group-item">
+          <span class="float-start">Pool Area :</span>
+          <span class="float-end">{{faci.poolArea}}</span>
+        </li>
+        <li *ngIf="faci.numberOfFloors!=null" class="list-group-item">
+          <span class="float-start">Number Of Floors :</span>
+          <span class="float-end">{{faci.numberOfFloors}}</span>
+        </li>
+        <li *ngIf="faci.facilityFree!=null" class="list-group-item">
+          <span class="float-start">Facility Free :</span>
+          <span class="float-end">{{faci.facilityFree}}</span>
+        </li>
+      </ul>
+      <div class="text-center">
+        <a href="#" class="btn btn-warning" style="font-size:small;">CHECK OFFER</a>
+      </div>
     </div>
   </div>
 </div>
