@@ -7,10 +7,10 @@ import { Caculator } from '../caculator';
   styleUrls: ['./caculator.component.css']
 })
 export class CaculatorComponent implements OnInit {
-  caculator: Caculator={
-    number1:'0',
-    number2:'0',
-    result:0
+  caculator: Caculator = {
+    number1: '0',
+    number2: '0',
+    result: 0
   };
 
   constructor() { }
@@ -18,7 +18,7 @@ export class CaculatorComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  getResult(s:string) {
-    this.caculator.result= eval(this.caculator.number1+s+this.caculator.number2);
+  getResult(s: string): void {
+    this.caculator.result = eval(this.caculator.number1 + s + this.caculator.number2);
   }
 }

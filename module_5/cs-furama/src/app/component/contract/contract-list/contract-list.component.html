@@ -1,0 +1,43 @@
+<div class="container mt-4 content">
+  <div class="row">
+    <h1 class="text-center text-decoration-underline
+                    col">CONTRACT LIST</h1>
+    <button type="button" class="btn btn-primary
+                    col-sm-1 ms-auto mb-4"
+            id="btnAddContract"
+            data-bs-toggle="modal"
+            data-bs-target="#addContract">ADD
+    </button>
+  </div>
+  <table class="table mb-5 table-striped table-borderless table-hover text-center">
+    <caption>ÁDAS</caption>
+    <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Facility Name</th>
+      <th scope="col">Customer Name</th>
+      <th scope="col">Start Date</th>
+      <th scope="col">End Date</th>
+      <th scope="col">Deposit</th>
+      <th scope="col">Total Payment</th>
+      <th colspan="2" class="text-start">Attach Facilities</th>
+    </tr>
+    </thead>
+    <tbody id="tbodyDisplay">
+    <tr>
+      <td>${i + 1}</td>
+      <td>${list[i].nameFacility}</td>
+      <td>${list[i].nameCustomer}</td>
+      <td>${list[i].startDate}</td>
+      <td>${list[i].endDate}</td>
+      <td>${list[i].deposit}</td>
+      <td>${list[i].totalValue}</td>
+      <td><button class="btn btn-primary" type="button"
+                  onclick="addContractDetail()">+</button></td>
+      <td><button class="btn btn-primary" type="button"
+                  onclick="currentContractDetail()">Current
+        Contract Detail</button></td>
+    </tr>
+    </tbody>
+  </table>
+</div>

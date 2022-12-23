@@ -1,0 +1,51 @@
+<div class="container mt-4">
+  <h1 class="text-center">ADD CONTRACT</h1>
+  <label class="form-label" for="facility">Facility :</label>
+  <select class="form-select" id="facility"></select><br>
+  <label class="form-label" for="customer">Customer :</label>
+  <select class="form-select" id="customer"></select><br>
+  <label class="form-label" for="employee">Employee :</label>
+  <select class="form-select" id="employee"></select><br>
+  <label class="form-label" for="startDate">Start Date :</label>
+  <input type="date" id="startDate"><br>
+  <label class="form-label" for="endDate">End Date :</label>
+  <input type="date" id="endDate"><br>
+  <label class="form-label" for="deposit">Deposit :</label>
+  <input type="number" id="deposit"><br>
+  <button class="btn btn-primary" type="button"
+          onclick="addContractDetailForNew()">+ ATTACH FACILITY
+  </button>
+  <div class="modal fade" id="addContractDetail" tabindex="-1"
+       aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5"
+              id="exampleModalLabel123">Alert</h1>
+          <button type="button" class="btn-close"
+                  data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <table class="table mb-5 table-striped table-borderless table-hover text-center">
+            <thead>
+            <tr>
+              <th scope="col">Contract Detail Name</th>
+              <th scope="col">Quantity</th>
+            </tr>
+            </thead>
+            <tbody id="showAddContractDetail">
+            </tbody>
+          </table>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary"
+                  data-bs-dismiss="modal">Close
+          </button>
+          <button type="button" data-bs-dismiss="modal"
+                  class="btn btn-primary" id="btnSendToServer">Save
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

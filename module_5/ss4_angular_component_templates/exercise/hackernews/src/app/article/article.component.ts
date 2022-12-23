@@ -31,9 +31,9 @@ export class ArticleComponent implements OnInit {
   ];
   constructor() {}
 
-  ngOnInit() {}
+  ngOnInit(): void {}
 
-  addNewArticle() {
+  addNewArticle(): void {
     this.articles.push(this.article);
     this.article = { };
   }
