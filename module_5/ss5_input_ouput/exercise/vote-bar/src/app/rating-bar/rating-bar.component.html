@@ -1,0 +1,22 @@
+<button  type="button" class="btn btn-primary me-auto" data-bs-target="#ratingModal" data-bs-toggle="modal">Rating</button>
+
+    <div class="modal fade" id="ratingModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5">Rating Modal</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                        <div class="modal-body">
+                          <h1>RATING FOR BAR</h1>
+                          <p> Name:</p>
+                          <p #name> {{barGet.name}}</p>
+                          <input #rating type="number" min="1" max="10" [value]="barGet.value">
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" (click)="sendRating(rating.value,name.innerText)"  class="btn btn-primary">RATING</button>
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">CLOSE</button>
+                        </div>
+                </div>
+            </div>
+        </div>

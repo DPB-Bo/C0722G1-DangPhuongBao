@@ -353,4 +353,7 @@ export class ContractListComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  currentContractDetail(target: any) {
+    // this.
+  }
 }

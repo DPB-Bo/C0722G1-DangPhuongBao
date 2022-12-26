@@ -1,0 +1,17 @@
+<table class="table table-hover table-striped">
+  <caption>BAR LIST</caption>
+  <thead>
+  <tr>
+    <th>Name</th>
+    <th>Rating</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let bar of barList">
+    <td>{{bar.name}}</td>
+    <td>{{bar.value}}</td>
+    <td><app-rating-bar [barGet]="bar"></app-rating-bar></td>
+  </tr>
+  </tbody>
+  <app-rating-bar (barSend)="changeRating($event)"></app-rating-bar>
+</table>
