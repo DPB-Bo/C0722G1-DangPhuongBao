@@ -6,12 +6,16 @@ import { TemplateDrivenFormComponent } from './template-driven-form/template-dri
 import {FormsModule} from '@angular/forms';
 import {ReactiveFormsModule} from '@angular/forms';
 import { ItemListComponent } from './item-list/item-list.component';
+import { ReactiveFormComponent } from './reactive-form/reactive-form.component';
+import { ReactiveFormPracComponent } from './reactive-form-prac/reactive-form-prac.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     TemplateDrivenFormComponent,
-    ItemListComponent
+    ItemListComponent,
+    ReactiveFormComponent,
+    ReactiveFormPracComponent
   ],
   imports: [
     BrowserModule,

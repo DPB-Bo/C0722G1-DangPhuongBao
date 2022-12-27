@@ -3,9 +3,13 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "pra1": {
+    "form-ex-one": {
       "projectType": "application",
-      "schematics": {},
+      "schematics": {
+        "@schematics/angular:application": {
+          "strict": true
+        }
+      },
       "root": "",
       "sourceRoot": "src",
       "prefix": "app",
@@ -13,7 +17,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/pra1",
+            "outputPath": "dist/form-ex-one",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -46,13 +50,13 @@
               "budgets": [
                 {
                   "type": "initial",
-                  "maximumWarning": "2mb",
-                  "maximumError": "5mb"
+                  "maximumWarning": "500kb",
+                  "maximumError": "1mb"
                 },
                 {
                   "type": "anyComponentStyle",
-                  "maximumWarning": "6kb",
-                  "maximumError": "10kb"
+                  "maximumWarning": "2kb",
+                  "maximumError": "4kb"
                 }
               ]
             }
@@ -61,18 +65,18 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "pra1:build"
+            "browserTarget": "form-ex-one:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "pra1:build:production"
+              "browserTarget": "form-ex-one:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "pra1:build"
+            "browserTarget": "form-ex-one:build"
           }
         },
         "test": {
@@ -109,19 +113,19 @@
           "builder": "@angular-devkit/build-angular:protractor",
           "options": {
             "protractorConfig": "e2e/protractor.conf.js",
-            "devServerTarget": "pra1:serve"
+            "devServerTarget": "form-ex-one:serve"
           },
           "configurations": {
             "production": {
-              "devServerTarget": "pra1:serve:production"
+              "devServerTarget": "form-ex-one:serve:production"
             }
           }
         }
       }
     }
   },
-  "defaultProject": "pra1",
+  "defaultProject": "form-ex-one",
   "cli": {
-    "analytics": "d8f76a26-6dd7-4cfb-9437-2d16743a7276"
+    "analytics": "ec42e405-62d4-41cc-906a-160609284ded"
   }
 }

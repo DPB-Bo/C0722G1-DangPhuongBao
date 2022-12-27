@@ -1,0 +1,61 @@
+<div class="container">
+  <form [formGroup]="userUnit" (ngSubmit)="checkDate()">
+    <h1>User Create</h1>
+    <label class="form-label" for="inputEmail">Email: </label>
+    <input class="form-control" type="text" id="inputEmail" formControlName="email">
+    <div class="text-danger"
+         *ngIf="userUnit.controls['email'].invalid && (userUnit.controls['email'].touched||userUnit.controls['email'].dirty)">
+      <div *ngIf="userUnit.controls['email'].errors?.required">
+        Required
+      </div>
+      <div *ngIf="userUnit.controls['email'].errors?.email">
+        Wrong email
+      </div>
+    </div>
+    <label class="form-label" for="inputPassword">Password: </label>
+    <input class="form-control" type="password" id="inputPassword" formControlName="password">
+    <div class="text-danger"
+         *ngIf="userUnit.controls['password'].invalid && (userUnit.controls['password'].touched||userUnit.controls['password'].dirty)">
+      <div *ngIf="userUnit.controls['password'].errors?.required">
+        Required
+      </div>
+      <div *ngIf="userUnit.controls['password'].errors?.maxlength">
+        Length < 6
+      </div>
+    </div>
+    <label class="form-label" for="inputRePassword">Re-Password: </label>
+    <input class="form-control" type="password" id="inputRePassword" formControlName="rePassword">
+    <div class="text-danger"
+         *ngIf="userUnit.controls['rePassword'].invalid && (userUnit.controls['rePassword'].touched||userUnit.controls['rePassword'].dirty)">
+      <div *ngIf="userUnit.controls['rePassword'].errors?.required">
+        Required
+      </div>
+      <div *ngIf="userUnit.controls['rePassword'].errors?.maxlength">
+        Length < 6
+      </div>
+      <div *ngIf="userUnit.controls['rePassword'].errors?.notMatchPassword">
+        1234
+      </div>
+    </div>
+
+    <label class="form-label" for="inputCountry">Country: </label>
+    <select
+      class="form-select"
+      id="inputCountry"
+      formControlName="country"
+      [compareWith]="compareFn">
+      <option *ngFor="let cou of countryList" [ngValue]="cou">
+        {{cou.name}}
+      </option>
+    </select>
+    <br>
+    <div *ngIf="userUnit.invalid && (userUnit.controls['rePassword'].touched||userUnit.controls['rePassword'].dirty)">
+      <div *ngIf="userUnit.hasError('notMatchPassword')">
+        Not match password
+      </div>
+    </div>
+    <button type="submit">Submit</button>
+  </form>
+  <div>{{userDetails|json}}</div>
+</div>
+
