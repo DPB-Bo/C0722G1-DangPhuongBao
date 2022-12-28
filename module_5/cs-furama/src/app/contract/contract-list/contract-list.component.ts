@@ -1,16 +1,17 @@
 import {Component, OnInit} from '@angular/core';
-import {Employee} from '../../../model/employee/Employee';
-import {Position} from '../../../model/employee/Position';
-import {Division} from '../../../model/employee/Division';
-import {EducationDegree} from '../../../model/employee/EducationDegree';
-import {FacilityType} from '../../../model/facility/FacilityType';
-import {RentType} from '../../../model/facility/RentType';
-import {Facility} from '../../../model/facility/Facility';
-import {CustomerType} from '../../../model/customer/CustomerType';
-import {Customer} from '../../../model/customer/Customer';
-import {AttachFacility} from '../../../model/contract/AttachFacility';
-import {Contract} from '../../../model/contract/Contract';
-import {ContractDetail} from '../../../model/contract/ContractDetail';
+import {Employee} from '../../employee/Employee';
+import {Position} from '../../employee/Position';
+import {Division} from '../../employee/Division';
+import {EducationDegree} from '../../employee/EducationDegree';
+import {FacilityType} from '../../facility/FacilityType';
+import {RentType} from '../../facility/RentType';
+import {Facility} from '../../facility/Facility';
+
+import {AttachFacility} from '../AttachFacility';
+import {Contract} from '../Contract';
+import {ContractDetail} from '../ContractDetail';
+import {CustomerType} from '../../customer/customer-type';
+import {Customer} from '../../customer/customer';
 
 @Component({
   selector: 'app-contract-list',
@@ -41,7 +42,7 @@ export class ContractListComponent implements OnInit {
 
   customerList: Customer[] = [
     {
-      id: 1,
+      id: '1',
       address: 'address1',
       dateOfBirth: '1970-11-07',
       email: 'thihao01@gmail.com',
@@ -52,7 +53,7 @@ export class ContractListComponent implements OnInit {
       , customerType: this.diamond
     },
     {
-      id: 2,
+      id: '2',
       address: 'address2',
       dateOfBirth: '1970-11-07',
       email: 'thihao02@gmail.com',
@@ -63,7 +64,7 @@ export class ContractListComponent implements OnInit {
       , customerType: this.platinum
     },
     {
-      id: 3,
+      id: '3',
       address: 'address3',
       dateOfBirth: '1970-11-07',
       email: 'thihao03@gmail.com',
@@ -75,7 +76,7 @@ export class ContractListComponent implements OnInit {
 
     },
     {
-      id: 4,
+      id: '4',
       address: 'address4',
       dateOfBirth: '1970-11-07',
       email: 'thihao04@gmail.com',
@@ -87,7 +88,7 @@ export class ContractListComponent implements OnInit {
 
     },
     {
-      id: 5,
+      id: '5',
       address: 'address5',
       dateOfBirth: '1970-11-07',
       email: 'thihao05@gmail.com',
@@ -99,7 +100,7 @@ export class ContractListComponent implements OnInit {
 
     },
     {
-      id: 6,
+      id: '6',
       address: 'address6',
       dateOfBirth: '1970-11-07',
       email: 'thihao06@gmail.com',
@@ -110,7 +111,7 @@ export class ContractListComponent implements OnInit {
       , customerType: this.diamond
     },
     {
-      id: 7,
+      id: '7',
       address: 'address7',
       dateOfBirth: '1970-11-07',
       email: 'thihao07@gmail.com',

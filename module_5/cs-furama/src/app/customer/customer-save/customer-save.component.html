@@ -1,0 +1,148 @@
+<div class="modal fade" id="modalAdd" tabindex="-1"
+     aria-labelledby="exampleModalLabel" aria-hidden="true"
+     data-bs-backdrop="static">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5">ADD</h1>
+        <button type="button" class="btn-close"
+                data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <form [formGroup]="customerUnit" (ngSubmit)="displayAndAdd()">
+        <div class="modal-body">
+          <div class="container">
+            <div class="mb-3">
+              <div class="d-flex gap-3">
+                <label for="addCustomerId" class="form-label">Customer Id:</label>
+                <input type="text" class="form-control form-control-sm" id="addCustomerId" formControlName="id">
+              </div>
+              <div class="text-danger"
+                   *ngIf="customerUnit.controls['id'].invalid && (customerUnit.controls['id'].touched||customerUnit.controls['id'].dirty)">
+                <div *ngIf="customerUnit.controls['id'].errors?.required">
+                  Required
+                </div>
+                <div *ngIf="customerUnit.controls['id'].errors?.pattern">
+                  Pattern is 'KH-XXXXXXXXX' with X is 0 to 9
+                </div>
+              </div>
+            </div>
+            <div class="mb-3">
+              <div class="d-flex gap-3">
+                <label for="addCustomerName" class="form-label">Customer Name:</label>
+                <input type="text" class="form-control form-control-sm" id="addCustomerName" formControlName="name">
+              </div>
+              <div class="text-danger"
+                   *ngIf="customerUnit.controls['name'].invalid && (customerUnit.controls['name'].touched||customerUnit.controls['name'].dirty)">
+                <div *ngIf="customerUnit.controls['name'].errors?.required">
+                  Required
+                </div>
+              </div>
+            </div>
+            <div class="mb-3">
+              <div class="d-flex gap-3">
+                <label for="addCustomerDOB" class="form-label">Date of Birth:</label>
+                <input type="date" class="form-control form-control-sm" id="addCustomerDOB"
+                       formControlName="dateOfBirth">
+              </div>
+              <div class="text-danger"
+                   *ngIf="customerUnit.controls['dateOfBirth'].invalid && (customerUnit.controls['dateOfBirth'].touched||customerUnit.controls['dateOfBirth'].dirty)">
+                <div *ngIf="customerUnit.controls['dateOfBirth'].errors?.required">
+                  Required
+                </div>
+              </div>
+            </div>
+            <div class="mb-3">
+              <div class="d-flex gap-3">
+                <label class="form-label">Gender:</label>
+                <input type="radio" class="form-check" value="true" formControlName="gender"> Male
+                <input type="radio" class="form-check" value="false" formControlName="gender"> Female
+              </div>
+              <div class="text-danger"
+                   *ngIf="(customerUnit.controls['gender'].pristine && customerUnit.controls['gender'].untouched)">
+                Must Choose
+              </div>
+            </div>
+            <div class="mb-3 ">
+              <div class="d-flex gap-3">
+                <label for="addCustomerIdCard" class="form-label">Identity Card Number:</label>
+                <input type="text" class="form-control form-control-sm" id="addCustomerIdCard" formControlName="idCard">
+              </div>
+              <div class="text-danger"
+                   *ngIf="customerUnit.controls['idCard'].invalid && (customerUnit.controls['idCard'].touched||customerUnit.controls['idCard'].dirty)">
+                <div *ngIf="customerUnit.controls['idCard'].errors?.required">
+                  Required
+                </div>
+                <div *ngIf="customerUnit.controls['idCard'].errors?.pattern">
+                  Pattern is 9 or 12 digits form 0 to 9
+                </div>
+              </div>
+            </div>
+            <div class="mb-3 ">
+              <div class="d-flex gap-3">
+                <label for="addPhoneNumber" class="form-label">Phone Number:</label>
+                <input type="text" class="form-control form-control-sm" id="addPhoneNumber"
+                       formControlName="phoneNumber">
+              </div>
+              <div class="text-danger"
+                   *ngIf="customerUnit.controls['phoneNumber'].invalid && (customerUnit.controls['idCard'].touched||customerUnit.controls['phoneNumber'].dirty)">
+                <div *ngIf="customerUnit.controls['phoneNumber'].errors?.required">
+                  Required
+                </div>
+                <div *ngIf="customerUnit.controls['phoneNumber'].errors?.pattern">
+                  Pattern is 090xxxxxxx or 091xxxxxxx or (84)+90xxxxxxx or (84)+91xxxxxxx with x is 0 to 9
+                </div>
+              </div>
+            </div>
+            <div class="mb-3 ">
+              <div class="d-flex gap-3">
+                <label for="addCustomerEmail" class="form-label">Email:</label>
+                <input type="text" class="form-control form-control-sm" id="addCustomerEmail" formControlName="email">
+              </div>
+              <div class="text-danger"
+                   *ngIf="customerUnit.controls['email'].invalid && (customerUnit.controls['email'].touched||customerUnit.controls['email'].dirty)">
+                <div *ngIf="customerUnit.controls['email'].errors?.required">
+                  Required
+                </div>
+                <div *ngIf="customerUnit.controls['email'].errors?.pattern">
+                  Email not valid
+                </div>
+              </div>
+            </div>
+            <div class="mb-3 ">
+              <div class="d-flex gap-3">
+                <label for="addCustomerAddress" class="form-label">Address:</label>
+                <input type="text" class="form-control form-control-sm" id="addCustomerAddress"
+                       formControlName="address">
+              </div>
+              <div class="text-danger"
+                   *ngIf="customerUnit.controls['address'].invalid && (customerUnit.controls['email'].touched||customerUnit.controls['address'].dirty)">
+                <div *ngIf="customerUnit.controls['address'].errors?.required">
+                  Required
+                </div>
+              </div>
+            </div>
+            <div class="mb-3 ">
+              <div class="d-flex gap-3">
+                <label for="addCustomerRank" class="form-label">Customer Type:</label>
+                <select id="addCustomerRank" class="form-select form-control-sm" formControlName="customerType"
+                        [compareWith]="compareCustomerType">
+                  <option [disabled]="cType.id==-1" *ngFor="let cType of customerTypeList"
+                          [ngValue]="cType">{{cType.name}}</option>
+                </select>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="text-danger text-center" *ngIf="submitTimes>0">
+          ********* Check required *********
+        </div>
+        <div class="modal-footer">
+
+          <button type="button" id="clearData" class="btn btn-secondary" data-bs-dismiss="modal">Close
+          </button>
+          <button type="submit" class="btn btn-primary">Save</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

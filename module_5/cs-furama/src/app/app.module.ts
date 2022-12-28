@@ -3,19 +3,20 @@ import {NgModule} from '@angular/core';
 
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
-import {HeaderComponent} from './component/header/header.component';
-import {FooterComponent} from './component/footer/footer.component';
-import {NavigationComponent} from './component/navigation/navigation.component';
-import {FacilityListComponent} from './component/facility/facility-list/facility-list.component';
-import {FacilityEditComponent} from './component/facility/facility-edit/facility-edit.component';
-import {FacilitySaveComponent} from './component/facility/facility-save/facility-save.component';
-import {CustomerListComponent} from './component/customer/customer-list/customer-list.component';
-import {CustomerEditComponent} from './component/customer/customer-edit/customer-edit.component';
-import {CustomerSaveComponent} from './component/customer/customer-save/customer-save.component';
-import {ContractListComponent} from './component/contract/contract-list/contract-list.component';
-import {ContractSaveComponent} from './component/contract/contract-save/contract-save.component';
+import {HeaderComponent} from './header/header.component';
+import {FooterComponent} from './footer/footer.component';
+import {NavigationComponent} from './navigation/navigation.component';
+import {FacilityListComponent} from './facility/facility-list/facility-list.component';
+import {FacilityEditComponent} from './facility/facility-edit/facility-edit.component';
+import {FacilitySaveComponent} from './facility/facility-save/facility-save.component';
+import {CustomerListComponent} from './customer/customer-list/customer-list.component';
+import {CustomerEditComponent} from './customer/customer-edit/customer-edit.component';
+import {CustomerSaveComponent} from './customer/customer-save/customer-save.component';
+import {ContractListComponent} from './contract/contract-list/contract-list.component';
+import {ContractSaveComponent} from './contract/contract-save/contract-save.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {MatSlideToggleModule} from '@angular/material/slide-toggle';
+import {ReactiveFormsModule} from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -36,7 +37,8 @@ import {MatSlideToggleModule} from '@angular/material/slide-toggle';
     BrowserModule,
     MatSlideToggleModule,
     AppRoutingModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
