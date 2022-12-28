@@ -1,7 +1,10 @@
-import {ValidatorFn,AbstractControl,ValidationErrors} from '@angular/forms';
+import {ValidatorFn, AbstractControl, ValidationErrors} from '@angular/forms';
 
-export function checkValidPhone(nameRe: RegExp):ValidatorFn {
+export function checkValidPhone(nameRe: RegExp): ValidatorFn {
   return (control: AbstractControl): ValidationErrors | null => {
-    return nameRe.test(control.value)?{value: control.value}:null;
-}
+    if (control.value == null || control.value == '') {
+      return null;
+    }
+    return nameRe.test(control.value) ? null : {checkPhone: true};
+  };
 }

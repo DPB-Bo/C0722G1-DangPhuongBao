@@ -37,45 +37,6 @@
         1234
       </div>
     </div>
-    <label class="form-label" for="inputCountry">Country: </label>
-    <select
-      class="form-select"
-      id="inputCountry"
-      formControlName="country"
-      [compareWith]="compareFn">
-      <option *ngFor="let cou of countryList" [ngValue]="cou">
-        {{cou.name}}
-      </option>
-    </select>
-    <label class="form-label" for="inputAge">Age : </label>
-    <input class="form-control" type="number" id="inputAge" formControlName="age">
-    <label class="form-label" for="radioGender">Gender: </label>
-    <span><input type="radio" id="radioGender" formControlName="gender" value="true"> Male
-    <input type="radio" formControlName="gender" value="false"> Female</span>
-    <br>
-    <div class="text-danger" *ngIf="userUnit.controls['gender'].pristine">
-      Required Gender
-    </div>
-    <label class="form-label" for="inputPhone">Phone: </label>
-    <input class="form-control" type="text" id="inputPhone" formControlName="phone">
-    <div class="form-text" *ngIf="(userUnit.controls['phone'].untouched && userUnit.controls['phone'].pristine)">
-      phone format of VietName
-    </div>
-    <div class="form-text"
-         *ngIf="userUnit.controls['phone'].invalid && (userUnit.controls['phone'].touched||userUnit.controls['phone'].dirty)">
-      <div *ngIf="userUnit.controls['phone'].errors?.required">
-        Required
-      </div>
-      <div *ngIf="userUnit.controls['phone'].errors?.checkPhone">
-        Not match
-      </div>
-    </div>
-    <br>
-    <div *ngIf="userUnit.invalid && (userUnit.controls['rePassword'].touched||userUnit.controls['rePassword'].dirty)">
-      <div *ngIf="userUnit.hasError('notMatchPassword')">
-        Not match password
-      </div>
-    </div>
     <button type="submit">Submit</button>
   </form>
   <div>{{userDetails|json}}</div>
