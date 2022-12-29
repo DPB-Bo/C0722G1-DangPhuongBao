@@ -3,7 +3,7 @@ import {Validators, FormGroup, FormControl, FormBuilder, EmailValidator} from '@
 import {Country} from '../country';
 import {checkValidPhone} from '../validation/phone-validation';
 import {UserUnit} from '../user-unit';
-import {Test} from '../validation/not-match-password';
+import {notMatchPassword, Test} from '../validation/not-match-password';
 
 @Component({
   selector: 'app-user-unit',
@@ -43,7 +43,7 @@ export class UserUnitComponent implements OnInit {
       Validators.required,
       checkValidPhone(/^\+84\d{9,10}$/)
     ]]
-  }, {validators: Test.notMatchPassword()});
+  }, {validators: notMatchPassword()});
 
   userDetails: UserUnit = {};
 

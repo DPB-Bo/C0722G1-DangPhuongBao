@@ -1,0 +1,23 @@
+<h1>Dictonary List</h1>
+<table class="table table-hover table-striped">
+  <thead>
+  <tr>
+    <th>#</th>
+    <th>Word</th>
+    <th>Mean Direct</th>
+    <th>Mean Function</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let word of iWordList,index as i">
+    <td>{{i}}</td>
+    <td>{{word.word}}</td>
+    <td>
+      <button type="button" [routerLink]="['/detail/',word.word]">Detail</button>
+    </td>
+    <td>
+      <button type="button" (click)="showDetail(word.word)">Detail</button>
+    </td>
+  </tr>
+  </tbody>
+</table>

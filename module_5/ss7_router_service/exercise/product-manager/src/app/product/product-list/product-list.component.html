@@ -1,0 +1,29 @@
+<table class="table table-hover table-striped">
+  <thead>
+  <tr>
+    <td>STT</td>
+    <td>Tên</td>
+    <td>Giá</td>
+    <td>Mô tả</td>
+    <td>Sửa</td>
+    <td>Xoá</td>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let product of products; index as i">
+    <td>{{i + 1}}</td>
+    <td>{{product.name}}</td>
+    <td>{{product.price}}</td>
+    <td>{{product.description}}</td>
+    <td>
+      <button type="button" (click)="tempProduct=product" data-bs-toggle="modal" data-bs-target="#modalUpdate">Sửa</button></td>
+    <td>
+      <button type="button">Xoá</button></td>
+  </tr>
+  </tbody>
+</table>
+<div class="text-center">
+  <button type="button" class="btn btn-primary me-auto" data-bs-toggle="modal" data-bs-target="#modalAdd">Thêm mới</button>
+</div>
+<app-product-create></app-product-create>
+<app-product-update [product]="tempProduct"></app-product-update>

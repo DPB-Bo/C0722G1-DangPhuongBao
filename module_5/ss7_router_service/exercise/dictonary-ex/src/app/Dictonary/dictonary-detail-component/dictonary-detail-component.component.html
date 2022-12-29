@@ -1,0 +1,7 @@
+<div *ngIf="iWord!=null ; else noContent">
+  <h1>Word: {{iWord.word}}</h1>
+  <h1>Mean: {{iWord.mean}}</h1>
+</div>
+<ng-template #noContent>
+  <p>Không có từ này, bớt báo</p>
+</ng-template>
