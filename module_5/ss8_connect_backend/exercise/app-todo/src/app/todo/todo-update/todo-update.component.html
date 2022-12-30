@@ -1,0 +1,27 @@
+<div class="modal fade" id="modalUpdate" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true"
+     data-bs-backdrop="static" data-bs-keyboard="false">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5">ADD</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <form [formGroup]="toDoEditForm" (ngSubmit)="updateToDo()" class="mb-3">
+        <div class="modal-body">
+          <div class="form-control">
+            <label class="form-label" for="inputId">ID: </label>
+            <input class="form-text" type="number" id="inputId" formControlName="id">
+          </div>
+          <div class="form-control">
+            <label class="form-label" for="inputContent">Content: </label>
+            <input class="form-text" type="text" formControlName="content" id="inputContent">
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-primary" data-bs-dismiss="modal">Save</button>
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

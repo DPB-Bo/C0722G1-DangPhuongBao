@@ -1,0 +1,31 @@
+<div class="text-center">
+  <button type="button" class="btn btn-primary me-auto" data-bs-target="#modalAdd" data-bs-toggle="modal">Create
+  </button>
+</div>
+
+<table class="table table-hover table-striped">
+  <thead>
+  <tr>
+    <th>ID</th>
+    <th>CONTENT</th>
+    <th>EDIT</th>
+    <th>DELETE</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let todo of toDoList">
+    <td>{{todo.id}}</td>
+    <td>{{todo.content}}</td>
+    <td>
+      <button type="button" (click)="toDoToEdit=todo" data-bs-target="#modalUpdate" data-bs-toggle="modal">Edit</button>
+    </td>
+    <td>
+      <button type="button" (click)="toDoToDelete=todo" data-bs-target="#modalDelete" data-bs-toggle="modal">DELETE
+      </button>
+    </td>
+  </tr>
+  </tbody>
+</table>
+<app-todo-create (emitter)="updateOnCreate()"></app-todo-create>
+<app-todo-update (emitter)="updateOnCreate()" [toDoEdit]="toDoToEdit"></app-todo-update>
+<app-todo-delete (emitter)="updateOnCreate()" [toDoDelete]="toDoToDelete"></app-todo-delete>
