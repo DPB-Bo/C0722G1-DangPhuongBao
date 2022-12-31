@@ -1,0 +1,17 @@
+<h1>Danh sách danh mục sản phẩm</h1>
+<table class="table table-hover table-primary">
+  <thead>
+  <tr>
+    <td>STT</td>
+    <td>Tên</td>
+    <td>#</td>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let category of categories; index as i">
+    <td>{{i + 1}}</td>
+    <td>{{category.name}}</td>
+    <td><a class="btn btn-outline-danger" [routerLink]="['/category/edit',category.id]">Edit</a></td>
+  </tr>
+  </tbody>
+</table>
