@@ -10,6 +10,8 @@ import { ProductDeleteComponent } from './product/product-delete/product-delete.
 import {HttpClientModule} from "@angular/common/http";
 import {ReactiveFormsModule} from "@angular/forms";
 import { CategoryComponent } from './category/category/category.component';
+import {SharedModule} from "./shared/shared.module";
+import {SharedRoutingModule} from "./shared/shared-routing.module";
 
 @NgModule({
   declarations: [
@@ -24,7 +26,8 @@ import { CategoryComponent } from './category/category/category.component';
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    SharedModule
   ],
   providers: [],
   bootstrap: [AppComponent]
