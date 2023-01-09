@@ -1,0 +1,18 @@
+
+X	java:S125"<This block of commented-out lines of code should be removed.(“ø‚Ğ8éÆíà×0
+M	java:S106"9Replace this use of System.out or System.err by a logger.(ŸñôH
+E
+java:S1874"/Remove this use of "getYear"; it is deprecated.(¤ş«„
+F
+java:S1874"0Remove this use of "getMonth"; it is deprecated.(¤ş«„
+E
+java:S1874"/Remove this use of "getDate"; it is deprecated.(¤ş«„
+S	java:S106"9Replace this use of System.out or System.err by a logger.(Ô„¢øÿÿÿÿ
+S	java:S106"9Replace this use of System.out or System.err by a logger.(æ£Áöøÿÿÿÿ
+U
+java:S1128"8Remove this unused import 'java.time.DateTimeException'.(úÛ”™8…Çíà×0
+L
+java:S1128
+"/Remove this unused import 'java.util.Calendar'.(ÿÛö´8…Çíà×0
+O
+java:S1128"-Remove this unused import 'java.util.Locale'.(åğ×±ûÿÿÿÿ8…Çíà×0

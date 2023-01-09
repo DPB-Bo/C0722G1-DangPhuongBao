@@ -1,0 +1,146 @@
+{
+  "product": [
+    {
+      "id": 1,
+      "name": "product1",
+      "price": 1,
+      "value": "type1",
+      "producer": "producer1"
+    },
+    {
+      "id": 2,
+      "name": "product2",
+      "price": 2,
+      "value": "type2",
+      "producer": "producer2"
+    },
+    {
+      "id": 3,
+      "name": "product3",
+      "price": 3,
+      "value": "type3",
+      "producer": "producer3"
+    },
+    {
+      "id": 4,
+      "name": "product4",
+      "price": 4,
+      "value": "type4",
+      "producer": "producer4"
+    },
+    {
+      "id": 5,
+      "name": "product5",
+      "price": 5,
+      "value": "type5",
+      "producer": "producer5"
+    }
+  ],
+  "stackProduct": [
+    {
+      "id": 2,
+      "code": "LH-0002",
+      "product": {
+        "id": 1,
+        "name": "product1",
+        "price": 1,
+        "value": "type1",
+        "producer": "producer1"
+      },
+      "amount": 1,
+      "dateIn": "1990/10/02",
+      "dateProcess": "1990/09/02",
+      "dateOutDate": "1992/09/02"
+    },
+    {
+      "id": 3,
+      "code": "LH-0003",
+      "product": {
+        "id": 1,
+        "name": "product1",
+        "price": 1,
+        "value": "type1",
+        "producer": "producer1"
+      },
+      "amount": 1,
+      "dateIn": "1990/10/02",
+      "dateProcess": "1990/09/02",
+      "dateOutDate": "1992/09/02"
+    },
+    {
+      "id": 6,
+      "code": "LH-0007",
+      "product": {
+        "id": 1,
+        "name": "product1",
+        "price": 1,
+        "value": "type1",
+        "producer": "producer1"
+      },
+      "amount": "2",
+      "dateIn": "2023-01-06",
+      "dateProcess": "2023-01-01",
+      "dateOutDate": "2023-01-02"
+    },
+    {
+      "id": 7,
+      "code": "LH-0008",
+      "product": {
+        "id": 3,
+        "name": "product3",
+        "price": 3,
+        "value": "type3",
+        "producer": "producer3"
+      },
+      "amount": "12",
+      "dateIn": "2023-01-07",
+      "dateProcess": "2022-12-26",
+      "dateOutDate": "2023-01-21"
+    },
+    {
+      "id": 8,
+      "code": "LH-0009",
+      "product": {
+        "id": 2,
+        "name": "product2",
+        "price": 2,
+        "value": "type2",
+        "producer": "producer2"
+      },
+      "amount": "2",
+      "dateIn": "2023-01-10",
+      "dateProcess": "2023-01-14",
+      "dateOutDate": "2023-01-09"
+    },
+    {
+      "id": 9,
+      "code": "LH-0010",
+      "product": {
+        "id": 2,
+        "name": "product2",
+        "price": 2,
+        "value": "type2",
+        "producer": "producer2"
+      },
+      "amount": "1",
+      "dateIn": "2023-01-10",
+      "dateProcess": "2023-01-25",
+      "dateOutDate": "2023-01-20"
+    },
+    {
+      "id": 10,
+      "code": "LH-0011",
+      "product": {
+        "id": 5,
+        "name": "product5",
+        "price": 5,
+        "value": "type5",
+        "producer": "producer5"
+      },
+      "amount": "1",
+      "dateIn": "2023-01-10",
+      "dateProcess": "2023-01-25",
+      "dateOutDate": "2023-01-20"
+    }
+  ]
+}

@@ -1,0 +1,6 @@
+html
+*ngFor="let pro of productList | paginate:{itemsPerPage:4,currentPage:p} ;index as i "
+<pagination-controls (pageChange)="p=$event"></pagination-controls>
+
+js
+p = 1;

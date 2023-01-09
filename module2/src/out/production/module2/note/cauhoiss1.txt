@@ -1,0 +1,7 @@
+1. Tại sao float khai báo lại là float = new 20.5f trong khi double thì không cần?  Vì mặc định số thực là double
+2. Các kiểu biến (instance, toàn cục, cục bộ, final, static)?
+3. định nghĩa, phân biệt public , void, static.
+4. Tại sao nó phải là -128 đến 127 mà không phải đến 128?
+5. Co thể thay đổi kiểu dữ liệu của 1 biến đã khai báo hay k? Tại s?
+6. Tại sao mảng khai báo ở class thì chỉ .length nhưng tham số String truyền vào lại là .length()?
+7.method trong java bắt buộc phải có return?

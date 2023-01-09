@@ -1,0 +1,15 @@
+--Nên
+1. Person student1 = new Student();
+2. Student student1 = new Student();// cái này khác gì với cái 1 // nên dùng cái nào - Cái 1 là kdl People, 2 là Kdl Student nên 1 không dùng được phương thức của Student
+    -- Nên dùng cái 1 vì:
+        + Đỡ tốn bộ nhớ stack;
+        + gộp lại thành 1 list cái instance của class con // hiện tại thì không cần vẫn gộp được
+3. Student student1 = new Person(); /// cái này được k? - Cái này k được
+
+-- Khi chạy chương trình java thì bên stack sẽ tạo cho mỗi class 1 vùng nhớ Class memory riêng?
+
+-- People = new Student thì vế phải được tạo ra ntn trong heap, khi toString thì đang trỏ tới student , nhưng tại sao không dùng được method của student
+
+-- KDL range lớn hơn = KDL range bé hơn thì tường minh và ngược lại thì class con lớn hơn class cha?
+
+-- Generate toString subclass không thấy các thuộc tính của super class

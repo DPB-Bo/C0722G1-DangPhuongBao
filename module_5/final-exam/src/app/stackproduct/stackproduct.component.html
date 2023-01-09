@@ -1,0 +1,165 @@
+<div class="container">
+  <label class="form-label" for="searchName">Name:</label>
+  <input id="searchName" class="form-control" [(ngModel)]="searchName" type="text"><br>
+  <label class="form-label" for="searchDateOutDate">Date Out Date:</label>
+  <input id="searchDateOutDate" class="form-control" [(ngModel)]="searchDate" type="date"><br>
+  <button class="btn btn-success" type="button" (click)="reload()">Seach</button>
+  <br><br>
+  <button type="button" class="btn btn-primary me-auto" data-bs-target="#modalAdd" data-bs-toggle="modal">Add</button>
+
+  <table class="table table-hover table-striped">
+    <thead>
+    <tr>
+      <th>Code</th>
+      <th>Name</th>
+      <th>Price</th>
+      <th>Type</th>
+      <th>Amount</th>
+      <th>Date In</th>
+      <th>Date Process</th>
+      <th>Date Expired</th>
+      <th>DELETE</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let sp of stackProductList| paginate:{itemsPerPage:4,currentPage:page} ;index as i">
+      <td>{{sp.code}}</td>
+      <td>{{sp.product?.name}}</td>
+      <td>{{sp.product?.price}}</td>
+      <td>{{sp.product?.value}}</td>
+      <td>{{sp.amount}}</td>
+      <td>{{sp.dateIn | date:'dd/MM/yyyy'}}</td>
+      <td>{{sp.dateProcess | date:'dd/MM/yyyy'}}</td>
+      <td>{{sp.dateOutDate | date:'dd/MM/yyyy'}}</td>
+      <td>
+        <button class="btn btn-danger me-auto" (click)="tempDelete=sp" data-bs-target="#modalDelete"
+                data-bs-toggle="modal">DELETE
+        </button>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+  <pagination-controls (pageChange)="page=$event"></pagination-controls>
+
+  <div class="modal fade" id="modalAdd" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true"
+       data-bs-backdrop="static" data-bs-keyboard="false">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5">ADD</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <form class="mb-3" [formGroup]="stackProductUnit" (ngSubmit)="add()">
+          <div class="modal-body">
+            <div class="mb-3">
+              <div class="d-flex gap-3">
+                <label for="code" class="form-label">Stack Product Code:</label>
+                <input type="text" class="form-control form-control-sm" id="code" formControlName="code">
+              </div>
+              <div class="text-danger"
+                   *ngIf="stackProductUnit.controls['code'].invalid && (stackProductUnit.controls['code'].touched||stackProductUnit.controls['code'].dirty)">
+                <div *ngIf="stackProductUnit.controls['code'].errors?.required">
+                  Required
+                </div>
+                <div *ngIf="stackProductUnit.controls['code'].errors?.pattern">
+                  Pattern is 'LH-XXXXX' with X is 0 to 9
+                </div>
+              </div>
+            </div>
+            <div class="mb-3 ">
+              <div class="d-flex gap-3">
+                <label for="product" class="form-label">Product:</label>
+                <select id="product" class="form-select form-control-sm" formControlName="product"
+                        [compareWith]="compareProduct">
+                  <option [selected]="product.id==-1" *ngFor="let product of productList"
+                          [ngValue]="product">{{product.name}}</option>
+                </select>
+              </div>
+            </div>
+            <div class="mb-3">
+              <div class="d-flex gap-3">
+                <label for="amount" class="form-label">Amount:</label>
+                <input type="text" class="form-control form-control-sm" id="amount" formControlName="amount">
+              </div>
+              <div class="text-danger"
+                   *ngIf="stackProductUnit.controls['amount'].invalid && (stackProductUnit.controls['amount'].touched||stackProductUnit.controls['amount'].dirty)">
+                <div *ngIf="stackProductUnit.controls['amount'].errors?.required">
+                  Required
+                </div>
+                <div *ngIf="stackProductUnit.controls['amount'].errors?.min">
+                  Minimum 1
+                </div>
+              </div>
+            </div>
+            <div class="mb-3">
+              <div class="d-flex gap-3">
+                <label for="dateIn" class="form-label">Date In:</label>
+                <input type="date" class="form-control form-control-sm" id="dateIn" formControlName="dateIn">
+              </div>
+              <div class="text-danger"
+                   *ngIf="stackProductUnit.controls['dateIn'].invalid && (stackProductUnit.controls['dateIn'].touched||stackProductUnit.controls['dateIn'].dirty)">
+                <div *ngIf="stackProductUnit.controls['dateIn'].errors?.required">
+                  Required
+                </div>
+              </div>
+            </div>
+            <div class="mb-3">
+              <div class="d-flex gap-3">
+                <label for="dateProcess" class="form-label">Date Process:</label>
+                <input type="date" class="form-control form-control-sm" id="dateProcess" formControlName="dateProcess">
+              </div>
+              <div class="text-danger"
+                   *ngIf="stackProductUnit.controls['dateProcess'].invalid && (stackProductUnit.controls['dateProcess'].touched||stackProductUnit.controls['dateProcess'].dirty)">
+                <div *ngIf="stackProductUnit.controls['dateProcess'].errors?.required">
+                  Required
+                </div>
+              </div>
+            </div>
+            <div class="mb-3">
+              <div class="d-flex gap-3">
+                <label for="dateOutDate" class="form-label">Date Out Dated:</label>
+                <input type="date" class="form-control form-control-sm" id="dateOutDate" formControlName="dateOutDate">
+              </div>
+              <div class="text-danger"
+                   *ngIf="stackProductUnit.controls['dateOutDate'].invalid && (stackProductUnit.controls['dateOutDate'].touched||stackProductUnit.controls['dateOutDate'].dirty)">
+                <div *ngIf="stackProductUnit.controls['dateOutDate'].errors?.required">
+                  Required
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="text-danger text-center" *ngIf="submitTimes>0">
+            ********* Check required *********
+          </div>
+          <div class="modal-footer">
+            <button type="submit" class="btn btn-primary" data-bs-dismiss="modal">Add</button>
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal fade" id="modalDelete" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true"
+       data-bs-backdrop="static" data-bs-keyboard="false">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5">DELETE</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+
+        <div class="modal-body">
+          <p>Do you want to delete Stack Product with:</p>
+          <p *ngIf="tempDelete!=null">Name: {{tempDelete.product.name}}</p>
+          <p>Date In: {{tempDelete.dateIn}}</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" (click)="deleteProduct()" class="btn btn-primary" data-bs-dismiss="modal">DELETE
+          </button>
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">CLOSE</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

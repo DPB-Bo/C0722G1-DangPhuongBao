@@ -1,0 +1,9 @@
+
+^
+.ss18_string_regex/exercise/exercise1/Main.java,d\d\dd68be39011a0885fbc3282ab9c70da7461fde2d
+g
+7ss8_clean_code_refactoring/exercise/TennisGameTest.java,d\4\d40164474eb4756907512a7825e238aef6309fdf
+p
+@ss8_clean_code_refactoring/pratice/pratice_1/CalculatorTest.java,f\5\f59adca5269667d1167349b29e9012356ef159dd
+f
+6ss8_clean_code_refactoring/pratice/pratice_1/ABcx.java,7\e\7e134b6f11d46f720212555335e92bf92a31378a
